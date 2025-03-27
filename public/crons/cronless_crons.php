@@ -10,7 +10,7 @@ $get_crons = $db->query(
     'SELECT * FROM cron_times',
 );
 /**
- * @var $crons
+ * @var array<string,string> $crons
  * Holds the key-value paired data of crons and when they last ran
  * cron-name -> last runtime
  * (ex: minute-1 -> 2024-06-21 03:25:16)
