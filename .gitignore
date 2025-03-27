@@ -1,3 +1,4 @@
 .env
+extra.sql
 .idea/
 vendor/

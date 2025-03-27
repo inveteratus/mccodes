@@ -46,14 +46,7 @@ if (file_exists('ipbans/' . $IP))
             Your IP has been banned, there is no way around this.
             </span></body></html>");
 }
-$username =
-        (isset($_POST['username'])
-                && preg_match(
-                        "/^[a-z0-9_]+([\\s]{1}[a-z0-9_]|[a-z0-9_])+$/i",
-                        $_POST['username'])
-                && ((strlen($_POST['username']) < 32)
-                        && (strlen($_POST['username']) >= 3)))
-                ? stripslashes($_POST['username']) : '';
+$username = isset($_POST['username']) && is_string($_POST['username']) ? trim($_POST['username']) : '';
 if (!empty($username))
 {
     if ($set['regcap_on'])
@@ -172,12 +165,12 @@ if (!empty($username))
                  `energy`, `maxenergy`, `will`, `maxwill`, `brave`,
                  `maxbrave`, `hp`, `maxhp`, `location`, `gender`,
                  `signedup`, `email`, `bankmoney`, `lastip`,
-                 `lastip_signup`, `pass_salt`)
+                 `lastip_signup`, `pass_salt`, display_pic, staffnotes, voted, user_notepad)
                  VALUES('{$e_username}', '{$e_username}', '{$e_encpsw}', 1,
                  $sm, 0, 0, 1, 12, 12, 100, 100, 5, 5, 100, 100, 1,
                  '{$e_gender}', " . time()
                         . ",'{$e_email}', -1, '$IP',
-                 '$IP', '{$e_salt}')");
+                 '$IP', '{$e_salt}', '', '', '', '')");
         $i = $db->insert_id();
         $db->query(
                 "INSERT INTO `userstats`

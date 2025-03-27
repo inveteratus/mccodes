@@ -157,7 +157,7 @@ UNLOCK TABLES;
 
 LOCK TABLES `cron_times` WRITE;
 /*!40000 ALTER TABLE `cron_times` DISABLE KEYS */;
-INSERT INTO `cron_times` VALUES (1,'minute-1','2025-03-27 21:11:00'),(2,'minute-5','2025-03-27 21:10:00'),(3,'hour-1','2025-03-27 21:00:00'),(4,'day-1','2025-03-27 00:00:00');
+INSERT INTO `cron_times` VALUES (1,'minute-1','2025-03-27 21:43:00'),(2,'minute-5','2025-03-27 21:40:00'),(3,'hour-1','2025-03-27 21:00:00'),(4,'day-1','2025-03-27 00:00:00');
 /*!40000 ALTER TABLE `cron_times` ENABLE KEYS */;
 UNLOCK TABLES;
 
@@ -411,6 +411,7 @@ UNLOCK TABLES;
 
 LOCK TABLES `logs_cron_runtimes` WRITE;
 /*!40000 ALTER TABLE `logs_cron_runtimes` DISABLE KEYS */;
+INSERT INTO `logs_cron_runtimes` VALUES (1,'minute-1','2025-03-27 21:42:21','2025-03-27 21:42:21','2025-03-27 21:42:20',0),(2,'minute-5','2025-03-27 21:42:21','2025-03-27 21:42:21','2025-03-27 21:42:20',0),(3,'minute-1','2025-03-27 21:43:05','2025-03-27 21:43:05','2025-03-27 21:43:05',0);
 /*!40000 ALTER TABLE `logs_cron_runtimes` ENABLE KEYS */;
 UNLOCK TABLES;
 
@@ -607,4 +608,4 @@ UNLOCK TABLES;
 /*!40101 SET COLLATION_CONNECTION=@OLD_COLLATION_CONNECTION */;
 /*!40111 SET SQL_NOTES=@OLD_SQL_NOTES */;
 
--- Dump completed on 2025-03-27 21:28:24
+-- Dump completed on 2025-03-27 21:43:16
