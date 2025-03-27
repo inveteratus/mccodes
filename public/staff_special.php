@@ -9,48 +9,18 @@ if (!isset($_GET['action']))
 switch ($_GET['action'])
 {
 case 'editnews':
-    if (!check_access('edit_newspaper')) {
-        echo 'You cannot access this area.
-        <br />&gt; <a href="index.php">Go Home</a>';
-        $h->endpage();
-        exit;
-    }
     newspaper_form();
     break;
 case 'subnews':
-    if (!check_access('edit_newspaper')) {
-        echo 'You cannot access this area.
-        <br />&gt; <a href="index.php">Go Home</a>';
-        $h->endpage();
-        exit;
-    }
     newspaper_submit();
     break;
 case 'givedpform':
-    if (!check_access('manage_donator_packs')) {
-        echo 'You cannot access this area.
-        <br />&gt; <a href="index.php">Go Home</a>';
-        $h->endpage();
-        exit;
-    }
     give_dp_form();
     break;
 case 'givedpsub':
-    if (!check_access('manage_donator_packs')) {
-        echo 'You cannot access this area.
-        <br />&gt; <a href="index.php">Go Home</a>';
-        $h->endpage();
-        exit;
-    }
     give_dp_submit();
     break;
 case 'massmailer':
-    if (!check_access('mass_mail')) {
-        echo 'You cannot access this area.
-        <br />&gt; <a href="index.php">Go Home</a>';
-        $h->endpage();
-        exit;
-    }
     massmailer();
     break;
 default:

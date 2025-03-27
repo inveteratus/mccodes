@@ -3,17 +3,6 @@
 $housequery = 1;
 global $db, $ir, $userid, $h, $set, $lv, $cm, $fm;
 require __DIR__ . '/../include/globals.php';
-if (file_exists($_SERVER['DOCUMENT_ROOT'] . '/installer.php')
-        && check_access('administrator'))
-{
-    echo '
-	<span style="font-weight: bold; font-size: 42px; color: red;">
-	WARNING: you have not deleted installer.php from the server.
-	<br />
-	We suggest you do this immediately.
-	</span>
-   	';
-}
 echo '
 <b>Welcome,  ' . $ir['username'] . '!</b>
 <br />

@@ -10,93 +10,33 @@ if (!isset($_GET['action']))
 switch ($_GET['action'])
 {
 case 'newitem':
-    if (!check_access('manage_items')) {
-        echo 'You cannot access this area.
-        <br />&gt; <a href="index.php">Go Home</a>';
-        $h->endpage();
-        exit;
-    }
     new_item_form();
     break;
 case 'newitemsub':
-    if (!check_access('manage_items')) {
-        echo 'You cannot access this area.
-        <br />&gt; <a href="index.php">Go Home</a>';
-        $h->endpage();
-        exit;
-    }
     new_item_submit();
     break;
 case 'giveitem':
-    if (!check_access('credit_item')) {
-        echo 'You cannot access this area.
-        <br />&gt; <a href="index.php">Go Home</a>';
-        $h->endpage();
-        exit;
-    }
     give_item_form();
     break;
 case 'giveitemsub':
-    if (!check_access('credit_item')) {
-        echo 'You cannot access this area.
-        <br />&gt; <a href="index.php">Go Home</a>';
-        $h->endpage();
-        exit;
-    }
     give_item_submit();
     break;
 case 'killitem':
-    if (!check_access('manage_items')) {
-        echo 'You cannot access this area.
-        <br />&gt; <a href="index.php">Go Home</a>';
-        $h->endpage();
-        exit;
-    }
     kill_item_form();
     break;
 case 'killitemsub':
-    if (!check_access('manage_items')) {
-        echo 'You cannot access this area.
-        <br />&gt; <a href="index.php">Go Home</a>';
-        $h->endpage();
-        exit;
-    }
     kill_item_submit();
     break;
 case 'edititem':
-    if (!check_access('manage_items')) {
-        echo 'You cannot access this area.
-        <br />&gt; <a href="index.php">Go Home</a>';
-        $h->endpage();
-        exit;
-    }
     edit_item_begin();
     break;
 case 'edititemform':
-    if (!check_access('manage_items')) {
-        echo 'You cannot access this area.
-        <br />&gt; <a href="index.php">Go Home</a>';
-        $h->endpage();
-        exit;
-    }
     edit_item_form();
     break;
 case 'edititemsub':
-    if (!check_access('manage_items')) {
-        echo 'You cannot access this area.
-        <br />&gt; <a href="index.php">Go Home</a>';
-        $h->endpage();
-        exit;
-    }
     edit_item_sub();
     break;
 case 'newitemtype':
-    if (!check_access('manage_items')) {
-        echo 'You cannot access this area.
-        <br />&gt; <a href="index.php">Go Home</a>';
-        $h->endpage();
-        exit;
-    }
     newitemtype();
     break;
 default:

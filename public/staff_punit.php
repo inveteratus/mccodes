@@ -2,12 +2,6 @@
 
 global $ir, $h;
 require __DIR__ . '/../include/sglobals.php';
-if (!check_access('manage_punishments')) {
-    echo 'You cannot access this area.
-    <br />&gt; <a href="index.php">Go Home</a>';
-    $h->endpage();
-    exit;
-}
 //This contains punishment stuffs
 if (!isset($_GET['action']))
 {
@@ -123,12 +117,6 @@ function fed_user_submit(): void
         $h->endpage();
         exit;
     }
-    if (check_access('administrator', $_POST['user'])) {
-        echo 'You cannot fed admins, please destaff them first.<br />
-        &gt; <a href="staff_punit.php?action=fedform">Go Back</a>';
-        $h->endpage();
-        exit;
-    }
     $db->query(
                     "UPDATE `users`
                      SET `fedjail` = 1
@@ -198,12 +186,6 @@ function fed_edit_submit(): void
             || empty($_POST['days']))
     {
         echo 'You need to fill in all the fields.<br />
-        &gt; <a href="staff_punit.php?action=fedeform">Go Back</a>';
-        $h->endpage();
-        exit;
-    }
-    if (check_access('administrator', $_POST['user'])) {
-        echo 'You cannot fed admins please destaff them first.<br />
         &gt; <a href="staff_punit.php?action=fedeform">Go Back</a>';
         $h->endpage();
         exit;
@@ -279,12 +261,6 @@ function mail_user_submit(): void
         $h->endpage();
         exit;
     }
-    if (check_access('administrator', false)) {
-        echo 'You cannot mail ban admins please destaff them first.<br />
-        &gt; <a href="staff_punit.php?action=mailform">Go Back</a>';
-        $h->endpage();
-        exit;
-    }
     $db->query(
                     "UPDATE `users`
                      SET `mailban` = {$_POST['days']},
@@ -349,12 +325,6 @@ function forum_user_submit(): void
             || empty($_POST['days']))
     {
         echo 'You need to fill in all the fields.<br />
-        &gt; <a href="staff_punit.php?action=forumform">Go Back</a>';
-        $h->endpage();
-        exit;
-    }
-    if (check_access('administrator', $_POST['user'])) {
-        echo 'You cannot forum ban admins please destaff them first.<br />
         &gt; <a href="staff_punit.php?action=forumform">Go Back</a>';
         $h->endpage();
         exit;

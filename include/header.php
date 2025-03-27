@@ -168,16 +168,8 @@ OUT;
             . $bgcolor . '" valign="top"><center>';
     }
 
-    /**
-     * @return void
-     */
     public function endpage(): void
     {
-        global $db;
-        $query_extra = '';
-        if (isset($_GET['mysqldebug']) && check_access('administrator')) {
-            $query_extra = '<br />' . implode('<br />', $db->queries);
-        }
         print
             <<<OUT
 </center>
@@ -198,7 +190,7 @@ OUT;
 </td>
 </tr>
 </table>
-                {$db->num_queries} queries{$query_extra}</body>
+</body>
 </html>
 OUT;
     }

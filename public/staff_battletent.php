@@ -2,12 +2,6 @@
 
 global $ir, $h;
 require __DIR__ . '/../include/sglobals.php';
-if (!check_access('manage_challenge_bots')) {
-    echo 'You cannot access this area.
-    <br />&gt; <a href="index.php">Go Home</a>';
-    $h->endpage();
-    exit;
-}
 if (!isset($_GET['action']))
 {
     $_GET['action'] = '';

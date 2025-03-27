@@ -199,7 +199,6 @@ else
 				<br /><br />
 				[<a href='contactlist.php?action=add&ID={$r['userid']}'>Add Contact</a>]
    		";
-        if (check_access('manage_punishments'))
         {
             echo "
         <br /><br />
@@ -222,7 +221,7 @@ else
 			</td>
 			<td>
    		';
-        if (check_access('manage_punishments'))
+
         {
             $r['lastiph'] = filter_var($r['lastip'], FILTER_VALIDATE_IP) ? @gethostbyaddr($r['lastip']) : null;
             $r['lastiph'] = checkblank($r['lastiph']);
