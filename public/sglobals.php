@@ -45,7 +45,7 @@ require 'global_func.php';
 $domain = determine_game_urlbase();
 if (!isset($_SESSION['loggedin']) || $_SESSION['loggedin'] == 0)
 {
-    $login_url = "https://{$domain}/login.php";
+    $login_url = "/login.php";
     header("Location: {$login_url}");
     exit;
 }
@@ -119,7 +119,7 @@ if ($ir['force_logout'] > 0)
     		 WHERE `userid` = {$userid}");
     session_unset();
     session_destroy();
-    $login_url = "https://{$domain}/login.php";
+    $login_url = "/login.php";
     header("Location: {$login_url}");
     exit;
 }

@@ -61,6 +61,6 @@ echo "	</td>
 	</tr>
 </table>
 <br /><br />
-This is your referal link: https://{$domain}/register.php?REF={$userid}<br />
+This is your referal link: <a href='/register.php?REF={$userid}'>/register.php?REF={$userid}</a><br />
 Every signup from this link earns you two valuable crystals!";
 $h->endpage();

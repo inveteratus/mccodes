@@ -91,7 +91,7 @@ else
                  SET `verified` = 0
                  WHERE `userid` = {$mem['userid']}");
     }
-    $loggedin_url = 'https://' . determine_game_urlbase() . '/loggedin.php';
+    $loggedin_url = '/loggedin.php';
     header("Location: {$loggedin_url}");
     exit;
 }

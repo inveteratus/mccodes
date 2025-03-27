@@ -24,10 +24,6 @@ function check_image($src): string
         return 'invalid image';
     }
 
-    if (!str_starts_with($src, 'https://'))
-    {
-        $src = 'https://' . $src;
-    }
     $image = (@getimagesize($src));
     if (!is_array($image))
     {

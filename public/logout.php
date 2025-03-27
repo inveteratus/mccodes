@@ -30,5 +30,5 @@ if (isset($_SESSION['userid']))
 session_regenerate_id(true);
 session_unset();
 session_destroy();
-$login_url = 'https://' . determine_game_urlbase() . '/login.php';
+$login_url = '/login.php';
 header("Location: {$login_url}");
