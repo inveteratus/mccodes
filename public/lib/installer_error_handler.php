@@ -14,7 +14,7 @@ declare(strict_types=1);
 function error_critical($debug_error, $action,
                         $context = []): void
 {
-    require_once('./installer_head.php'); // in case it hasn't been included
+    require_once __DIR__ . '/../installer_head.php';
     // Set up a new error
     header('HTTP/1.1 500 Internal Server Error');
     echo '<h1>Installer Error</h1>';
@@ -26,7 +26,7 @@ function error_critical($debug_error, $action,
         echo '<strong>Context at error time:</strong> ' . '<br /><br />'
                 . nl2br(print_r($context, true));
     }
-    require_once('./installer_foot.php');
+    require_once __DIR__ . '/../installer_foot.php';
     exit;
 }
 
@@ -84,7 +84,7 @@ function error_php($errno, $errstr, string $errfile = '', int $errline = 0,
                 $errname = 'User Deprecation Notice';
                 break; // E_USER_DEPRECATED [since 5.3]
         }
-        require_once('./installer_head.php'); // in case it hasn't been included
+        require_once __DIR__ . '/../installer_head.php';
         echo 'A non-critical error has occurred. Page execution will continue. '
             . 'Below are the details:<br /><strong>' . $errname
             . '</strong>: ' . $errstr . ' (' . $errno . ')'
