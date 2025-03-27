@@ -63,7 +63,7 @@ Remember me?<br />
 EOF;
 echo "</td></tr></table><br />
 <h3><a href='register.php'>REGISTER NOW!</a></h3><br />
-<i><center>Powered by codes made by Dabomstew (&copy {$year}). Game Copyright &copy;{$year} {$set['game_owner']}.</center></i>";
+<i><center>Copyright &copy; {$year} {$set['game_owner']}</center></i>";
 print
         <<<OUT
 </td>
