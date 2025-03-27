@@ -2,7 +2,7 @@
 
 $jobquery = 1;
 global $db, $ir, $userid, $h;
-require_once('globals.php');
+require __DIR__ . '/../include/globals.php';
 $_GET['interview'] =
         (isset($_GET['interview']) && is_numeric($_GET['interview']))
                 ? abs(intval($_GET['interview'])) : '';

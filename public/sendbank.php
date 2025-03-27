@@ -1,7 +1,7 @@
 <?php
 
 global $db, $ir, $userid, $h, $set;
-require_once('globals.php');
+require __DIR__ . '/../include/globals.php';
 if (!$set['sendbank_on'])
 {
     die('Sorry, the game owner has disabled this feature.');

@@ -1,12 +1,6 @@
 <?php
 global $db, $ir, $h;
-require __DIR__ . '/sglobals.php';
-if (!check_access('manage_roles')) {
-    echo 'You cannot access this area.
-    <br />&gt; <a href="index.php">Go Home</a>';
-    $h->endpage();
-    exit;
-}
+require __DIR__ . '/../include/sglobals.php';
 
 /**
  *

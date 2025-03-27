@@ -10,7 +10,11 @@ compatability as I feel that any mods worth writing should be done with a better
 
 Lots of things will change - crons will exist for a limited time, docker will be used to create a working development
 environment, but both of these features rely on you using a linux system or at least something that can emulate one
-reasonably accurately.
+reasonably accurately. I'll also be removing the poorly designed "cronless" crons system, the captcha's and redoing
+the staff system in its entirety.
+
+The license will probably change as well - I may keep MIT, but my intention is a full rewrite so really nothing of the
+original system well be retained. It will however remain as open-source!
 
 ## Installation
 

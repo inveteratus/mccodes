@@ -1,7 +1,7 @@
 <?php
 
 global $db, $set;
-require_once('globals_nonauth.php');
+require __DIR__ . '/../include/globals_nonauth.php';
 //thx to http://www.phpit.net/code/valid-email/ for valid_email
 
 /**

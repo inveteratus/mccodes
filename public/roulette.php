@@ -1,7 +1,7 @@
 <?php
 
 global $db, $ir, $userid, $h;
-require_once('globals.php');
+require __DIR__ . '/../include/globals.php';
 $tresder = rand(100, 999);
 $maxbet = $ir['level'] * 150;
 $_GET['tresde'] =

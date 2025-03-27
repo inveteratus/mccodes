@@ -1,6 +1,6 @@
 <?php
 global $userid, $h, $set, $domain;
-require_once('globals.php');
+require __DIR__ . '/../include/globals.php';
 print
     <<<EOF
 <h3>Will Potions</h3>

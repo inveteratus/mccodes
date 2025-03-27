@@ -1,7 +1,7 @@
 <?php
 
 global $db, $h;
-require_once('globals.php');
+require __DIR__ . '/../include/globals.php';
 $staff = [];
 $q     = $db->query(
     'SELECT u.userid, u.laston, u.username, u.level, u.money, GROUP_CONCAT(sr.name ORDER BY sr.id) AS roles

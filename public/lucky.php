@@ -1,7 +1,7 @@
 <?php
 
 global $db, $ir, $userid, $h;
-require_once('globals.php');
+require __DIR__ . '/../include/globals.php';
 echo '<h3>Lucky Boxes</h3><hr />';
 $box_cost = 1000;
 $bc_format = money_formatter($box_cost);

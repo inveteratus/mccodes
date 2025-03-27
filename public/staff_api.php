@@ -1,7 +1,7 @@
 <?php
 $nohdr = true;
 global $db;
-require __DIR__ . '/sglobals.php';
+require __DIR__ . '/../include/sglobals.php';
 if (!is_staff()) {
     echo '403: Forbidden access.';
     exit;

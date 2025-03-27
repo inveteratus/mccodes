@@ -1,7 +1,7 @@
 <?php
 
 global $db, $set;
-require_once('globals_nonauth.php');
+require __DIR__ . '/../include/globals_nonauth.php';
 // Check CSRF input
 if (!isset($_POST['verf'])
         || !verify_csrf_code('login', stripslashes($_POST['verf'])))

@@ -1,7 +1,7 @@
 <?php
 
 global $db, $h;
-require_once('globals.php');
+require __DIR__ . '/../include/globals.php';
 echo "<h3>Gang Central</h3>
 <a href='creategang.php'>&gt; Create A Gang Here</a><br />
 <hr /><u>Gang Listings</u><br />

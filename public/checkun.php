@@ -10,13 +10,13 @@ if (isset($_SERVER['REQUEST_METHOD']) && is_string($_SERVER['REQUEST_METHOD']))
     }
 }
 global $db;
-require_once('global_func.php');
+require __DIR__ . '/../include/global_func.php';
 if (!is_ajax())
 {
     header('HTTP/1.1 400 Bad Request');
     exit;
 }
-require_once('globals_nonauth.php');
+require __DIR__ . '/../include/globals_nonauth.php';
 $username =
         isset($_POST['username']) ? stripslashes($_POST['username']) : '';
 if (!$username)

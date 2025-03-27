@@ -8,7 +8,7 @@ $_GET['c'] = abs((int) $_GET['c']);
 $macropage = "docrime.php?c={$_GET['c']}";
 global $db, $ir, $userid, $h;
 $sucrate = 0;
-require_once('globals.php');
+require __DIR__ . '/../include/globals.php';
 if ($ir['jail'] > 0 || $ir['hospital'] > 0)
 {
     die('This page cannot be accessed while in jail or hospital.');

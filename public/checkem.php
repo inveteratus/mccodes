@@ -10,7 +10,7 @@ if (isset($_SERVER['REQUEST_METHOD']) && is_string($_SERVER['REQUEST_METHOD']))
     }
 }
 global $db;
-require_once('global_func.php');
+require __DIR__ . '/../include/global_func.php';
 if (!is_ajax())
 {
     header('HTTP/1.1 400 Bad Request');
@@ -26,7 +26,7 @@ function valid_email($email): bool
     return (filter_var($email, FILTER_VALIDATE_EMAIL) === $email);
 }
 
-require_once('globals_nonauth.php');
+require __DIR__ . '/../include/globals_nonauth.php';
 $email = isset($_POST['email']) ? stripslashes($_POST['email']) : '';
 if (empty($email))
 {

@@ -1,7 +1,7 @@
 <?php
 
 global $db, $set;
-require_once('globals_nonauth.php');
+require __DIR__ . '/../include/globals_nonauth.php';
 
 // read the post from PayPal system and add 'cmd'
 $req = 'cmd=_notify-validate';

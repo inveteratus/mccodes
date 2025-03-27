@@ -1,5 +1,32 @@
 <?php
 
+function staff_csrf_error($goBackTo): void
+{
+    global $h;
+    echo '<h3>Error</h3><hr />
+    Your action has been blocked for security reasons.<br />
+    &gt; <a href="' . $goBackTo . '">Try Again</a>';
+    $h->endpage();
+    exit;
+}
+
+/**
+ * Check the CSRF code we received against the one that was registered for the form - using default code properties ($_POST['verf']).
+ * If verification fails, end execution immediately.
+ * If not, continue.
+ * @param string $formid A unique string used to identify this form to match up its submission with the right token.
+ * @param $goBackTo
+ * @return bool Whether the user provided a valid code or not
+ */
+function staff_csrf_stdverify(string $formid, $goBackTo): bool
+{
+    if (!isset($_POST['verf'])
+            || !verify_csrf_code($formid, stripslashes($_POST['verf'])))
+    {
+        staff_csrf_error($goBackTo);
+    }
+    return true;
+}
 session_name('MCCSID');
 session_start();
 if (!isset($_SESSION['started']))
@@ -20,9 +47,8 @@ if (!isset($_SESSION['loggedin']) || $_SESSION['loggedin'] == 0)
 }
 $userid = (int)($_SESSION['userid'] ?? 0);
 require __DIR__ . '/header.php';
-
-global $_CONFIG;
 require __DIR__ . '/config.php';
+global $_CONFIG;
 const MONO_ON = 1;
 require __DIR__ . '/database.php';
 $dsn = 'mysql:host='.$_CONFIG['hostname'].';charset=utf8mb4;dbname='.$_CONFIG['database'];
@@ -32,15 +58,6 @@ $db->configure($_CONFIG['hostname'], $_CONFIG['username'],
 $db->connect();
 $c = $db->connection_id;
 $set = get_site_settings();
-if ($set['use_timestamps_over_crons']) {
-    define('SILENT_CRONS', true);
-    try {
-        require_once __DIR__ . '/crons/cronless_crons.php';
-    } catch (Exception $e) {
-        echo 'An error occurred' . (defined('DEBUG') && DEBUG ? ':<br>'.$e->getMessage() : '');
-        exit;
-    }
-}
 global $jobquery, $housequery;
 if (isset($jobquery) && $jobquery)
 {
@@ -53,7 +70,7 @@ if (isset($jobquery) && $jobquery)
                      LEFT JOIN `jobs` AS `j` ON `j`.`jID` = `u`.`job`
                      LEFT JOIN `jobranks` AS `jr`
                      ON `jr`.`jrID` = `u`.`jobrank`
-                     WHERE `u`.`userid` = {$userid}
+                     WHERE `u`.`userid` = '{$userid}'
                      LIMIT 1");
 }
 elseif (isset($housequery) && $housequery)
@@ -65,7 +82,7 @@ elseif (isset($housequery) && $housequery)
                      INNER JOIN `userstats` AS `us`
                      ON `u`.`userid`=`us`.`userid`
                      LEFT JOIN `houses` AS `h` ON `h`.`hWILL` = `u`.`maxwill`
-                     WHERE `u`.`userid` = {$userid}
+                     WHERE `u`.`userid` = '{$userid}'
                      LIMIT 1");
 }
 else
@@ -76,7 +93,7 @@ else
                      FROM `users` AS `u`
                      INNER JOIN `userstats` AS `us`
                      ON `u`.`userid`=`us`.`userid`
-                     WHERE `u`.`userid` = {$userid}
+                     WHERE `u`.`userid` = '{$userid}'
                      LIMIT 1");
 }
 $ir = $db->fetch_row($is);
@@ -85,41 +102,32 @@ if ($ir['force_logout'] > 0)
 {
     $db->query(
             "UPDATE `users`
-    			SET `force_logout` = 0
-    			WHERE `userid` = {$userid}");
+    		 SET `force_logout` = 0
+    		 WHERE `userid` = {$userid}");
     session_unset();
     session_destroy();
     $login_url = "/login.php";
     header("Location: {$login_url}");
     exit;
 }
-global $macropage;
-if ($macropage && !$ir['verified'] && $set['validate_on'] == 1)
+if (!is_staff())
 {
-    $macro_url = "/macro1.php?refer=$macropage";
-    header("Location: {$macro_url}");
-    exit;
+    echo 'This page cannot be accessed.<br />&gt; <a href="index.php">Go Home</a>';
+    die;
 }
 check_level();
 $h = new headers();
-if (!isset($nohdr) || !$nohdr)
-{
+if (!isset($nohdr) || !$nohdr) {
     $h->startheaders();
     $fm = money_formatter($ir['money']);
     $cm = money_formatter($ir['crystals'], '');
     $lv = date('F j, Y, g:i a', $ir['laston']);
     global $atkpage;
-    if ($atkpage)
-    {
+    $staffpage = 1;
+    if ($atkpage) {
         $h->userdata($ir, $lv, $fm, $cm, 0);
-    }
-    else
-    {
+    } else {
         $h->userdata($ir, $lv, $fm, $cm);
     }
-    global $menuhide;
-    if (!$menuhide)
-    {
-        $h->menuarea();
-    }
+    $h->smenuarea();
 }

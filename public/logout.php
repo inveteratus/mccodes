@@ -8,14 +8,14 @@ if (!isset($_SESSION['started']))
     $_SESSION['started'] = true;
 }
 global $db;
-require_once('global_func.php');
+require __DIR__ . '/../include/global_func.php';
 if (isset($_SESSION['userid']))
 {
     $sessid = (int) $_SESSION['userid'];
     if (isset($_SESSION['attacking']) && $_SESSION['attacking'] > 0)
     {
         echo 'You lost all your EXP for running from the fight.<br />';
-        require_once('globals_nonauth.php');
+        require __DIR__ . '/../include/globals_nonauth.php';
         $db->query(
                 "UPDATE `users`
                  SET `exp` = 0, `attacking` = 0

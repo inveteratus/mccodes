@@ -1,7 +1,7 @@
 <?php
 
 global $db, $ir, $h;
-require_once('globals.php');
+require __DIR__ . '/../include/globals.php';
 
 /**
  * @param $goBackTo

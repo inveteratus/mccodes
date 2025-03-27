@@ -1,7 +1,7 @@
 <?php
 
 global $h;
-require_once('globals.php');
+require __DIR__ . '/../include/globals.php';
 echo '<h3>Item Market</h3>';
 if (!isset($_GET['action']))
 {

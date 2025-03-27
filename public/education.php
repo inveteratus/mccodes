@@ -1,7 +1,7 @@
 <?php
 
 global $db, $ir, $userid, $h;
-require_once('globals.php');
+require __DIR__ . '/../include/globals.php';
 echo '<h3>Schooling</h3>';
 if ($ir['course'] > 0)
 {

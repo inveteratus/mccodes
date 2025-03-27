@@ -1,7 +1,7 @@
 <?php
 
 global $db, $h;
-require_once('globals.php');
+require __DIR__ . '/../include/globals.php';
 echo "<h3>Gang Wars</h3>
 <table width='75%' cellspacing='1' class='table'>";
 $q =

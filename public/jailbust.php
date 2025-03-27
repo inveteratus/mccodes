@@ -1,7 +1,7 @@
 <?php
 
 global $db, $ir, $userid, $h;
-require_once('globals.php');
+require __DIR__ . '/../include/globals.php';
 if ($ir['energy'] < 10)
 {
     echo 'Sorry, it costs 10 energy to bust someone. '

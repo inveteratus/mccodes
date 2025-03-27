@@ -1,7 +1,7 @@
 <?php
 
 global $db, $userid, $h;
-require_once('globals.php');
+require __DIR__ . '/../include/globals.php';
 echo '<h3>Player Report</h3>';
 $_POST['report'] =
         (isset($_POST['report']) && is_string($_POST['report']))

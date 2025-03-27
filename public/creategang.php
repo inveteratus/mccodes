@@ -1,6 +1,6 @@
 <?php
 global $db, $ir, $userid, $h;
-require_once('globals.php');
+require __DIR__ . '/../include/globals.php';
 $cg_price = 500000;
 if ($ir['money'] < $cg_price)
 {

@@ -2,7 +2,7 @@
 
 $housequery = 1;
 global $db, $ir, $userid, $h, $set, $lv, $cm, $fm;
-require_once('globals.php');
+require __DIR__ . '/../include/globals.php';
 if (file_exists($_SERVER['DOCUMENT_ROOT'] . '/installer.php')
         && check_access('administrator'))
 {

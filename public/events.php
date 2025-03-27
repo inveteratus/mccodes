@@ -1,7 +1,7 @@
 <?php
 
 global $db, $ir, $userid, $h;
-require_once('globals.php');
+require __DIR__ . '/../include/globals.php';
 if (!isset($_GET['delete']))
 {
     $_GET['delete'] = 0;

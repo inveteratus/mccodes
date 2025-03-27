@@ -9,7 +9,7 @@ if (isset($_SERVER['REQUEST_METHOD']) && is_string($_SERVER['REQUEST_METHOD']))
         exit;
     }
 }
-require_once('global_func.php');
+require __DIR__ . '/../include/global_func.php';
 if (!is_ajax())
 {
     header('HTTP/1.1 400 Bad Request');

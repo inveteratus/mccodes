@@ -1,6 +1,6 @@
 <?php
 global $h, $set;
-require_once('globals.php');
+require __DIR__ . '/../include/globals.php';
 print
         <<<EOF
 <h1>{$set['game_name']} Rules and Regulations</h1>

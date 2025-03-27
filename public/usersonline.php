@@ -1,7 +1,7 @@
 <?php
 
 global $db, $h;
-require_once('globals.php');
+require __DIR__ . '/../include/globals.php';
 echo '<h3>Users Online</h3>';
 $cn = 0;
 $expiry_time = time() - 900;

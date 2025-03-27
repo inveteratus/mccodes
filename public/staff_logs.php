@@ -1,7 +1,7 @@
 <?php
 
 global $db, $ir, $h;
-require_once('sglobals.php');
+require __DIR__ . '/../include/sglobals.php';
 if (!check_access('view_logs')) {
     echo 'You cannot access this area.
     <br />&gt; <a href="index.php">Go Home</a>';

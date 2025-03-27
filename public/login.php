@@ -1,7 +1,7 @@
 <?php
 
 global $set;
-require_once('globals_nonauth.php');
+require __DIR__ . '/../include/globals_nonauth.php';
 $login_csrf = request_csrf_code('login');
 print
         <<<EOF

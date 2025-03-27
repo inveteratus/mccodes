@@ -2,7 +2,7 @@
 
 $macropage = 'criminal.php';
 global $db, $ir, $h;
-require_once('globals.php');
+require __DIR__ . '/../include/globals.php';
 if ($ir['jail'] || $ir['hospital'])
 {
     die('This page cannot be accessed while in jail or hospital.');

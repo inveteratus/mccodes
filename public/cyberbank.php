@@ -1,7 +1,7 @@
 <?php
 
 global $db, $ir, $userid, $h;
-require_once('globals.php');
+require __DIR__ . '/../include/globals.php';
 echo '<h3>Cyber Bank</h3>';
 $bank_cost = 10000000;
 $bank_maxfee_dp = 1500000;

@@ -1,6 +1,10 @@
 <?php
 declare(strict_types=1);
 
+namespace crons;
+
+use crons\classes\Throwable;
+use database;
 use ParagonIE\EasyDB\EasyPlaceholder;
 
 if (!defined('CRON_FILE_INC')) {
@@ -61,9 +65,9 @@ final class CronOneHour extends CronHandler
         while ($r = $this->db->fetch_row($q)) {
             $suc = rand(0, 1);
             if ($suc) {
-                $log  = $r['ocSTARTTEXT'] . $r['ocSUCCTEXT'];
+                $log = $r['ocSTARTTEXT'] . $r['ocSUCCTEXT'];
                 $muny = rand($r['ocMINMONEY'], $r['ocMAXMONEY']);
-                $log  = $this->db->escape(str_replace('{muny}', (string)$muny, $log));
+                $log = $this->db->escape(str_replace('{muny}', (string)$muny, $log));
                 $this->db->query(
                     'UPDATE gangs SET gangMONEY = gangMONEY + ' . $muny . ', gangCRIME = 0 WHERE gangID = ' . $r['gangID'],
                 );
@@ -83,9 +87,9 @@ final class CronOneHour extends CronHandler
                     $this->updateAffectedRowCnt();
                 }
             } else {
-                $log  = $r['ocSTARTTEXT'] . $r['ocFAILTEXT'];
+                $log = $r['ocSTARTTEXT'] . $r['ocFAILTEXT'];
                 $muny = 0;
-                $log  = $this->db->escape(str_replace('{muny}', (string)$muny, $log));
+                $log = $this->db->escape(str_replace('{muny}', (string)$muny, $log));
                 $this->db->query(
                     'UPDATE gangs SET gangCRIME = 0 WHERE gangID = ' . $r['gangID']
                 );

@@ -1,7 +1,7 @@
 <?php
 
 global $h;
-require_once('sglobals.php');
+require __DIR__ . '/../include/sglobals.php';
 //This contains user stuffs
 if (!isset($_GET['action']))
 {

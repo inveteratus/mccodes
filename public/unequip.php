@@ -1,7 +1,7 @@
 <?php
 
 global $db, $ir, $userid, $h;
-require_once('globals.php');
+require __DIR__ . '/../include/globals.php';
 if (!isset($_GET['type'])
         || !in_array($_GET['type'],
                 ['equip_primary', 'equip_secondary', 'equip_armor'],

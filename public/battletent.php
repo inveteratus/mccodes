@@ -1,7 +1,7 @@
 <?php
 
 global $db, $ir, $userid, $h;
-require_once('globals.php');
+require __DIR__ . '/../include/globals.php';
 echo "<h3>Battle Tent</h3>
 <b>Welcome to the battle tent! Here you can challenge NPCs for money.</b>
 <table width=100% cellspacing=1 class='table'>

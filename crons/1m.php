@@ -1,6 +1,11 @@
 <?php
 declare(strict_types=1);
 
+namespace crons;
+
+use crons\classes\Throwable;
+use database;
+
 if (!defined('CRON_FILE_INC') || CRON_FILE_INC !== true) {
     exit;
 }
@@ -8,7 +13,7 @@ if (!defined('CRON_FILE_INC') || CRON_FILE_INC !== true) {
 /**
  *
  */
-final class CronFiveMinute extends CronHandler
+final class CronOneMinute extends CronHandler
 {
     private static ?self $instance = null;
 
@@ -41,27 +46,30 @@ final class CronFiveMinute extends CronHandler
             $this->pendingIncrements = $increments;
         }
         parent::doFullRunActual([
-            'updateUserStatBars',
+            'updateJailHospitalTimes',
         ], $this);
     }
 
     /**
      * @return void
+     * @throws Throwable
      */
-    public function updateUserStatBars(): void
+    public function updateJailHospitalTimes(): void
     {
         $this->db->query(
-            'UPDATE users SET
-            brave = LEAST(brave + (((maxbrave / 10) + 0.5) * ' . $this->pendingIncrements . '), maxbrave),
-            hp = LEAST(hp + ((maxhp / 3) * ' . $this->pendingIncrements . '), maxhp),
-            will = LEAST(will + (10 * ' . $this->pendingIncrements . '), maxwill),
-            energy = IF(donatordays > 0,
-                LEAST(energy + ((maxenergy / 6) * ' . $this->pendingIncrements . '), maxenergy),
-                LEAST(energy + ((maxenergy / 12.5) * ' . $this->pendingIncrements . '), maxenergy)
-            ),
-            verified = 0'
+            'UPDATE users SET hospital = GREATEST(hospital - ' . $this->pendingIncrements . ', 0), jail = GREATEST(jail - ' . $this->pendingIncrements . ', 0) WHERE jail > 0 OR hospital > 0'
         );
-
+        $this->updateAffectedRowCnt();
+        $get_counts = $this->db->query(
+            'SELECT 
+            SUM(IF(hospital > 0, 1, 0)) AS hc,
+            SUM(IF(jail > 0, 1, 0)) AS jc
+            FROM users'
+        );
+        $counts = $this->db->fetch_row($get_counts);
+        $this->db->query(
+            'UPDATE settings SET conf_value = IF(conf_name = \'hospital_count\', ' . $counts['hc'] . ', conf_value), conf_value = IF(conf_name = \'jail_count\', ' . $counts['jc'] . ', conf_value) WHERE conf_name IN (\'hospital_count\', \'jail_count\')'
+        );
         $this->updateAffectedRowCnt();
     }
 }

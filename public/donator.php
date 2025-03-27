@@ -1,7 +1,7 @@
 <?php
 
 global $db, $userid, $h, $domain, $set;
-require_once('globals.php');
+require __DIR__ . '/../include/globals.php';
 $fiveK = money_formatter(5000);
 $fiftK = money_formatter(15000);
 $thirtfvK = money_formatter(35000);

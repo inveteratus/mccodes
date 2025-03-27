@@ -1,6 +1,12 @@
 <?php
 declare(strict_types=1);
 
+namespace crons;
+
+use crons\classes\Exception;
+use crons\classes\Throwable;
+use database;
+
 if (!defined('CRON_FILE_INC') || CRON_FILE_INC !== true) {
     exit;
 }
@@ -63,13 +69,13 @@ final class CronOneDay extends CronHandler
      */
     public function processCourses(): void
     {
-        $q            = $this->db->query(
+        $q = $this->db->query(
             'SELECT userid, course FROM users WHERE cdays <= 0 AND course > 0',
         );
         $course_cache = [];
         while ($r = $this->db->fetch_row($q)) {
             if (!array_key_exists($r['course'], $course_cache)) {
-                $cd   = $this->db->query(
+                $cd = $this->db->query(
                     'SELECT crSTR, crGUARD, crLABOUR, crAGIL, crIQ, crNAME FROM courses WHERE crID = ' . $r['course'],
                 );
                 $coud = $this->db->fetch_row($cd);
@@ -83,26 +89,26 @@ final class CronOneDay extends CronHandler
             );
             $this->updateAffectedRowCnt();
             $upd = '';
-            $ev  = '';
+            $ev = '';
             if ($coud['crSTR'] > 0) {
                 $upd .= ', us.strength = us.strength + ' . $coud['crSTR'];
-                $ev  .= ', ' . $coud['crSTR'] . ' strength';
+                $ev .= ', ' . $coud['crSTR'] . ' strength';
             }
             if ($coud['crGUARD'] > 0) {
                 $upd .= ', us.guard = us.guard + ' . $coud['crGUARD'];
-                $ev  .= ', ' . $coud['crGUARD'] . ' guard';
+                $ev .= ', ' . $coud['crGUARD'] . ' guard';
             }
             if ($coud['crLABOUR'] > 0) {
                 $upd .= ', us.labour = us.labour + ' . $coud['crLABOUR'];
-                $ev  .= ', ' . $coud['crLABOUR'] . ' labour';
+                $ev .= ', ' . $coud['crLABOUR'] . ' labour';
             }
             if ($coud['crAGIL'] > 0) {
                 $upd .= ', us.agility = us.agility + ' . $coud['crAGIL'];
-                $ev  .= ', ' . $coud['crAGIL'] . ' agility';
+                $ev .= ', ' . $coud['crAGIL'] . ' agility';
             }
             if ($coud['crIQ'] > 0) {
                 $upd .= ', us.IQ = us.IQ + ' . $coud['crIQ'];
-                $ev  .= ', ' . $coud['crIQ'] . ' IQ';
+                $ev .= ', ' . $coud['crIQ'] . ' IQ';
             }
             $ev = substr($ev, 1);
             $this->db->query(
@@ -145,7 +151,7 @@ final class CronOneDay extends CronHandler
             'UPDATE fedjail SET fed_days = GREATEST(fed_days - ' . $this->pendingIncrements . ', 0)',
         );
         $this->updateAffectedRowCnt();
-        $q   = $this->db->query('SELECT * FROM fedjail WHERE fed_days <= 0');
+        $q = $this->db->query('SELECT * FROM fedjail WHERE fed_days <= 0');
         $ids = [];
         while ($r = $this->db->fetch_row($q)) {
             $ids[] = $r['fed_userid'];
@@ -184,7 +190,7 @@ final class CronOneDay extends CronHandler
      */
     public function updateBankInterests(): void
     {
-        $rates    = [
+        $rates = [
             'bank' => pow(1 + 2 / 100, 1 / 365.2425),
             'cyber' => pow(1 + 7 / 100, 1 / 365.2425),
         ];

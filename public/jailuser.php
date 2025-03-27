@@ -1,7 +1,7 @@
 <?php
 
 global $db, $ir, $userid, $h;
-require_once('globals.php');
+require __DIR__ . '/../include/sglobals.php';
 if (!check_access('manage_punishments')) {
     echo 'You cannot access this area.
     <br />&gt; <a href="index.php">Go Home</a>';

@@ -4,7 +4,7 @@ $nohdr = 1;
 
 global $db, $ir, $userid, $set, $domain;
 
-require_once('globals.php');
+require __DIR__ . '/../include/globals.php';
 if (!$set['validate_on'] || $ir['verified'])
 {
     echo 'What are you doing on this page? Go somewhere else.';

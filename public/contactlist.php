@@ -1,7 +1,7 @@
 <?php
 
 global $h;
-require_once('globals.php');
+require __DIR__ . '/../include/globals.php';
 echo '
 <h3>My Contacts</h3>
 <table width="85%" class="table" cellspacing="1">

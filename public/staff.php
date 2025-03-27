@@ -1,7 +1,8 @@
 <?php
 
 global $h;
-require_once('sglobals.php');
+
+require __DIR__ . '/../include/sglobals.php';
 if (!isset($_GET['action'])) {
     $_GET['action'] = 'index';
 }

@@ -1,7 +1,7 @@
 <?php
 
 global $db, $h;
-require_once('globals.php');
+require __DIR__ . '/../include/globals.php';
 $_GET['ID'] =
         (isset($_GET['ID']) && is_numeric($_GET['ID']))
                 ? abs(intval($_GET['ID'])) : '';

@@ -1,7 +1,7 @@
 <?php
 
 global $db, $ir, $h;
-require_once('globals.php');
+require __DIR__ . '/../include/globals.php';
 echo "<h3>Search</h3>
 <b>Search by Name</b>
 <form action='searchname.php' method='POST'>

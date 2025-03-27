@@ -1,7 +1,7 @@
 <?php
 
 global $db, $h;
-require_once('globals.php');
+require __DIR__ . '/../include/globals.php';
 $_POST['name'] =
         (isset($_POST['name']) && is_string($_POST['name']))
                 ? stripslashes($_POST['name']) : '';

@@ -1,7 +1,7 @@
 <?php
 
 global $ir, $userid, $h, $set, $domain;
-require_once('globals.php');
+require __DIR__ . '/../include/globals.php';
 $tresder = rand(100, 999);
 if ($ir['jail'] > 0 || $ir['hospital'] > 0)
 {

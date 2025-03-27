@@ -1,7 +1,7 @@
 <?php
 
 global $db, $h;
-require_once('globals.php');
+require __DIR__ . '/../include/globals.php';
 echo '<h3>The MonoPaper</h3>';
 $paperQ = $db->query('SELECT `content`
 					  FROM `papercontent`');

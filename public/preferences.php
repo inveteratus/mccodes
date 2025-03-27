@@ -1,7 +1,7 @@
 <?php
 
 global $h;
-require_once('globals.php');
+require __DIR__ . '/../include/globals.php';
 if (!isset($_GET['action']))
 {
     $_GET['action'] = '';

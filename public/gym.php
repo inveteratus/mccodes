@@ -2,7 +2,7 @@
 
 $macropage = 'gym.php';
 global $db, $ir, $userid, $h;
-require_once('globals.php');
+require __DIR__ . '/../include/globals.php';
 if ($ir['hospital'])
 {
     die('This page cannot be accessed while in hospital.');

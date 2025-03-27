@@ -1,7 +1,7 @@
 <?php
 
 global $ir, $h;
-require_once('globals.php');
+require __DIR__ . '/../include/globals.php';
 if ($ir['mailban'])
 {
     die(

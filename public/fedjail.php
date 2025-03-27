@@ -1,7 +1,7 @@
 <?php
 
 global $db, $h;
-require_once('globals.php');
+require __DIR__ . '/../include/globals.php';
 $q =
         $db->query(
             'SELECT `fed_userid`, `fed_days`, `fed_reason`, `fed_jailedby`,

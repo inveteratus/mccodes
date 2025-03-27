@@ -2,7 +2,7 @@
 
 $nohdr = true;
 global $db, $userid;
-require_once('globals.php');
+require __DIR__ . '/../include/globals.php';
 if (!isset($_GET['a']))
 {
     $_GET['a'] = '';
