@@ -37,6 +37,7 @@ class database
      * @param $pass
      * @param $database
      * @return int
+     * @deprecated
      */
     public function configure($host, $user, $pass, $database): int
     {
@@ -49,6 +50,7 @@ class database
 
     /**
      * @return false|mysqli
+     * @deprecated
      */
     public function connect(): false|mysqli
     {
@@ -72,37 +74,9 @@ class database
     }
 
     /**
-     * @return int
-     */
-    public function disconnect(): int
-    {
-        if ($this->connection_id) {
-            mysqli_close($this->connection_id);
-            $this->connection_id = 0;
-            return 1;
-        } else {
-            return 0;
-        }
-    }
-
-    /**
-     * @param $database
-     * @return void
-     */
-    public function change_db($database): void
-    {
-        if (!mysqli_select_db($this->connection_id, $database)) {
-            error_critical(mysqli_errno($this->connection_id) . ': '
-                . mysqli_error($this->connection_id),
-                'Attempted to select database: ' . $database,
-                debug_backtrace());
-        }
-        $this->database = $database;
-    }
-
-    /**
      * @param $query
      * @return mysqli_result|bool
+     * @deprecated
      */
     public function query($query): mysqli_result|bool
     {
@@ -123,6 +97,7 @@ class database
     /**
      * @param mysqli_result|int $result
      * @return false|array|null
+     * @deprecated
      */
     public function fetch_row(mysqli_result|int $result = 0): false|array|null
     {
@@ -135,6 +110,7 @@ class database
     /**
      * @param mysqli_result|int $result
      * @return int|string
+     * @deprecated
      */
     public function num_rows(mysqli_result|int $result = 0): int|string
     {
@@ -146,6 +122,7 @@ class database
 
     /**
      * @return int|string
+     * @deprecated
      */
     public function insert_id(): int|string
     {
@@ -155,6 +132,7 @@ class database
     /**
      * @param mysqli_result|int $result
      * @return mixed
+     * @deprecated
      */
     public function fetch_single(mysqli_result|int $result = 0): mixed
     {
@@ -168,37 +146,9 @@ class database
     }
 
     /**
-     * @param $table
-     * @param $data
-     * @return mysqli_result|bool
-     */
-    public function easy_insert($table, $data): mysqli_result|bool
-    {
-        $query = "INSERT INTO `$table` (";
-        $i     = 0;
-        foreach ($data as $k => $v) {
-            $i++;
-            if ($i > 1) {
-                $query .= ', ';
-            }
-            $query .= $k;
-        }
-        $query .= ') VALUES(';
-        $i     = 0;
-        foreach ($data as $k => $v) {
-            $i++;
-            if ($i > 1) {
-                $query .= ', ';
-            }
-            $query .= "'" . $this->escape($v) . "'";
-        }
-        $query .= ')';
-        return $this->query($query);
-    }
-
-    /**
      * @param $text
      * @return string
+     * @deprecated
      */
     public function escape($text): string
     {
@@ -207,6 +157,7 @@ class database
 
     /**
      * @return int|string
+     * @deprecated
      */
     public function affected_rows(): int|string
     {
@@ -216,6 +167,7 @@ class database
     /**
      * @param mysqli_result|int $result
      * @return void
+     * @deprecated
      */
     public function free_result(mysqli_result|int $result): void
     {
@@ -226,6 +178,7 @@ class database
      * @param string $name
      * @param array $arguments
      * @return void
+     * @deprecated
      */
     public function __call(string $name, array $arguments)
     {
