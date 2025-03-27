@@ -1,26 +1,9 @@
 <?php
-declare(strict_types=1);
 
-if (!defined('MONO_ON')) {
-    exit;
-}
-
-if (!function_exists('error_critical')) {
-    // Umm...
-    die('<h1>Error</h1>' . 'Error handler not present');
-}
-
-if (!extension_loaded('mysqli')) {
-    // dl doesn't work anymore, crash
-    error_critical('MySQLi extension not present but required', 'N/A',
-        debug_backtrace());
-}
-
-/**
- *
- */
 class database
 {
+    private PDO $db;
+
     public string $host;
     public string $user;
     public string $pass;
@@ -30,6 +13,23 @@ class database
     public mysqli|int $connection_id;
     public int $num_queries = 0;
     public array $queries = [];
+
+    public function __construct(string $dsn, string $user, string $password)
+    {
+        $this->db = new PDO($dsn, $user, $password, [
+            PDO::ATTR_ERRMODE => PDO::ERRMODE_EXCEPTION,
+            PDO::ATTR_DEFAULT_FETCH_MODE => PDO::FETCH_OBJ,
+            PDO::ATTR_EMULATE_PREPARES => false,
+        ]);
+    }
+
+    public function execute(string $sql, array $context = []): PDOStatement
+    {
+        $statement = $this->db->prepare($sql);
+        $statement->execute($context);
+
+        return $statement;
+    }
 
     /**
      * @param $host

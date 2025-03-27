@@ -15,7 +15,8 @@ require __DIR__ . '/config.php';
 const MONO_ON = 1;
 require __DIR__ . '/database.php';
 require __DIR__ . '/global_func.php';
-$db = new database();
+$dsn = 'mysql:host='.$_CONFIG['hostname'].';charset=utf8mb4;dbname='.$_CONFIG['database'];
+$db = new database($dsn, $_CONFIG['username'], $_CONFIG['password']);
 $db->configure($_CONFIG['hostname'], $_CONFIG['username'],
         $_CONFIG['password'], $_CONFIG['database']);
 $db->connect();
