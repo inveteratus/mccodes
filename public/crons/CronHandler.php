@@ -248,9 +248,6 @@ class CronHandler
             'hour-1' => 3600,
             'day-1' => 86400,
         };
-        if (empty($div)) {
-            return;
-        }
         $this->db->query(
             'UPDATE cron_times SET last_run = CONCAT(CONCAT(DATE_FORMAT(NOW(), \'%Y-%m-%d\'), \' \'), SEC_TO_TIME((TIME_TO_SEC(NOW(3)) DIV ' . $div . ') * ' . $div . ')) WHERE name = \'' . self::$cron . '\'',
         );

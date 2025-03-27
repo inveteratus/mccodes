@@ -279,7 +279,7 @@ function mail_user_submit(): void
         $h->endpage();
         exit;
     }
-    if (check_access('administrator', false, $_POST['user'])) {
+    if (check_access('administrator', false)) {
         echo 'You cannot mail ban admins please destaff them first.<br />
         &gt; <a href="staff_punit.php?action=mailform">Go Back</a>';
         $h->endpage();
