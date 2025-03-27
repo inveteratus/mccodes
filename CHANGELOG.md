@@ -1,5 +1,6 @@
 # 2025-03-27
 
+Added basic config.php file reading from .env
 Added static analysis (phpstan)
 Added new docker system with PHP 8.3
 Updated changelog

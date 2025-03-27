@@ -27,9 +27,9 @@ cp env.example .env
 docker compose up -d
 ```
 
-Navigate to http://localhost:8000/installer.php for the MCCodes installer.
-
 Navigate to http://localhost:8080/ for the Adminer (MySQL admin tool) interface.
+
+Navigate to http://localhost:8000/installer.php for the MCCodes installer.
 
 ## Static Analysis
 
