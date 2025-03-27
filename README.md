@@ -31,3 +31,10 @@ Navigate to http://localhost:8000/installer.php for the MCCodes installer.
 
 Navigate to http://localhost:8080/ for the Adminer (MySQL admin tool) interface.
 
+## Static Analysis
+
+Can be performed by running
+
+```sh
+vendor/bin/phpstan
+```
