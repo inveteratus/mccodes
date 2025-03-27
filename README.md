@@ -17,3 +17,17 @@ Checkout the CHANGELOG.md for updates.
 Lots of things will change - crons will exist for a limited time, docker will be used to
 create a working development enviroment, but both of these features rely on you using a
 linux system or at least something that can emulate one reasonably accurately.
+
+## Installation
+
+```sh
+git clone https://github.com/inveteratus/mccodes.git
+cd mccodes
+cp env.example .env
+docker compose up -d
+```
+
+Navigate to http://localhost:8000/installer.php for the MCCodes installer.
+
+Navigate to http://localhost:8080/ for the Adminer (MySQL admin tool) interface.
+

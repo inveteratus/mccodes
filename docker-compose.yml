@@ -1,43 +1,56 @@
 services:
-  web:
-    image: php:8.3-apache
-    ports:
-      - "4567:80"
-      - "4568:443"
-    depends_on:
-      - db
+
+  app:
+    build: .
     volumes:
-      - .:/var/www/html/.
-    restart: "no"
-  db:
-    image: mysql
-    ports:
-      - "3306:3306"
-    environment:
-      MYSQL_ROOT_PASSWORD: rootpass1
-      MYSQL_DATABASE: mccv2
-  phpmyadmin:
-    image: phpmyadmin/phpmyadmin
-    ports:
-      - "4569:8080"
+      - .:/var/www/html
     depends_on:
-      - db
-    links:
-      - web
+      - mysql
+    networks:
+      - default
+
+  nginx:
+    image: nginx:1.25.3
+    ports:
+      - ${WEB_PORT:-8000}:80
+    volumes:
+      - .:/var/www/html
+      - ./nginx.conf:/etc/nginx/conf.d/default.conf
+    depends_on:
+      - app
+    networks:
+      - default
+
+  mysql:
+    image: mysql:8.2.0
+    command: --default-authentication-plugin=mysql_native_password
+    restart: always
     environment:
-      PMA_HOST: db
+      MYSQL_ROOT_PASSWORD: ${MYSQL_PASSWORD}
+      MYSQL_DATABASE: ${MYSQL_DATABASE}
+      MYSQL_USER: ${MYSQL_USER}
+      MYSQL_PASSWORD: ${MYSQL_PASSWORD}
+    ports:
+      - ${MYSQL_PORT:-3306}:3306
+    volumes:
+      - data:/var/lib/mysql
+    networks:
+      - default
 
-# Note:
-# If you encounter either mysqli not being found or captcha images not loading, chances are that the docker image was updated and those modules are no longer part of it
-# A new image will be built for this so that the dependencies are there and ready for immediate development
-# For now, log into the running container's shell - assuming default config, it'll be named something like "mccodesv2-php-web-1"
-# Execute the following command:
-# apt install libpng-dev -y && docker-php-ext-install mysqli gd
-# Optionally, you can also install a couple of useful PHP packages
-# docker-php-ext-install mbstring pdo pdo_mysql sockets sodium xsl
+  adminer:
+    image: adminer:4.17.1
+    restart: always
+    environment:
+      ADMINER_DEFAULT_SERVER: mysql
+    ports:
+      - ${ADMINER_PORT:-8080}:8080
+    depends_on:
+      - mysql
+    networks:
+      - default
 
-# After installation, the extensions should automatically be enabled (where applicable). If not, you can enable them manually.
-# docker-php-ext-enable mysqli gd
+volumes:
+  data:
 
-# Note (cont.)
-# Be sure to restart the Apache container to apply your changes!
+networks:
+  default:
