@@ -30,6 +30,15 @@ Navigate to http://localhost:8000/ for the MCCodes game itself.
 
 Navigate to http://localhost:8080/ for the Adminer (MySQL admin tool) interface.
 
+## Crons
+
+Add to your crontab:
+
+```sh
+*   * * * * cd /path/to/site && docker exec -it mccodes-app-1 php crons/1m.php
+*/5 * * * * cd /path/to/site && docker exec -it mccodes-app-1 php crons/5m.php
+```
+
 ## Static Analysis
 
 Can be performed by running
