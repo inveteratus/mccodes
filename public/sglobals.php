@@ -27,10 +27,6 @@ function staff_csrf_stdverify(string $formid, $goBackTo): bool
     }
     return true;
 }
-if (str_contains($_SERVER['PHP_SELF'], 'sglobals.php'))
-{
-    exit;
-}
 session_name('MCCSID');
 session_start();
 if (!isset($_SESSION['started']))
@@ -39,9 +35,9 @@ if (!isset($_SESSION['started']))
     $_SESSION['started'] = true;
 }
 ob_start();
-require 'lib/basic_error_handler.php';
+require __DIR__ . '/basic_error_handler.php';
 set_error_handler('error_php');
-require 'global_func.php';
+require __DIR__ . '/global_func.php';
 $domain = determine_game_urlbase();
 if (!isset($_SESSION['loggedin']) || $_SESSION['loggedin'] == 0)
 {
@@ -50,12 +46,11 @@ if (!isset($_SESSION['loggedin']) || $_SESSION['loggedin'] == 0)
     exit;
 }
 $userid = (int)($_SESSION['userid'] ?? 0);
-require 'header.php';
-
-include 'config.php';
+require __DIR__ . '/header.php';
+require __DIR__ . '/config.php';
 global $_CONFIG;
 const MONO_ON = 1;
-require "class/class_db_{$_CONFIG['driver']}.php";
+require __DIR__ . '/database.php';
 $db = new database();
 $db->configure($_CONFIG['hostname'], $_CONFIG['username'],
         $_CONFIG['password'], $_CONFIG['database']);

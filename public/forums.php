@@ -2,8 +2,8 @@
 
 $forums = 1;
 global $ir, $h;
-require_once('globals.php');
-require_once __DIR__.'/class/class_bbcode.php';
+require __DIR__ . '/globals.php';
+require __DIR__ . '/class_bbcode.php';
 
 /**
  * @param $src
