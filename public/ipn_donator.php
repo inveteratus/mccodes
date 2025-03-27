@@ -1,11 +1,4 @@
 <?php
-declare(strict_types=1);
-/**
- * MCCodes v2 by Dabomstew & ColdBlooded
- *
- * Repository: https://github.com/davemacaulay/mccodesv2
- * License: MIT License
- */
 
 global $db, $set;
 require_once('globals_nonauth.php');

@@ -1,5 +1,4 @@
 <?php
-declare(strict_types=1);
 global $db, $ir, $h;
 require __DIR__ . '/sglobals.php';
 if (!check_access('manage_roles')) {

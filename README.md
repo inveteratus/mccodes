@@ -12,8 +12,6 @@ Lots of things will change - crons will exist for a limited time, docker will be
 environment, but both of these features rely on you using a linux system or at least something that can emulate one
 reasonably accurately.
 
-Checkout the CHANGELOG.md for updates.
-
 ## Installation
 
 ```sh
