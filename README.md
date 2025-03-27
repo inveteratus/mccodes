@@ -35,8 +35,8 @@ Navigate to http://localhost:8080/ for the Adminer (MySQL admin tool) interface.
 Add to your crontab:
 
 ```sh
-*   * * * * cd docker exec -it mccodes-app-1 php crons/1m.php
-*/5 * * * * cd docker exec -it mccodes-app-1 php crons/5m.php
+*   * * * * docker exec -it mccodes-app-1 php crons/1m.php
+*/5 * * * * docker exec -it mccodes-app-1 php crons/5m.php
 ```
 
 ## Static Analysis
