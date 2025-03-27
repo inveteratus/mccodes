@@ -11,7 +11,7 @@ function parse_bgcolor(): array
 {
     $hexdec = '0-9abcdef';
     if (preg_match('`^[' . $hexdec . ']{6}$`ims', $_GET['bgcolor']) == 0
-            && preg_match('`^[' . $hexdec . ']+${3}`ims', $_GET['bgcolor'])
+            && preg_match('`^[' . $hexdec . ']{3}+$`ims', $_GET['bgcolor'])
                     == 0)
     {
         return [0, 0, 0];
