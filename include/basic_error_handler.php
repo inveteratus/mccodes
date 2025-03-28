@@ -1,15 +1,8 @@
 <?php
-declare(strict_types=1);
 
-/**
- * A very basic error handler, essentially just killing execution whenever
- * something goes wrong, or telling us more info if debug mode is on.
- * Can easily be replaced by a more robust one,
- * which e.g. logs raw error data somewhere for admin assessment
- */
 
 // Change to true to show the user more information (for development)
-const DEBUG = false;
+const DEBUG = true;
 
 /**
  * @param $human_error
@@ -35,29 +28,10 @@ function error_critical($human_error, $debug_error, $action): void
     {
         echo '<h1>Internal Server Error</h1>';
     }
-    if (DEBUG)
-    {
         echo 'A critical error has occurred, and page execution has stopped. '
                 . 'Below are the details:<br />' . $debug_error
                 . '<br /><br />' . '<strong>Action taken:</strong> ' . $action
                 . '<br /><br />';
-        // Only uncomment the below if you know what you're doing,
-        // for debug purposes.
-        //if (is_array($context) && count($context) > 0)
-        //{
-        //    echo '<strong>Context at error time:</strong> ' . '<br /><br />'
-        //            . nl2br(print_r($context, true));
-        //}
-    }
-    else
-    {
-        echo 'A critical error has occurred, and this page cannot be displayed. '
-                . 'Please try again later.';
-        if (!empty($human_error))
-        {
-            echo '<br />' . $human_error;
-        }
-    }
     exit;
 }
 

@@ -1411,12 +1411,6 @@ function move(): void
 {
     global $ir, $h, $db;
 
-    {
-        echo 'There seems to be a error somewhere.<br />
-        &gt; <a href="forums.php" title="Go Back">go back</a>';
-        $h->endpage();
-        exit;
-    }
     $_GET['topic'] =
             (isset($_GET['topic']) && is_numeric($_GET['topic']))
                     ? abs(intval($_GET['topic'])) : '';
@@ -1482,12 +1476,6 @@ function lock(): void
 {
     global $h, $db;
 
-    {
-        echo 'There seems to be a error somewhere.<br />
-        &gt; <a href="forums.php" title="Go Back">go back</a>';
-        $h->endpage();
-        exit;
-    }
     $_GET['topic'] =
             (isset($_GET['topic']) && is_numeric($_GET['topic']))
                     ? abs(intval($_GET['topic'])) : '';
@@ -1542,12 +1530,6 @@ function pin(): void
 {
     global $ir, $h, $db;
 
-    {
-        echo 'There seems to be a error somewhere.<br />
-        &gt; <a href="forums.php" title="Go Back">go back</a>';
-        $h->endpage();
-        exit;
-    }
     $_GET['topic'] =
             (isset($_GET['topic']) && is_numeric($_GET['topic']))
                     ? abs(intval($_GET['topic'])) : '';
@@ -1602,12 +1584,6 @@ function delepost(): void
 {
     global $ir, $h, $db;
 
-    {
-        echo 'There seems to be a error somewhere.<br />
-        &gt; <a href="forums.php" title="Go Back">go back</a>';
-        $h->endpage();
-        exit;
-    }
     $_GET['post'] =
             (isset($_GET['post']) && is_numeric($_GET['post']))
                     ? abs(intval($_GET['post'])) : '';

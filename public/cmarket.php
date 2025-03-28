@@ -133,10 +133,8 @@ function crystal_remove(): void
 function crystal_buy(): void
 {
     global $db, $ir, $userid, $h;
-    $_GET['ID'] =
-            (isset($_GET['ID']) && is_numeric($_GET['ID']))
-                    ? abs(intval($_GET['ID'])) : '';
-    if (empty($_GET['ID']))
+    $_GET['ID'] = array_key_exists('ID', $_GET) && ctype_digit($_GET['ID']) ? (int)$_GET['ID'] : 0;
+    if (!$_GET['ID'])
     {
         echo 'Something went wrong.<br />&gt; <a href="cmarket.php" alt="Go Back" title="Go Back">Go Back</a>';
         $h->endpage();
@@ -158,10 +156,8 @@ function crystal_buy(): void
     }
     $r = $db->fetch_row($q);
     $db->free_result($q);
-    $_POST['QTY'] =
-            (isset($_POST['QTY']) && is_numeric($_POST['QTY']))
-                    ? abs(intval($_POST['QTY'])) : '';
-    if ($_GET['ID'] > 0 && $_POST['QTY'])
+    $_POST['QTY'] = array_key_exists('QTY', $_POST) && ctype_digit($_POST['QTY']) ? (int)$_POST['QTY'] : 0;
+    if ($_POST['QTY'])
     {
         $cprice = $r['cmPRICE'] * $_POST['QTY'];
         if ($cprice > $ir['money'])
@@ -216,7 +212,7 @@ function crystal_buy(): void
 	><a href="cmarket.php">Back</a>
 	';
     }
-    elseif ($_GET['ID'] > 0 AND !$_POST['QTY'])
+    elseif ($_GET['ID'])
     {
 
         echo "

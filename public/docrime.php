@@ -40,13 +40,12 @@ else
     else
     {
         $ec =
-                '$sucrate='
-                        . str_replace(
+                'return ' . str_replace(
                                 ['LEVEL', 'CRIMEXP', 'EXP', 'WILL', 'IQ'],
                                 [$ir['level'], $ir['crimexp'],
                                         $ir['exp'], $ir['will'], $ir['IQ']],
                                 $r['crimePERCFORM']) . ';';
-        eval($ec);
+        $sucrate = eval($ec);
         print $r['crimeITEXT'];
         $ir['brave'] -= $r['crimeBRAVE'];
         $db->query(

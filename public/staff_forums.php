@@ -43,7 +43,7 @@ function addforum(): void
             (isset($_POST['auth'])
                     && in_array($_POST['auth'], ['staff', 'public'], true))
                     ? $_POST['auth'] : 'public';
-    if ($auth && $desc && $name)
+    if ($desc && $name)
     {
         staff_csrf_stdverify('staff_addforum',
                 'staff_forums.php?action=addforum');

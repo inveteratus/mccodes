@@ -2,11 +2,11 @@
 
 global $db, $ir, $userid, $h;
 require __DIR__ . '/../include/globals.php';
+
 $tresder = rand(100, 999);
 $maxbet = $ir['level'] * 150;
-$_GET['tresde'] =
-        (isset($_GET['tresde']) && is_numeric($_GET['tresde']))
-                ? abs(intval($_GET['tresde'])) : 0;
+
+$_GET['tresde'] = (isset($_GET['tresde']) && is_numeric($_GET['tresde'])) ? abs(intval($_GET['tresde'])) : 0;
 if (!isset($_SESSION['tresde']))
 {
     $_SESSION['tresde'] = 0;
@@ -21,6 +21,7 @@ if (($_SESSION['tresde'] == $_GET['tresde']) || $_GET['tresde'] < 100)
 $_SESSION['tresde'] = $_GET['tresde'];
 
 echo '<h3>Roulette: Pick a number between 0 - 36</h3>';
+
 if (isset($_POST['bet']) && is_numeric($_POST['bet']))
 {
     $_POST['bet'] = abs((int) $_POST['bet']);
@@ -28,6 +29,7 @@ if (isset($_POST['bet']) && is_numeric($_POST['bet']))
     {
         $_POST['number'] = 0;
     }
+
     $_POST['number'] = abs((int) $_POST['number']);
     if ($_POST['bet'] > $ir['money'])
     {
@@ -41,8 +43,7 @@ if (isset($_POST['bet']) && is_numeric($_POST['bet']))
                 "You have gone over the max bet.<br />
 		<a href='roulette.php?tresde=$tresder'>&gt; Back</a>");
     }
-    elseif ($_POST['number'] > 36 or $_POST['number'] < 0
-            or $_POST['bet'] < 0)
+    elseif ($_POST['number'] > 36)
     {
         die(
                 "The Numbers are only 0 - 36.<br />
