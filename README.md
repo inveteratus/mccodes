@@ -24,6 +24,7 @@ cd mccodes
 cp env.example .env
 docker compose up -d
 sh import.sh    # this will create the database
+chmod o+w cache
 ```
 
 Navigate to http://localhost:8000/ for the MCCodes game itself.
