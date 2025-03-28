@@ -31,6 +31,11 @@ class database
         return $statement;
     }
 
+    public function lastInsertId(): int
+    {
+        return (int)$this->db->lastInsertId();
+    }
+
     /**
      * @param $host
      * @param $user

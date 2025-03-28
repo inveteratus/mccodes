@@ -61,4 +61,5 @@ echo "<hr />Your Personal Notepad:<form action='index.php' method='post'>
         . htmlentities($ir['user_notepad'], ENT_QUOTES, 'ISO-8859-1')
         . "</textarea><br />
 <input type='submit' value='Update Notes' /></form>";
+
 $h->endpage();

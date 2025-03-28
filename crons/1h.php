@@ -1,129 +1,95 @@
 <?php
-declare(strict_types=1);
 
-namespace crons;
+require __DIR__ . '/../include/globals_nonauth.php';
 
-use crons\classes\Throwable;
-use database;
-use ParagonIE\EasyDB\EasyPlaceholder;
+global $db;
 
-if (!defined('CRON_FILE_INC')) {
-    exit;
-}
+$db->execute('UPDATE gangs SET gangCHOURS = gangCHOURS - 1 WHERE gangCRIME > 0 AND gangCHOURS > 0');
 
-/**
- *
- */
-final class CronOneHour extends CronHandler
-{
-    private static ?self $instance = null;
+$sql = <<<SQL
+    SELECT g.gangID, o.ocSTARTTEXT, o.ocSUCCTEXT, o.ocFAILTEXT, o.ocMINMONEY, o.ocMAXMONEY, o.ocID, o.ocNAME
+    FROM gangs g
+    LEFT JOIN orgcrimes o ON g.gangCRIME = o.ocID
+    WHERE g.gangCRIME > 0 AND g.gangCHOURS <= 0
+SQL;
+$rows = $db->execute($sql)->fetchAll(PDO::FETCH_ASSOC);
 
-    /**
-     * @param database|null $db
-     * @return self|null
-     */
-    public static function getInstance(?database $db): ?self
-    {
-        parent::getInstance($db);
-        if (self::$instance === null) {
-            self::$instance = new self($db);
+foreach ($rows as $r) {
+    $members = $db->execute('SELECT userid FROM users WHERE gang = :gang', ['gang' => $r['gangID']])
+        ->fetchAll(PDO::FETCH_OBJ);
+
+    if (random_int(1, 100) > 50) {
+        $cash = random_int($r['ocMINMONEY'], $r['ocMAXMONEY']);
+        $text = str_replace('{{$cash}}', money_formatter($cash), $r['ocSTARTTEXT'] . $r['ocSUCCTEXT']);
+
+        $sql = <<<SQL
+            UPDATE gangs SET gangMONEY = gangMONEY + :cash, gangCRIME = 0 WHERE gangID = :gangID
+        SQL;
+        $db->execute($sql, ['cash' => $cash, 'gangID' => $r['gangID']]);
+
+        $sql = <<<SQL
+            INSERT INTO oclogs (oclOC, oclGANG, oclLOG, oclRESULT, oclMONEY, ocCRIMEN, ocTIME)
+            VALUES (:oc, :gang, :text, :result, :cash, :crime, :time)
+        SQL;
+        $db->execute($sql, [
+            'oc' => $r['ocID'],
+            'gang' => $r['gangID'],
+            'text' => $text,
+            'result' => 'success',
+            'cash' => $cash,
+            'crime' => $r['ocNAME'],
+            'time' => time(),
+        ]);
+        $log_id = $db->lastInsertId();
+
+        $sql = <<<SQL
+            INSERT INTO events (evUSER, evTIME, evREAD, evTEXT) VALUES (:user, :time, :read, :text)
+        SQL;
+
+        foreach ($members as $member) {
+            $db->execute($sql, [
+                'user' => $member->userid,
+                'time' => time(),
+                'read' => 0,
+                'text' => <<<TEXT
+                    Your gang's organized crime succeeded! You may view the details be following this <a href="/oclog.php?ID=$log_id">link</a>
+                TEXT
+            ]);
         }
-        return self::$instance;
-    }
+    } else {
+        $cash = 0;
+        $text = str_replace('{{$cash}}', money_formatter($cash), $r['ocSTARTTEXT'] . $r['ocFAILTEXT']);
 
-    /**
-     * @param int $increments
-     * @return void
-     * @throws Throwable
-     */
-    public function doFullRun(int $increments): void
-    {
-        if (!empty($increments) && empty($this->pendingIncrements)) {
-            $this->pendingIncrements = $increments;
+        $sql = <<<SQL
+            UPDATE gangs SET gangMONEY = gangMONEY + :cash, gangCRIME = 0 WHERE gangID = :gangID
+        SQL;
+        $db->execute($sql, ['cash' => $cash, 'gangID' => $r['gangID']]);
+
+        $sql = <<<SQL
+            INSERT INTO oclogs (oclOC, oclGANG, oclLOG, oclRESULT, oclMONEY, ocCRIMEN, ocTIME)
+            VALUES (:oc, :gang, :text, :result, :cash, :crime, :time)
+        SQL;
+
+        $db->execute($sql, [
+            'oc' => $r['ocID'],
+            'gang' => $r['gangID'],
+            'text' => $text,
+            'result' => 'failure',
+            'cash' => $cash,
+            'crime' => $r['ocNAME'],
+            'time' => time(),
+        ]);
+        $log_id = $db->lastInsertId();
+
+        foreach ($members as $member) {
+            $db->execute($sql, [
+                'user' => $member->userid,
+                'time' => time(),
+                'read' => 0,
+                'text' => <<<TEXT
+                    Your gang's organized crime failed! You may view the details be following this <a href="/oclog.php?ID=$log_id">link</a>
+                TEXT
+            ]);
         }
-        parent::doFullRunActual([
-            'processGangCrimes',
-            'resetVerifiedStatus',
-        ], $this);
-    }
-
-    /**
-     * @return void
-     */
-    public function processGangCrimes(): void
-    {
-        $this->db->query(
-            'UPDATE gangs SET gangCHOURS = GREATEST(gangCHOURS - ' . $this->pendingIncrements . ', 0) WHERE gangCRIME > 0',
-        );
-        $this->updateAffectedRowCnt();
-        $q = $this->db->query(
-            'SELECT gangID,ocSTARTTEXT, ocSUCCTEXT, ocFAILTEXT, ocMINMONEY, ocMAXMONEY, ocID, ocNAME
-            FROM gangs AS g
-            INNER JOIN orgcrimes AS oc ON g.gangCRIME = oc.ocID
-            WHERE g.gangCRIME > 0 AND g.gangCHOURS <= 0'
-        );
-        while ($r = $this->db->fetch_row($q)) {
-            $suc = rand(0, 1);
-            if ($suc) {
-                $log = $r['ocSTARTTEXT'] . $r['ocSUCCTEXT'];
-                $muny = rand($r['ocMINMONEY'], $r['ocMAXMONEY']);
-                $log = $this->db->escape(str_replace('{muny}', (string)$muny, $log));
-                $this->db->query(
-                    'UPDATE gangs SET gangMONEY = gangMONEY + ' . $muny . ', gangCRIME = 0 WHERE gangID = ' . $r['gangID'],
-                );
-                $this->updateAffectedRowCnt();
-                $this->db->query(sprintf(
-                    'INSERT INTO oclogs (oclOC, oclGANG, oclLOG, oclRESULT, oclMONEY, ocCRIMEN, ocTIME)
-                    VALUES (%u, %u, \'%s\', \'success\', %u, \'%s\', %u)',
-                    $r['ocID'], $r['gangID'], $log, $muny, $r['ocNAME'], time(),
-                ));
-                $i = $this->db->insert_id();
-                $this->updateAffectedRowCnt();
-                $qm = $this->db->query(
-                    'SELECT userid FROM users WHERE gang = ' . $r['gangID'],
-                );
-                while ($rm = $this->db->fetch_row($qm)) {
-                    event_add($rm['userid'], 'Your Gang\'s Organised Crime Succeeded. Go <a href="oclog.php?ID=' . $i . '">here</a> to view the details.');
-                    $this->updateAffectedRowCnt();
-                }
-            } else {
-                $log = $r['ocSTARTTEXT'] . $r['ocFAILTEXT'];
-                $muny = 0;
-                $log = $this->db->escape(str_replace('{muny}', (string)$muny, $log));
-                $this->db->query(
-                    'UPDATE gangs SET gangCRIME = 0 WHERE gangID = ' . $r['gangID']
-                );
-                $this->updateAffectedRowCnt();
-                $this->db->query(sprintf(
-                    'INSERT INTO oclogs (oclOC, oclGANG, oclLOG, oclRESULT, oclMONEY, ocCRIMEN, ocTIME)
-                    VALUES (%u, %u, \'%s\', \'failure\', %u, \'%s\', %u)',
-                    $r['ocID'], $r['gangID'], $log, $muny, $r['ocNAME'], time(),
-                ));
-                $i = $this->db->insert_id();
-                $this->updateAffectedRowCnt();
-                $qm = $this->db->query(
-                    'SELECT userid FROM users WHERE gang = ' . $r['gangID'],
-                );
-                while ($rm = $this->db->fetch_row($qm)) {
-                    event_add($rm['userid'], 'Your Gang\'s Organised Crime Failed. Go <a href="oclog.php?ID=' . $i . '">here</a> to view the details.');
-                    $this->updateAffectedRowCnt();
-                }
-            }
-            $this->db->free_result($qm);
-        }
-        $this->db->free_result($q);
-    }
-
-    public function resetVerifiedStatus(): void
-    {
-        $this->db->query(
-            'UPDATE users SET verified = 0 WHERE verified > 0',
-        );
-        $this->updateAffectedRowCnt();
-    }
-
-    public function getClassName(): string
-    {
-        return __CLASS__;
     }
 }

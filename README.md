@@ -37,6 +37,7 @@ Add to your crontab:
 ```sh
 *   * * * * docker exec -it mccodes-app-1 php crons/1m.php
 */5 * * * * docker exec -it mccodes-app-1 php crons/5m.php
+0   * * * * docker exec -it mccodes-app-1 php crons/1h.php
 ```
 
 ## Static Analysis
