@@ -1,66 +1,30 @@
 <?php
 
-global $ir, $userid, $h, $set, $domain;
-require __DIR__ . '/../include/globals.php';
-$tresder = rand(100, 999);
-if ($ir['jail'] > 0 || $ir['hospital'] > 0)
-{
-    die('This page cannot be accessed while in jail or hospital.');
+require __DIR__ . '/../vendor/autoload.php';
+
+use App\Classes\ResponseEmitter;
+use App\Controllers\ExploreController;
+use Dotenv\Dotenv;
+use Dotenv\Repository\Adapter\EnvConstAdapter;
+use Dotenv\Repository\RepositoryBuilder;
+use Slim\Psr7\Factory\ServerRequestFactory;
+
+Dotenv::create(RepositoryBuilder::createWithNoAdapters()
+    ->addAdapter(EnvConstAdapter::class)
+    ->immutable()
+    ->make(), dirname(__DIR__)
+)->load();
+
+session_start(['name' => 'MCCSID']);
+if (!isset($_SESSION['started'])) {
+    session_regenerate_id();
+    $_SESSION['started'] = microtime(true);
 }
-echo "<b>You begin exploring the area you're in,
-		you see a bit that interests you.</b><br />
-<table width='75%'>
-	<tr height='100'>
-		<td valign='top'>
-			<u>Market Place</u><br />
-			<a href='shops.php'>Shops</a><br />
-			<a href='itemmarket.php'>Item Market</a><br />
-			<a href='cmarket.php'>Crystal Market</a>
-		</td>
-		<td valign='top'>
-			<u>Serious Money Makers</u><br />
-			<a href='monorail.php'>Travel Agency</a><br />
-			<a href='estate.php'>Estate Agent</a><br />
-			<a href='bank.php'>City Bank</a>";
-if ($ir['location'] == 5)
-{
-    echo "	<br />
-			<a href='cyberbank.php'>Cyber Bank</a><br />";
+
+if (!array_key_exists('userid', $_SESSION) || !is_numeric($_SESSION['userid']) || ($_SESSION['userid'] < 1)) {
+    header('Location: /login.php');
+    exit;
 }
-echo "	</td>
-		<td valign='top'>
-			<u>Dark Side</u><br />
-			<a href='gangcentral.php'>Gangs</a><br />
-			<a href='gangwars.php'>Gang Wars</a><br />
-			<a href='fedjail.php'>Federal Jail</a><br />
-			<a href='slotsmachine.php?tresde=$tresder'>Slots Machine</a><br />
-			<a href='roulette.php?tresde=$tresder'>Roulette</a><br />
-			<a href='lucky.php'>Lucky Boxes</a>";
-if ($ir['location'] == 5)
-{
-    echo "	<br />
-			<a href='slotsmachine3.php'>Super Slots</a><br />";
-}
-echo "	</td>
-	</tr>
-	<tr height='100'>
-		<td valign='top'>
-			<u>Statistics Dept</u><br />
-			<a href='userlist.php'>User List</a><br />
-			<a href='stafflist.php'>MCCodes Staff</a><br />
-			<a href='halloffame.php'>Hall of Fame</a><br />
-			<a href='stats.php'>Game Stats</a><br />
-			<a href='usersonline.php'>Users Online</a>
-		</td>
-		<td valign='top'>
-			<u>Mysterious</u><br />
-			<a href='crystaltemple.php'>Crystal Temple</a><br />
-			<a href='battletent.php'>Battle Tent</a><br />
-			<a href='polling.php'>Polling Booth</a><br />
-		</td>
-	</tr>
-</table>
-<br /><br />
-This is your referal link: <a href='/register.php?REF={$userid}'>/register.php?REF={$userid}</a><br />
-Every signup from this link earns you two valuable crystals!";
-$h->endpage();
+
+(new ResponseEmitter())
+    ->emit((new ExploreController())(ServerRequestFactory::createFromGlobals()->withAttribute('uid', $_SESSION['userid'])));

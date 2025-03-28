@@ -2,13 +2,7 @@
 
 @section('content')
     <main class="flex flex-grow flex-col p-3 space-y-3">
-        @if ($user->jail)
-            <div class="bg-red-500 text-white font-medium text-center py-2 rounded">You are in jail</div>
-        @elseif ($user->hospital)
-            <p class="bg-red-500 text-white font-medium text-center py-2 rounded">You are in hospital</p>
-        @else
-            {{-- Donate & Vote links --}}
-        @endif
+        @include('partials.alerts')
 
         <h2 class="text-3xl border-b border-slate-200 font-light text-slate-500">Home</h2>
 
