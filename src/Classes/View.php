@@ -4,6 +4,8 @@ namespace App\Classes;
 
 use eftec\bladeone\BladeOne;
 use Exception;
+use Psr\Http\Message\ResponseInterface;
+use Slim\Psr7\Factory\ResponseFactory;
 
 class View
 {
@@ -28,5 +30,13 @@ class View
         } catch (Exception $e) {
             die('<pre>' . $e->getMessage() . '</pre>');
         }
+    }
+
+    public function renderToResponse(string $view, array $context = []): ResponseInterface
+    {
+        $response = (new ResponseFactory())->createResponse();
+        $response->getBody()->write($this->blade->run($view, $context));
+
+        return $response;
     }
 }
