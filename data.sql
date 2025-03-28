@@ -25,15 +25,6 @@ LOCK TABLES `announcements` WRITE;
 UNLOCK TABLES;
 
 --
--- Dumping data for table `announcements2`
---
-
-LOCK TABLES `announcements2` WRITE;
-/*!40000 ALTER TABLE `announcements2` DISABLE KEYS */;
-/*!40000 ALTER TABLE `announcements2` ENABLE KEYS */;
-UNLOCK TABLES;
-
---
 -- Dumping data for table `applications`
 --
 
@@ -149,16 +140,6 @@ UNLOCK TABLES;
 LOCK TABLES `crimes` WRITE;
 /*!40000 ALTER TABLE `crimes` DISABLE KEYS */;
 /*!40000 ALTER TABLE `crimes` ENABLE KEYS */;
-UNLOCK TABLES;
-
---
--- Dumping data for table `cron_times`
---
-
-LOCK TABLES `cron_times` WRITE;
-/*!40000 ALTER TABLE `cron_times` DISABLE KEYS */;
-INSERT INTO `cron_times` VALUES (1,'minute-1','2025-03-27 21:43:00'),(2,'minute-5','2025-03-27 21:40:00'),(3,'hour-1','2025-03-27 21:00:00'),(4,'day-1','2025-03-27 00:00:00');
-/*!40000 ALTER TABLE `cron_times` ENABLE KEYS */;
 UNLOCK TABLES;
 
 --
@@ -397,25 +378,6 @@ LOCK TABLES `jobs` WRITE;
 UNLOCK TABLES;
 
 --
--- Dumping data for table `logs_cron_fails`
---
-
-LOCK TABLES `logs_cron_fails` WRITE;
-/*!40000 ALTER TABLE `logs_cron_fails` DISABLE KEYS */;
-/*!40000 ALTER TABLE `logs_cron_fails` ENABLE KEYS */;
-UNLOCK TABLES;
-
---
--- Dumping data for table `logs_cron_runtimes`
---
-
-LOCK TABLES `logs_cron_runtimes` WRITE;
-/*!40000 ALTER TABLE `logs_cron_runtimes` DISABLE KEYS */;
-INSERT INTO `logs_cron_runtimes` VALUES (1,'minute-1','2025-03-27 21:42:21','2025-03-27 21:42:21','2025-03-27 21:42:20',0),(2,'minute-5','2025-03-27 21:42:21','2025-03-27 21:42:21','2025-03-27 21:42:20',0),(3,'minute-1','2025-03-27 21:43:05','2025-03-27 21:43:05','2025-03-27 21:43:05',0);
-/*!40000 ALTER TABLE `logs_cron_runtimes` ENABLE KEYS */;
-UNLOCK TABLES;
-
---
 -- Dumping data for table `mail`
 --
 
@@ -508,16 +470,6 @@ LOCK TABLES `shops` WRITE;
 UNLOCK TABLES;
 
 --
--- Dumping data for table `staff_roles`
---
-
-LOCK TABLES `staff_roles` WRITE;
-/*!40000 ALTER TABLE `staff_roles` DISABLE KEYS */;
-INSERT INTO `staff_roles` VALUES (1,'Administrator',1,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0),(2,'Secretary',0,0,1,1,0,0,0,0,0,0,0,1,0,0,0,1,0,1,0,0,0,0,0,1,1,1),(3,'Assistant',0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,1,0,0,0,0,0,1,1,0);
-/*!40000 ALTER TABLE `staff_roles` ENABLE KEYS */;
-UNLOCK TABLES;
-
---
 -- Dumping data for table `stafflog`
 --
 
@@ -560,16 +512,6 @@ UNLOCK TABLES;
 LOCK TABLES `users` WRITE;
 /*!40000 ALTER TABLE `users` DISABLE KEYS */;
 /*!40000 ALTER TABLE `users` ENABLE KEYS */;
-UNLOCK TABLES;
-
---
--- Dumping data for table `users_roles`
---
-
-LOCK TABLES `users_roles` WRITE;
-/*!40000 ALTER TABLE `users_roles` DISABLE KEYS */;
-INSERT INTO `users_roles` VALUES (1,1,1);
-/*!40000 ALTER TABLE `users_roles` ENABLE KEYS */;
 UNLOCK TABLES;
 
 --

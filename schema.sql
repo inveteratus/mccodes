@@ -25,20 +25,7 @@ DROP TABLE IF EXISTS `announcements`;
 CREATE TABLE `announcements` (
   `a_text` text NOT NULL,
   `a_time` int NOT NULL DEFAULT '0'
-) ENGINE=MyISAM DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
-/*!40101 SET character_set_client = @saved_cs_client */;
-
---
--- Table structure for table `announcements2`
---
-
-DROP TABLE IF EXISTS `announcements2`;
-/*!40101 SET @saved_cs_client     = @@character_set_client */;
-/*!50503 SET character_set_client = utf8mb4 */;
-CREATE TABLE `announcements2` (
-  `a_text` text NOT NULL,
-  `a_time` int NOT NULL DEFAULT '0'
-) ENGINE=MyISAM DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
 /*!40101 SET character_set_client = @saved_cs_client */;
 
 --
@@ -54,7 +41,7 @@ CREATE TABLE `applications` (
   `appGANG` int NOT NULL DEFAULT '0',
   `appTEXT` text NOT NULL,
   PRIMARY KEY (`appID`)
-) ENGINE=MyISAM DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
 /*!40101 SET character_set_client = @saved_cs_client */;
 
 --
@@ -73,7 +60,7 @@ CREATE TABLE `attacklogs` (
   `stole` int NOT NULL DEFAULT '0',
   `attacklog` longtext NOT NULL,
   PRIMARY KEY (`log_id`)
-) ENGINE=MyISAM DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
 /*!40101 SET character_set_client = @saved_cs_client */;
 
 --
@@ -93,7 +80,7 @@ CREATE TABLE `bankxferlogs` (
   `cxTOIP` varchar(15) NOT NULL DEFAULT '127.0.0.1',
   `cxBANK` enum('bank','cyber') NOT NULL DEFAULT 'bank',
   PRIMARY KEY (`cxID`)
-) ENGINE=MyISAM DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
 /*!40101 SET character_set_client = @saved_cs_client */;
 
 --
@@ -109,7 +96,7 @@ CREATE TABLE `blacklist` (
   `bl_ADDED` int NOT NULL DEFAULT '0',
   `bl_COMMENT` varchar(255) NOT NULL DEFAULT '',
   PRIMARY KEY (`bl_ID`)
-) ENGINE=MyISAM DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
 /*!40101 SET character_set_client = @saved_cs_client */;
 
 --
@@ -128,7 +115,7 @@ CREATE TABLE `cashxferlogs` (
   `cxFROMIP` varchar(15) NOT NULL DEFAULT '127.0.0.1',
   `cxTOIP` varchar(15) NOT NULL DEFAULT '127.0.0.1',
   PRIMARY KEY (`cxID`)
-) ENGINE=MyISAM DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
 /*!40101 SET character_set_client = @saved_cs_client */;
 
 --
@@ -141,7 +128,7 @@ DROP TABLE IF EXISTS `challengebots`;
 CREATE TABLE `challengebots` (
   `cb_npcid` int NOT NULL DEFAULT '0',
   `cb_money` int NOT NULL DEFAULT '0'
-) ENGINE=MyISAM DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
 /*!40101 SET character_set_client = @saved_cs_client */;
 
 --
@@ -154,7 +141,7 @@ DROP TABLE IF EXISTS `challengesbeaten`;
 CREATE TABLE `challengesbeaten` (
   `userid` int NOT NULL DEFAULT '0',
   `npcid` int NOT NULL DEFAULT '0'
-) ENGINE=MyISAM DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
 /*!40101 SET character_set_client = @saved_cs_client */;
 
 --
@@ -170,7 +157,7 @@ CREATE TABLE `cities` (
   `citydesc` longtext NOT NULL,
   `cityminlevel` int NOT NULL DEFAULT '0',
   PRIMARY KEY (`cityid`)
-) ENGINE=MyISAM AUTO_INCREMENT=2 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
 /*!40101 SET character_set_client = @saved_cs_client */;
 
 --
@@ -185,7 +172,7 @@ CREATE TABLE `contactlist` (
   `cl_ADDER` int NOT NULL DEFAULT '0',
   `cl_ADDED` int NOT NULL DEFAULT '0',
   PRIMARY KEY (`cl_ID`)
-) ENGINE=MyISAM DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
 /*!40101 SET character_set_client = @saved_cs_client */;
 
 --
@@ -208,7 +195,7 @@ CREATE TABLE `courses` (
   `crAGIL` int NOT NULL DEFAULT '0',
   `crIQ` int NOT NULL DEFAULT '0',
   PRIMARY KEY (`crID`)
-) ENGINE=MyISAM DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
 /*!40101 SET character_set_client = @saved_cs_client */;
 
 --
@@ -221,7 +208,7 @@ DROP TABLE IF EXISTS `coursesdone`;
 CREATE TABLE `coursesdone` (
   `userid` int NOT NULL DEFAULT '0',
   `courseid` int NOT NULL DEFAULT '0'
-) ENGINE=MyISAM DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
 /*!40101 SET character_set_client = @saved_cs_client */;
 
 --
@@ -236,7 +223,7 @@ CREATE TABLE `crimegroups` (
   `cgNAME` varchar(255) NOT NULL DEFAULT '',
   `cgORDER` int NOT NULL DEFAULT '0',
   PRIMARY KEY (`cgID`)
-) ENGINE=MyISAM DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
 /*!40101 SET character_set_client = @saved_cs_client */;
 
 --
@@ -263,23 +250,7 @@ CREATE TABLE `crimes` (
   `crimeJREASON` varchar(255) NOT NULL DEFAULT '',
   `crimeXP` int NOT NULL DEFAULT '0',
   PRIMARY KEY (`crimeID`)
-) ENGINE=MyISAM DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
-/*!40101 SET character_set_client = @saved_cs_client */;
-
---
--- Table structure for table `cron_times`
---
-
-DROP TABLE IF EXISTS `cron_times`;
-/*!40101 SET @saved_cs_client     = @@character_set_client */;
-/*!50503 SET character_set_client = utf8mb4 */;
-CREATE TABLE `cron_times` (
-  `id` int NOT NULL AUTO_INCREMENT,
-  `name` varchar(32) NOT NULL,
-  `last_run` timestamp NULL DEFAULT NULL,
-  PRIMARY KEY (`id`),
-  UNIQUE KEY `name` (`name`)
-) ENGINE=InnoDB AUTO_INCREMENT=5 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
 /*!40101 SET character_set_client = @saved_cs_client */;
 
 --
@@ -295,7 +266,7 @@ CREATE TABLE `crystalmarket` (
   `cmADDER` int NOT NULL DEFAULT '0',
   `cmPRICE` int NOT NULL DEFAULT '0',
   PRIMARY KEY (`cmID`)
-) ENGINE=MyISAM DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
 /*!40101 SET character_set_client = @saved_cs_client */;
 
 --
@@ -314,7 +285,7 @@ CREATE TABLE `crystalxferlogs` (
   `cxFROMIP` varchar(15) NOT NULL DEFAULT '127.0.0.1',
   `cxTOIP` varchar(15) NOT NULL DEFAULT '127.0.0.1',
   PRIMARY KEY (`cxID`)
-) ENGINE=MyISAM DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
 /*!40101 SET character_set_client = @saved_cs_client */;
 
 --
@@ -332,7 +303,7 @@ CREATE TABLE `dps_accepted` (
   `dpTIME` int NOT NULL DEFAULT '0',
   `dpTXN` varchar(255) NOT NULL DEFAULT '',
   PRIMARY KEY (`dpID`)
-) ENGINE=MyISAM DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
 /*!40101 SET character_set_client = @saved_cs_client */;
 
 --
@@ -349,7 +320,7 @@ CREATE TABLE `events` (
   `evREAD` int NOT NULL DEFAULT '0',
   `evTEXT` text NOT NULL,
   PRIMARY KEY (`evID`)
-) ENGINE=MyISAM DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
 /*!40101 SET character_set_client = @saved_cs_client */;
 
 --
@@ -367,7 +338,7 @@ CREATE TABLE `fedjail` (
   `fed_reason` text NOT NULL,
   PRIMARY KEY (`fed_id`),
   UNIQUE KEY `fed_userid` (`fed_userid`)
-) ENGINE=MyISAM DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
 /*!40101 SET character_set_client = @saved_cs_client */;
 
 --
@@ -391,7 +362,7 @@ CREATE TABLE `forum_forums` (
   `ff_auth` enum('public','gang','staff') NOT NULL DEFAULT 'public',
   `ff_owner` int NOT NULL DEFAULT '0',
   PRIMARY KEY (`ff_id`)
-) ENGINE=MyISAM DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
 /*!40101 SET character_set_client = @saved_cs_client */;
 
 --
@@ -415,7 +386,7 @@ CREATE TABLE `forum_posts` (
   `fp_editor_time` int NOT NULL DEFAULT '0',
   `fp_edit_count` int NOT NULL DEFAULT '0',
   PRIMARY KEY (`fp_id`)
-) ENGINE=MyISAM DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
 /*!40101 SET character_set_client = @saved_cs_client */;
 
 --
@@ -440,7 +411,7 @@ CREATE TABLE `forum_topics` (
   `ft_pinned` tinyint NOT NULL DEFAULT '0',
   `ft_locked` tinyint NOT NULL DEFAULT '0',
   PRIMARY KEY (`ft_id`)
-) ENGINE=MyISAM DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
 /*!40101 SET character_set_client = @saved_cs_client */;
 
 --
@@ -456,7 +427,7 @@ CREATE TABLE `friendslist` (
   `fl_ADDED` int NOT NULL DEFAULT '0',
   `fl_COMMENT` varchar(255) NOT NULL DEFAULT '',
   PRIMARY KEY (`fl_ID`)
-) ENGINE=MyISAM DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
 /*!40101 SET character_set_client = @saved_cs_client */;
 
 --
@@ -472,7 +443,7 @@ CREATE TABLE `gangevents` (
   `gevTIME` int NOT NULL DEFAULT '0',
   `gevTEXT` text NOT NULL,
   PRIMARY KEY (`gevID`)
-) ENGINE=MyISAM DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
 /*!40101 SET character_set_client = @saved_cs_client */;
 
 --
@@ -498,7 +469,7 @@ CREATE TABLE `gangs` (
   `gangCHOURS` int NOT NULL DEFAULT '0',
   `gangAMENT` longtext NOT NULL,
   PRIMARY KEY (`gangID`)
-) ENGINE=MyISAM DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
 /*!40101 SET character_set_client = @saved_cs_client */;
 
 --
@@ -514,7 +485,7 @@ CREATE TABLE `gangwars` (
   `warDECLARED` int NOT NULL DEFAULT '0',
   `warTIME` int NOT NULL DEFAULT '0',
   PRIMARY KEY (`warID`)
-) ENGINE=MyISAM DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
 /*!40101 SET character_set_client = @saved_cs_client */;
 
 --
@@ -530,7 +501,7 @@ CREATE TABLE `houses` (
   `hPRICE` int NOT NULL DEFAULT '0',
   `hWILL` int NOT NULL DEFAULT '0',
   PRIMARY KEY (`hID`)
-) ENGINE=MyISAM AUTO_INCREMENT=2 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
 /*!40101 SET character_set_client = @saved_cs_client */;
 
 --
@@ -549,7 +520,7 @@ CREATE TABLE `imarketaddlogs` (
   `imaTIME` int NOT NULL DEFAULT '0',
   `imaCONTENT` text NOT NULL,
   PRIMARY KEY (`imaID`)
-) ENGINE=MyISAM DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
 /*!40101 SET character_set_client = @saved_cs_client */;
 
 --
@@ -570,7 +541,7 @@ CREATE TABLE `imbuylogs` (
   `imbTIME` int NOT NULL DEFAULT '0',
   `imbCONTENT` text NOT NULL,
   PRIMARY KEY (`imbID`)
-) ENGINE=MyISAM DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
 /*!40101 SET character_set_client = @saved_cs_client */;
 
 --
@@ -590,7 +561,7 @@ CREATE TABLE `imremovelogs` (
   `imrTIME` int NOT NULL DEFAULT '0',
   `imrCONTENT` text NOT NULL,
   PRIMARY KEY (`imrID`)
-) ENGINE=MyISAM DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
 /*!40101 SET character_set_client = @saved_cs_client */;
 
 --
@@ -606,7 +577,7 @@ CREATE TABLE `inventory` (
   `inv_userid` int NOT NULL DEFAULT '0',
   `inv_qty` int NOT NULL DEFAULT '0',
   PRIMARY KEY (`inv_id`)
-) ENGINE=MyISAM DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
 /*!40101 SET character_set_client = @saved_cs_client */;
 
 --
@@ -625,7 +596,7 @@ CREATE TABLE `itembuylogs` (
   `ibTIME` int NOT NULL DEFAULT '0',
   `ibCONTENT` text NOT NULL,
   PRIMARY KEY (`ibID`)
-) ENGINE=MyISAM DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
 /*!40101 SET character_set_client = @saved_cs_client */;
 
 --
@@ -643,7 +614,7 @@ CREATE TABLE `itemmarket` (
   `imCURRENCY` enum('money','crystals') NOT NULL DEFAULT 'money',
   `imQTY` int NOT NULL DEFAULT '0',
   PRIMARY KEY (`imID`)
-) ENGINE=MyISAM DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
 /*!40101 SET character_set_client = @saved_cs_client */;
 
 --
@@ -670,7 +641,7 @@ CREATE TABLE `items` (
   `weapon` int NOT NULL DEFAULT '0',
   `armor` int NOT NULL DEFAULT '0',
   PRIMARY KEY (`itmid`)
-) ENGINE=MyISAM DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
 /*!40101 SET character_set_client = @saved_cs_client */;
 
 --
@@ -689,7 +660,7 @@ CREATE TABLE `itemselllogs` (
   `isTIME` int NOT NULL DEFAULT '0',
   `isCONTENT` text NOT NULL,
   PRIMARY KEY (`isID`)
-) ENGINE=MyISAM DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
 /*!40101 SET character_set_client = @saved_cs_client */;
 
 --
@@ -703,7 +674,7 @@ CREATE TABLE `itemtypes` (
   `itmtypeid` int NOT NULL AUTO_INCREMENT,
   `itmtypename` varchar(255) NOT NULL DEFAULT '',
   PRIMARY KEY (`itmtypeid`)
-) ENGINE=MyISAM DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
 /*!40101 SET character_set_client = @saved_cs_client */;
 
 --
@@ -723,7 +694,7 @@ CREATE TABLE `itemxferlogs` (
   `ixFROMIP` varchar(255) NOT NULL DEFAULT '',
   `ixTOIP` varchar(255) NOT NULL DEFAULT '',
   PRIMARY KEY (`ixID`)
-) ENGINE=MyISAM DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
 /*!40101 SET character_set_client = @saved_cs_client */;
 
 --
@@ -741,7 +712,7 @@ CREATE TABLE `jaillogs` (
   `jaREASON` longtext NOT NULL,
   `jaTIME` int NOT NULL DEFAULT '0',
   PRIMARY KEY (`jaID`)
-) ENGINE=MyISAM DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
 /*!40101 SET character_set_client = @saved_cs_client */;
 
 --
@@ -763,7 +734,7 @@ CREATE TABLE `jobranks` (
   `jrLABOURN` int NOT NULL DEFAULT '0',
   `jrSTRN` int NOT NULL DEFAULT '0',
   PRIMARY KEY (`jrID`)
-) ENGINE=MyISAM DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
 /*!40101 SET character_set_client = @saved_cs_client */;
 
 --
@@ -780,47 +751,7 @@ CREATE TABLE `jobs` (
   `jDESC` varchar(255) NOT NULL DEFAULT '',
   `jOWNER` varchar(255) NOT NULL DEFAULT '',
   PRIMARY KEY (`jID`)
-) ENGINE=MyISAM DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
-/*!40101 SET character_set_client = @saved_cs_client */;
-
---
--- Table structure for table `logs_cron_fails`
---
-
-DROP TABLE IF EXISTS `logs_cron_fails`;
-/*!40101 SET @saved_cs_client     = @@character_set_client */;
-/*!50503 SET character_set_client = utf8mb4 */;
-CREATE TABLE `logs_cron_fails` (
-  `id` int NOT NULL AUTO_INCREMENT,
-  `cron` varchar(32) NOT NULL DEFAULT '',
-  `method` varchar(32) NOT NULL DEFAULT '',
-  `message` text,
-  `time_started` timestamp NULL DEFAULT NULL,
-  `time_finished` timestamp NULL DEFAULT NULL,
-  `time_logged` timestamp NOT NULL DEFAULT CURRENT_TIMESTAMP,
-  `handled` tinyint(1) NOT NULL DEFAULT '0',
-  PRIMARY KEY (`id`),
-  KEY `cron` (`cron`)
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
-/*!40101 SET character_set_client = @saved_cs_client */;
-
---
--- Table structure for table `logs_cron_runtimes`
---
-
-DROP TABLE IF EXISTS `logs_cron_runtimes`;
-/*!40101 SET @saved_cs_client     = @@character_set_client */;
-/*!50503 SET character_set_client = utf8mb4 */;
-CREATE TABLE `logs_cron_runtimes` (
-  `id` int NOT NULL AUTO_INCREMENT,
-  `cron` varchar(32) NOT NULL DEFAULT '',
-  `time_started` timestamp NULL DEFAULT NULL,
-  `time_finished` timestamp NULL DEFAULT NULL,
-  `time_logged` timestamp NOT NULL DEFAULT CURRENT_TIMESTAMP,
-  `updated_cnt` int NOT NULL DEFAULT '0',
-  PRIMARY KEY (`id`),
-  KEY `cron` (`cron`)
-) ENGINE=InnoDB AUTO_INCREMENT=4 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
 /*!40101 SET character_set_client = @saved_cs_client */;
 
 --
@@ -839,7 +770,7 @@ CREATE TABLE `mail` (
   `mail_subject` varchar(255) NOT NULL DEFAULT '',
   `mail_text` text NOT NULL,
   PRIMARY KEY (`mail_id`)
-) ENGINE=MyISAM DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
 /*!40101 SET character_set_client = @saved_cs_client */;
 
 --
@@ -859,7 +790,7 @@ CREATE TABLE `oclogs` (
   `ocCRIMEN` varchar(255) NOT NULL DEFAULT '',
   `ocTIME` int NOT NULL DEFAULT '0',
   PRIMARY KEY (`oclID`)
-) ENGINE=MyISAM DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
 /*!40101 SET character_set_client = @saved_cs_client */;
 
 --
@@ -879,7 +810,7 @@ CREATE TABLE `orgcrimes` (
   `ocMINMONEY` int NOT NULL DEFAULT '0',
   `ocMAXMONEY` int NOT NULL DEFAULT '0',
   PRIMARY KEY (`ocID`)
-) ENGINE=MyISAM DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
 /*!40101 SET character_set_client = @saved_cs_client */;
 
 --
@@ -891,7 +822,7 @@ DROP TABLE IF EXISTS `papercontent`;
 /*!50503 SET character_set_client = utf8mb4 */;
 CREATE TABLE `papercontent` (
   `content` longtext NOT NULL
-) ENGINE=MyISAM DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
 /*!40101 SET character_set_client = @saved_cs_client */;
 
 --
@@ -929,7 +860,7 @@ CREATE TABLE `polls` (
   `winner` int NOT NULL DEFAULT '0',
   `hidden` tinyint NOT NULL DEFAULT '0',
   PRIMARY KEY (`id`)
-) ENGINE=MyISAM DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
 /*!40101 SET character_set_client = @saved_cs_client */;
 
 --
@@ -945,7 +876,7 @@ CREATE TABLE `preports` (
   `prREPORTED` int NOT NULL DEFAULT '0',
   `prTEXT` longtext NOT NULL,
   PRIMARY KEY (`prID`)
-) ENGINE=MyISAM DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
 /*!40101 SET character_set_client = @saved_cs_client */;
 
 --
@@ -963,7 +894,7 @@ CREATE TABLE `referals` (
   `refREFERIP` varchar(15) NOT NULL DEFAULT '127.0.0.1',
   `refREFEDIP` varchar(15) NOT NULL DEFAULT '127.0.0.1',
   PRIMARY KEY (`refID`)
-) ENGINE=MyISAM DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
 /*!40101 SET character_set_client = @saved_cs_client */;
 
 --
@@ -979,7 +910,7 @@ CREATE TABLE `settings` (
   `conf_value` text NOT NULL,
   `data_type` varchar(16) NOT NULL DEFAULT 'string',
   PRIMARY KEY (`conf_id`)
-) ENGINE=MyISAM AUTO_INCREMENT=18 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
 /*!40101 SET character_set_client = @saved_cs_client */;
 
 --
@@ -994,7 +925,7 @@ CREATE TABLE `shopitems` (
   `sitemSHOP` int NOT NULL DEFAULT '0',
   `sitemITEMID` int NOT NULL DEFAULT '0',
   PRIMARY KEY (`sitemID`)
-) ENGINE=MyISAM DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
 /*!40101 SET character_set_client = @saved_cs_client */;
 
 --
@@ -1010,47 +941,7 @@ CREATE TABLE `shops` (
   `shopNAME` varchar(255) NOT NULL DEFAULT '',
   `shopDESCRIPTION` text NOT NULL,
   PRIMARY KEY (`shopID`)
-) ENGINE=MyISAM DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
-/*!40101 SET character_set_client = @saved_cs_client */;
-
---
--- Table structure for table `staff_roles`
---
-
-DROP TABLE IF EXISTS `staff_roles`;
-/*!40101 SET @saved_cs_client     = @@character_set_client */;
-/*!50503 SET character_set_client = utf8mb4 */;
-CREATE TABLE `staff_roles` (
-  `id` int NOT NULL AUTO_INCREMENT,
-  `name` varchar(255) NOT NULL DEFAULT '',
-  `administrator` tinyint(1) NOT NULL DEFAULT '0',
-  `credit_all_users` tinyint(1) NOT NULL DEFAULT '0',
-  `credit_item` tinyint(1) NOT NULL DEFAULT '0',
-  `credit_user` tinyint(1) NOT NULL DEFAULT '0',
-  `edit_newspaper` tinyint(1) NOT NULL DEFAULT '0',
-  `manage_challenge_bots` tinyint(1) NOT NULL DEFAULT '0',
-  `manage_cities` tinyint(1) NOT NULL DEFAULT '0',
-  `manage_courses` tinyint(1) NOT NULL DEFAULT '0',
-  `manage_crimes` tinyint(1) NOT NULL DEFAULT '0',
-  `manage_donator_packs` tinyint(1) NOT NULL DEFAULT '0',
-  `manage_forums` tinyint(1) NOT NULL DEFAULT '0',
-  `manage_gangs` tinyint(1) NOT NULL DEFAULT '0',
-  `manage_houses` tinyint(1) NOT NULL DEFAULT '0',
-  `manage_items` tinyint(1) NOT NULL DEFAULT '0',
-  `manage_jobs` tinyint(1) NOT NULL DEFAULT '0',
-  `manage_player_reports` tinyint(1) NOT NULL DEFAULT '0',
-  `manage_polls` tinyint(1) NOT NULL DEFAULT '0',
-  `manage_punishments` tinyint(1) NOT NULL DEFAULT '0',
-  `manage_roles` tinyint(1) NOT NULL DEFAULT '0',
-  `manage_shops` tinyint(1) NOT NULL DEFAULT '0',
-  `manage_staff` tinyint(1) NOT NULL DEFAULT '0',
-  `manage_users` tinyint(1) NOT NULL DEFAULT '0',
-  `mass_mail` tinyint(1) NOT NULL DEFAULT '0',
-  `use_staff_forums` tinyint(1) NOT NULL DEFAULT '0',
-  `view_logs` tinyint(1) NOT NULL DEFAULT '0',
-  `view_user_inventory` tinyint(1) NOT NULL DEFAULT '0',
-  PRIMARY KEY (`id`)
-) ENGINE=InnoDB AUTO_INCREMENT=4 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
 /*!40101 SET character_set_client = @saved_cs_client */;
 
 --
@@ -1067,7 +958,7 @@ CREATE TABLE `stafflog` (
   `action` varchar(255) NOT NULL DEFAULT '',
   `ip` varchar(15) NOT NULL DEFAULT '',
   PRIMARY KEY (`id`)
-) ENGINE=MyISAM DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
 /*!40101 SET character_set_client = @saved_cs_client */;
 
 --
@@ -1085,7 +976,7 @@ CREATE TABLE `staffnotelogs` (
   `snOLD` longtext NOT NULL,
   `snNEW` longtext NOT NULL,
   PRIMARY KEY (`snID`)
-) ENGINE=MyISAM DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
 /*!40101 SET character_set_client = @saved_cs_client */;
 
 --
@@ -1102,7 +993,7 @@ CREATE TABLE `surrenders` (
   `surTO` int NOT NULL DEFAULT '0',
   `surMSG` varchar(255) NOT NULL DEFAULT '',
   PRIMARY KEY (`surID`)
-) ENGINE=MyISAM DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
 /*!40101 SET character_set_client = @saved_cs_client */;
 
 --
@@ -1118,7 +1009,7 @@ CREATE TABLE `unjaillogs` (
   `ujaJAILED` int NOT NULL DEFAULT '0',
   `ujaTIME` int NOT NULL DEFAULT '0',
   PRIMARY KEY (`ujaID`)
-) ENGINE=MyISAM DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
 /*!40101 SET character_set_client = @saved_cs_client */;
 
 --
@@ -1199,22 +1090,7 @@ CREATE TABLE `users` (
   `force_logout` tinyint NOT NULL DEFAULT '0',
   `pass_salt` varchar(8) NOT NULL DEFAULT '',
   PRIMARY KEY (`userid`)
-) ENGINE=MyISAM AUTO_INCREMENT=2 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
-/*!40101 SET character_set_client = @saved_cs_client */;
-
---
--- Table structure for table `users_roles`
---
-
-DROP TABLE IF EXISTS `users_roles`;
-/*!40101 SET @saved_cs_client     = @@character_set_client */;
-/*!50503 SET character_set_client = utf8mb4 */;
-CREATE TABLE `users_roles` (
-  `id` int NOT NULL AUTO_INCREMENT,
-  `userid` int NOT NULL,
-  `staff_role` int NOT NULL,
-  PRIMARY KEY (`id`)
-) ENGINE=InnoDB AUTO_INCREMENT=2 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
 /*!40101 SET character_set_client = @saved_cs_client */;
 
 --
@@ -1232,7 +1108,7 @@ CREATE TABLE `userstats` (
   `labour` float NOT NULL DEFAULT '0',
   `IQ` float NOT NULL DEFAULT '0',
   PRIMARY KEY (`userid`)
-) ENGINE=MyISAM DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
 /*!40101 SET character_set_client = @saved_cs_client */;
 
 --
@@ -1245,7 +1121,7 @@ DROP TABLE IF EXISTS `votes`;
 CREATE TABLE `votes` (
   `userid` int NOT NULL DEFAULT '0',
   `list` varchar(255) NOT NULL DEFAULT ''
-) ENGINE=MyISAM DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
 /*!40101 SET character_set_client = @saved_cs_client */;
 
 --
@@ -1263,7 +1139,7 @@ CREATE TABLE `willps_accepted` (
   `dpTIME` int NOT NULL DEFAULT '0',
   `dpTXN` varchar(255) NOT NULL DEFAULT '',
   PRIMARY KEY (`dpID`)
-) ENGINE=MyISAM DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
 /*!40101 SET character_set_client = @saved_cs_client */;
 /*!40103 SET TIME_ZONE=@OLD_TIME_ZONE */;
 
