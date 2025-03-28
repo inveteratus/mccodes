@@ -4,3 +4,4 @@ parameters:
     - crons
     - include
     - public
+    - src
