@@ -53,6 +53,6 @@
     <a href="/helptutorial.php">Help Tutorial</a><br />
     <a href="/gamerules.php">Game Rules</a><br />
     <a href="/viewuser.php?u={{ $user->userid }}">My Profile</a><br />
-    <a href="/logout.php">Logout</a><br /><br />
+    <a href="/logout.php">Logout</a>
 
 </div>
