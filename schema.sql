@@ -1038,8 +1038,6 @@ CREATE TABLE `users` (
   `maxenergy` int NOT NULL DEFAULT '0',
   `hp` int NOT NULL DEFAULT '0',
   `maxhp` int NOT NULL DEFAULT '0',
-  `lastrest_life` int NOT NULL DEFAULT '0',
-  `lastrest_other` int NOT NULL DEFAULT '0',
   `location` int NOT NULL DEFAULT '0',
   `hospital` int NOT NULL DEFAULT '0',
   `jail` int NOT NULL DEFAULT '0',
