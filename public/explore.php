@@ -47,7 +47,7 @@ echo "	</td>
 		<td valign='top'>
 			<u>Statistics Dept</u><br />
 			<a href='userlist.php'>User List</a><br />
-			<a href='stafflist.php'>{$set['game_name']} Staff</a><br />
+			<a href='stafflist.php'>MCCodes Staff</a><br />
 			<a href='halloffame.php'>Hall of Fame</a><br />
 			<a href='stats.php'>Game Stats</a><br />
 			<a href='usersonline.php'>Users Online</a>

@@ -32,7 +32,7 @@ $db->configure($_CONFIG['hostname'], $_CONFIG['username'],
 $db->connect();
 $c = $db->connection_id;
 
-$set = $db->execute('SELECT conf_name, conf_value FROM settings')->fetchAll(PDO::FETCH_ASSOC);
+$set = $db->execute('SELECT conf_name, conf_value FROM settings')->fetchAll(PDO::FETCH_KEY_PAIR);
 $sql = <<<SQL
     SELECT u.*, us.*, j.*, jr.*, h.*, g.*, c.*
     FROM users u
@@ -61,13 +61,6 @@ if ($ir['force_logout'] > 0)
     session_destroy();
     $login_url = "/login.php";
     header("Location: {$login_url}");
-    exit;
-}
-global $macropage;
-if ($macropage && !$ir['verified'] && $set['validate_on'] == 1)
-{
-    $macro_url = "/macro1.php?refer=$macropage";
-    header("Location: {$macro_url}");
     exit;
 }
 check_level();
