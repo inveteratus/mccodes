@@ -84,7 +84,7 @@ echo "
 $q = $db->query('SELECT `content` FROM `papercontent`');
 $news = $db->fetch_single($q);
 $db->free_result($q);
-echo $set['game_name'] . ' Latest News:
+echo 'MCCodes Latest News:
 <br />
 ' . nl2br($news) . '
 <br />

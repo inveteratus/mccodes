@@ -31,47 +31,26 @@ $db->configure($_CONFIG['hostname'], $_CONFIG['username'],
         $_CONFIG['password'], $_CONFIG['database']);
 $db->connect();
 $c = $db->connection_id;
-$set = get_site_settings();
-global $jobquery, $housequery;
-if (isset($jobquery) && $jobquery)
-{
-    $is =
-            $db->query(
-                    "SELECT `u`.*, `us`.*, `j`.*, `jr`.*
-                     FROM `users` AS `u`
-                     INNER JOIN `userstats` AS `us`
-                     ON `u`.`userid`=`us`.`userid`
-                     LEFT JOIN `jobs` AS `j` ON `j`.`jID` = `u`.`job`
-                     LEFT JOIN `jobranks` AS `jr`
-                     ON `jr`.`jrID` = `u`.`jobrank`
-                     WHERE `u`.`userid` = {$userid}
-                     LIMIT 1");
-}
-elseif (isset($housequery) && $housequery)
-{
-    $is =
-            $db->query(
-                    "SELECT `u`.*, `us`.*, `h`.*
-                     FROM `users` AS `u`
-                     INNER JOIN `userstats` AS `us`
-                     ON `u`.`userid`=`us`.`userid`
-                     LEFT JOIN `houses` AS `h` ON `h`.`hWILL` = `u`.`maxwill`
-                     WHERE `u`.`userid` = {$userid}
-                     LIMIT 1");
-}
-else
-{
-    $is =
-            $db->query(
-                    "SELECT `u`.*, `us`.*
-                     FROM `users` AS `u`
-                     INNER JOIN `userstats` AS `us`
-                     ON `u`.`userid`=`us`.`userid`
-                     WHERE `u`.`userid` = {$userid}
-                     LIMIT 1");
-}
-$ir = $db->fetch_row($is);
-set_userdata_data_types($ir);
+
+$set = $db->execute('SELECT conf_name, conf_value FROM settings')->fetchAll(PDO::FETCH_ASSOC);
+$sql = <<<SQL
+    SELECT u.*, us.*, j.*, jr.*, h.*, g.*, c.*
+    FROM users u
+    LEFT JOIN userstats us USING (userid)
+    LEFT JOIN jobranks jr ON jr.jrID = u.jobrank
+    LEFT JOIN jobs j ON j.jID = jr.jrJOB
+    LEFT JOIN houses h ON h.hWILL = u.maxwill
+    LEFT JOIN gangs g ON g.gangID = u.gang
+    LEFT JOIN cities c ON c.cityID = u.location
+    WHERE u.userid = :userid
+SQL;
+
+$ir = $db->execute($sql, ['userid' => $userid])->fetch(PDO::FETCH_ASSOC);
+
+//echo '<pre>' . print_r($ir, true) . '</pre>';
+//exit;
+
+// set_userdata_data_types($ir);
 if ($ir['force_logout'] > 0)
 {
     $db->query(

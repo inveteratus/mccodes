@@ -1,14 +1,8 @@
 <?php
 
-/** @noinspection SpellCheckingInspection */
-if (!defined('JDSF45TJI'))
-{
-    echo 'This file cannot be accessed directly.';
-    die;
-}
 global $db, $c, $ir, $set;
-$hc = $set['hospital_count'];
-$jc = $set['jail_count'];
+$hc = $db->execute('SELECT COUNT(*) FROM users WHERE hospital > 0')->fetchColumn();
+$jc = $db->execute('SELECT COUNT(*) FROM users WHERE jail > 0')->fetchColumn();
 $ec = $ir['new_events'];
 $mc = $ir['new_mail'];
 if ($ir['hospital'])

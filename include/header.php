@@ -15,7 +15,7 @@ class headers
 <head>
 <meta http-equiv="Content-Type" content="text/html; charset=iso-8859-1" />
 <link href="css/game.css" type="text/css" rel="stylesheet" />
-<title>{$set['game_name']}</title>
+<title>MCCodes</title>
 </head>
 <body>
 <center>
@@ -150,7 +150,7 @@ OUT;
         if ($ir['jail']) {
             echo "<b>NB:</b> You are currently in jail for {$ir['jail']} minutes.<br />";
         }
-        echo "<a href='donator.php'><b>Donate to {$set['game_name']} now for game benefits!</b></a><br />";
+        echo "<a href='donator.php'><b>Donate to MCCodes now for game benefits!</b></a><br />";
     }
 
     /**
