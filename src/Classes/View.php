@@ -39,4 +39,9 @@ class View
 
         return $response;
     }
+
+    public function blade(): BladeOne
+    {
+        return $this->blade;
+    }
 }
