@@ -8,7 +8,7 @@
     </head>
     <body class="bg-slate-200 flex flex-col font-sans min-h-screen text-slate-700">
         <div class="bg-slate-50 max-w-5xl mx-auto w-full flex flex-col shadow-lg">
-            <img src="/title.jpg" alt="MCCodes" />
+            <img src="/masthead.jpeg" alt="MCCodes ... reborn" />
             <div class="flex">
                 @include('partials.sidebar')
                 @yield('content')
