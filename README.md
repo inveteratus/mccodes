@@ -27,7 +27,10 @@ sh import.sh    # this will create the database
 chmod o+w cache
 ```
 
-Navigate to http://localhost:8000/ for the MCCodes game itself.
+Navigate to http://localhost:8000/ for the MCCodes game itself. You can login with the credentials:
+
+* email - admin@example.com
+* password - secret
 
 Navigate to http://localhost:8080/ for the Adminer (MySQL admin tool) interface.
 

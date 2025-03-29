@@ -93,7 +93,7 @@ UNLOCK TABLES;
 
 LOCK TABLES `cities` WRITE;
 /*!40000 ALTER TABLE `cities` DISABLE KEYS */;
-INSERT INTO `cities` VALUES (1,'Default City','A standard city added to start you off',1);
+INSERT INTO `cities` VALUES (1,'London','The capital of the UK, a global financial hub, and home to landmarks such as Buckingham Palace and the Tower of London.',0),(2,'New York City','The most populous city in the U.S., known for Times Square, Wall Street, Broadway, and the Statue of Liberty.',0),(3,'Tokyo','Japan’s capital and the world\'s most populous metropolitan area, famous for its technology, cuisine, and culture.',0);
 /*!40000 ALTER TABLE `cities` ENABLE KEYS */;
 UNLOCK TABLES;
 
@@ -266,6 +266,7 @@ UNLOCK TABLES;
 
 LOCK TABLES `imarketaddlogs` WRITE;
 /*!40000 ALTER TABLE `imarketaddlogs` DISABLE KEYS */;
+INSERT INTO `imarketaddlogs` VALUES (1,1,50,1,1,1743251827,'Inveteratus added Cheezburger x2 to the item market for 50 money');
 /*!40000 ALTER TABLE `imarketaddlogs` ENABLE KEYS */;
 UNLOCK TABLES;
 
@@ -293,6 +294,7 @@ UNLOCK TABLES;
 
 LOCK TABLES `inventory` WRITE;
 /*!40000 ALTER TABLE `inventory` DISABLE KEYS */;
+INSERT INTO `inventory` VALUES (1,1,1,7),(2,2,1,4),(3,3,1,4),(4,1,1,5),(5,4,1,0);
 /*!40000 ALTER TABLE `inventory` ENABLE KEYS */;
 UNLOCK TABLES;
 
@@ -311,6 +313,7 @@ UNLOCK TABLES;
 
 LOCK TABLES `itemmarket` WRITE;
 /*!40000 ALTER TABLE `itemmarket` DISABLE KEYS */;
+INSERT INTO `itemmarket` VALUES (1,1,1,50,'money',2);
 /*!40000 ALTER TABLE `itemmarket` ENABLE KEYS */;
 UNLOCK TABLES;
 
@@ -320,6 +323,7 @@ UNLOCK TABLES;
 
 LOCK TABLES `items` WRITE;
 /*!40000 ALTER TABLE `items` DISABLE KEYS */;
+INSERT INTO `items` VALUES (1,1,'Cheezburger','Yum yum',150,100,1,1,'a:4:{s:4:\"stat\";s:6:\"energy\";s:3:\"dir\";s:3:\"pos\";s:8:\"inc_type\";s:6:\"figure\";s:10:\"inc_amount\";i:2;}',0,'a:4:{s:4:\"stat\";s:6:\"energy\";s:3:\"dir\";s:3:\"pos\";s:8:\"inc_type\";s:6:\"figure\";s:10:\"inc_amount\";i:0;}',0,'a:4:{s:4:\"stat\";s:6:\"energy\";s:3:\"dir\";s:3:\"pos\";s:8:\"inc_type\";s:6:\"figure\";s:10:\"inc_amount\";i:0;}',0,0),(2,2,'Dagger','Short and pointy',250,200,1,0,'a:4:{s:4:\"stat\";s:6:\"energy\";s:3:\"dir\";s:3:\"pos\";s:8:\"inc_type\";s:6:\"figure\";s:10:\"inc_amount\";i:0;}',0,'a:4:{s:4:\"stat\";s:6:\"energy\";s:3:\"dir\";s:3:\"pos\";s:8:\"inc_type\";s:6:\"figure\";s:10:\"inc_amount\";i:0;}',0,'a:4:{s:4:\"stat\";s:6:\"energy\";s:3:\"dir\";s:3:\"pos\";s:8:\"inc_type\";s:6:\"figure\";s:10:\"inc_amount\";i:0;}',5,0),(3,2,'Sword','Better than a dagger',750,650,1,0,'a:4:{s:4:\"stat\";s:6:\"energy\";s:3:\"dir\";s:3:\"pos\";s:8:\"inc_type\";s:6:\"figure\";s:10:\"inc_amount\";i:0;}',0,'a:4:{s:4:\"stat\";s:6:\"energy\";s:3:\"dir\";s:3:\"pos\";s:8:\"inc_type\";s:6:\"figure\";s:10:\"inc_amount\";i:0;}',0,'a:4:{s:4:\"stat\";s:6:\"energy\";s:3:\"dir\";s:3:\"pos\";s:8:\"inc_type\";s:6:\"figure\";s:10:\"inc_amount\";i:0;}',10,0),(4,3,'Leather Armor','Provides limited protection',800,600,1,0,'a:4:{s:4:\"stat\";s:6:\"energy\";s:3:\"dir\";s:3:\"pos\";s:8:\"inc_type\";s:6:\"figure\";s:10:\"inc_amount\";i:0;}',0,'a:4:{s:4:\"stat\";s:6:\"energy\";s:3:\"dir\";s:3:\"pos\";s:8:\"inc_type\";s:6:\"figure\";s:10:\"inc_amount\";i:0;}',0,'a:4:{s:4:\"stat\";s:6:\"energy\";s:3:\"dir\";s:3:\"pos\";s:8:\"inc_type\";s:6:\"figure\";s:10:\"inc_amount\";i:0;}',0,5);
 /*!40000 ALTER TABLE `items` ENABLE KEYS */;
 UNLOCK TABLES;
 
@@ -338,6 +342,7 @@ UNLOCK TABLES;
 
 LOCK TABLES `itemtypes` WRITE;
 /*!40000 ALTER TABLE `itemtypes` DISABLE KEYS */;
+INSERT INTO `itemtypes` VALUES (1,'Food'),(2,'weapons'),(3,'armour');
 /*!40000 ALTER TABLE `itemtypes` ENABLE KEYS */;
 UNLOCK TABLES;
 
@@ -475,6 +480,7 @@ UNLOCK TABLES;
 
 LOCK TABLES `stafflog` WRITE;
 /*!40000 ALTER TABLE `stafflog` DISABLE KEYS */;
+INSERT INTO `stafflog` VALUES (1,1,1743227318,'Added item type Food','172.20.0.1'),(2,1,1743227380,'Created item Chheseburger','172.20.0.1'),(3,1,1743227399,'Gave 10 of item ID 1 to user ID 1','172.20.0.1'),(4,1,1743228609,'Added item type weapons','172.20.0.1'),(5,1,1743228617,'Added item type armour','172.20.0.1'),(6,1,1743228663,'Created item Dagger','172.20.0.1'),(7,1,1743228760,'Created item Sword','172.20.0.1'),(8,1,1743228781,'Gave 5 of item ID 2 to user ID 1','172.20.0.1'),(9,1,1743228793,'Gave 5 of item ID 3 to user ID 1','172.20.0.1'),(10,1,1743248581,'Created item Leather Armor','172.20.0.1'),(11,1,1743248601,'Gave 1 of item ID 4 to user ID 1','172.20.0.1');
 /*!40000 ALTER TABLE `stafflog` ENABLE KEYS */;
 UNLOCK TABLES;
 
@@ -511,6 +517,7 @@ UNLOCK TABLES;
 
 LOCK TABLES `users` WRITE;
 /*!40000 ALTER TABLE `users` DISABLE KEYS */;
+INSERT INTO `users` VALUES (1,'Admin','7b23ebf0c53d007bc0f69c78b11811a0','99270494','admin@example.com',1,0,0,0,1743252409,'172.20.0.1',0,4,92,100,5,5,12,100,100,1,0,0,'',0,2,'Male',1,1743174729,0,0,0,0,0,0,'','','',0,-1,'',0,'','','172.20.0.1','',1743245177,'',0,0,0,0,'',0,'','',0,0,0,0,0,0,'',3,2,4,0);
 /*!40000 ALTER TABLE `users` ENABLE KEYS */;
 UNLOCK TABLES;
 
@@ -520,6 +527,7 @@ UNLOCK TABLES;
 
 LOCK TABLES `userstats` WRITE;
 /*!40000 ALTER TABLE `userstats` DISABLE KEYS */;
+INSERT INTO `userstats` VALUES (1,24.3547,25.258,31.61,10,10);
 /*!40000 ALTER TABLE `userstats` ENABLE KEYS */;
 UNLOCK TABLES;
 
@@ -550,4 +558,4 @@ UNLOCK TABLES;
 /*!40101 SET COLLATION_CONNECTION=@OLD_COLLATION_CONNECTION */;
 /*!40111 SET SQL_NOTES=@OLD_SQL_NOTES */;
 
--- Dump completed on 2025-03-27 21:43:16
+-- Dump completed on 2025-03-29 12:47:45
