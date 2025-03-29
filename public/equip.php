@@ -27,4 +27,4 @@ if (!array_key_exists('userid', $_SESSION) || !is_numeric($_SESSION['userid']) |
 }
 
 (new ResponseEmitter())
-    ->emit((new InventoryController())->unequip(ServerRequestFactory::createFromGlobals()->withAttribute('uid', $_SESSION['userid'])));
+    ->emit((new InventoryController())->equip(ServerRequestFactory::createFromGlobals()->withAttribute('uid', $_SESSION['userid'])));
