@@ -11,7 +11,7 @@ use Psr\Http\Message\ResponseInterface;
 use Psr\Http\Message\ServerRequestInterface;
 use Slim\Psr7\Factory\ResponseFactory;
 
-class LoginController extends Controller
+class LoginController
 {
     #[Inject]
     protected Database $db;

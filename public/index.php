@@ -16,19 +16,12 @@ use App\Repositories\InventoryRepository;
 use DI\ContainerBuilder;
 use Dotenv\Dotenv;
 use Dotenv\Repository\Adapter\ArrayAdapter;
-use Dotenv\Repository\Adapter\EnvConstAdapter;
 use Dotenv\Repository\RepositoryBuilder;
 use FastRoute\Dispatcher;
 use FastRoute\RouteCollector;
 use Psr\Container\ContainerInterface;
 use Slim\Psr7\Factory\ServerRequestFactory;
 use function FastRoute\simpleDispatcher;
-
-Dotenv::create(RepositoryBuilder::createWithNoAdapters()
-    ->addAdapter(EnvConstAdapter::class)
-    ->immutable()
-    ->make(), dirname(__DIR__)
-)->load();
 
 session_start(['name' => 'MCCSID']);
 if (!isset($_SESSION['started'])) {
@@ -49,8 +42,8 @@ $container = (new ContainerBuilder())
             $env = $container->get('env');
             return new Database(
                 dsn: "mysql:host={$env['MYSQL_HOST']};charset=utf8mb4;dbname={$env['MYSQL_DATABASE']}",
-                user: $_ENV['MYSQL_USER'],
-                password: $_ENV['MYSQL_PASSWORD']
+                user: $env['MYSQL_USER'],
+                password: $env['MYSQL_PASSWORD']
             );
         },
 
@@ -81,7 +74,6 @@ $dispatcher = simpleDispatcher(function (RouteCollector $collector) {
     $collector->addRoute('POST', '/login', [LoginController::class, 'login']);
     $collector->addRoute('GET', '/register', RegisterController::class);
     $collector->addRoute('POST', '/register', [RegisterController::class, 'register']);
-
 
     # Authorised routes
     $collector->addRoute('POST', '/logout', LogoutController::class);

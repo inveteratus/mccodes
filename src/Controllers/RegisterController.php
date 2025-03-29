@@ -2,13 +2,21 @@
 
 namespace App\Controllers;
 
+use App\Classes\Database;
+use App\Classes\View;
+use DI\Attribute\Inject;
 use Fig\Http\Message\StatusCodeInterface;
 use Psr\Http\Message\ResponseInterface;
 use Psr\Http\Message\ServerRequestInterface;
 use Slim\Psr7\Factory\ResponseFactory;
 
-class RegisterController extends Controller
+class RegisterController
 {
+    #[Inject]
+    protected Database $db;
+    #[Inject]
+    protected View $view;
+
     public function __invoke(ServerRequestInterface $request): ResponseInterface
     {
         return $this->view->renderToResponse('register');
