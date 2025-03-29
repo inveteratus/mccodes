@@ -2,6 +2,9 @@
 
 namespace App\Controllers;
 
+use App\Classes\Database;
+use App\Classes\View;
+use DI\Attribute\Inject;
 use Fig\Http\Message\StatusCodeInterface;
 use PDO;
 use Psr\Http\Message\ResponseInterface;
@@ -10,38 +13,59 @@ use Slim\Psr7\Factory\ResponseFactory;
 
 class LoginController extends Controller
 {
+    #[Inject]
+    protected Database $db;
+    #[Inject]
+    protected View $view;
+
     public function __invoke(ServerRequestInterface $request): ResponseInterface
     {
-        $email = $error = '';
+        return $this->view->renderToResponse('login');
+    }
 
-        if ($request->getMethod() === 'POST') {
-            $email = $this->post($request, 'email');
-            $password = $this->post($request, 'password');
+    public function login(ServerRequestInterface $request): ResponseInterface
+    {
+        $errors = [];
 
-            if (strlen($email) && strlen($password)) {
-                $user = $this->getUser($email);
-                if ($user && !strcmp($user->password, md5($user->salt . md5($password)))) {
-                    $this->updateLastLogin($user->id);
+        $email = $this->post($request, 'email');
+        $password = $this->post($request, 'password');
 
-                    $_SESSION['userid'] = (int)$user->id;
-                    $_SESSION['loggedin'] = true;
-
-                    session_regenerate_id();
-                    session_write_close();
-
-                    return (new ResponseFactory())
-                        ->createResponse(StatusCodeInterface::STATUS_FOUND)
-                        ->withHeader('Location', '/loggedin.php');
-                }
-
-                $error = 'Invalid Credentials';
-            }
+        if (!strlen($email)) {
+            $errors['email'] = 'Email is required';
+        } elseif (!filter_var($email, FILTER_VALIDATE_EMAIL)) {
+            $errors['email'] = 'Email must be a valid email address';
         }
 
-        return $this->view->renderToResponse('login', [
-            'email' => $email,
-            'error' => $error,
-        ]);
+        if (!strlen($password)) {
+            $errors['password'] = 'Password is required';
+        }
+
+        if (!count($errors)) {
+            $user = $this->getUser($email);
+            if ($user && !strcmp($user->password, md5($user->salt . md5($password)))) {
+                $this->updateLastLogin($user->id);
+
+                $_SESSION['userid'] = (int)$user->id;
+                $_SESSION['loggedin'] = true;
+
+                session_regenerate_id();
+                session_write_close();
+
+                return (new ResponseFactory())
+                    ->createResponse(StatusCodeInterface::STATUS_FOUND)
+                    ->withHeader('Location', '/home');
+            }
+
+            $errors['email'] = 'Invalid Credentials';
+        }
+
+        $_SESSION['errors'] = $errors;
+        $_SESSION['old'] = ['email' => $email];
+        session_write_close();
+
+        return (new ResponseFactory())
+            ->createResponse(StatusCodeInterface::STATUS_FOUND)
+            ->withHeader('Location', '/login');
     }
 
     private function post(ServerRequestInterface $request, string $field): string

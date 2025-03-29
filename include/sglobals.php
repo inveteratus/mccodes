@@ -41,8 +41,7 @@ require __DIR__ . '/global_func.php';
 $domain = determine_game_urlbase();
 if (!isset($_SESSION['loggedin']) || $_SESSION['loggedin'] == 0)
 {
-    $login_url = "/login.php";
-    header("Location: {$login_url}");
+    header("Location: /login");
     exit;
 }
 $userid = (int)($_SESSION['userid'] ?? 0);
@@ -106,13 +105,12 @@ if ($ir['force_logout'] > 0)
     		 WHERE `userid` = {$userid}");
     session_unset();
     session_destroy();
-    $login_url = "/login.php";
-    header("Location: {$login_url}");
+    header("Location: /login");
     exit;
 }
 if (!is_staff())
 {
-    echo 'This page cannot be accessed.<br />&gt; <a href="index.php">Go Home</a>';
+    echo 'This page cannot be accessed.<br />&gt; <a href="/home">Go Home</a>';
     die;
 }
 check_level();

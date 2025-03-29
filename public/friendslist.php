@@ -309,7 +309,7 @@ Changing a comment.
         }
         else
         {
-            echo 'It would be impossible to edit something which isn\'t yours.<br /> &gt; <a href="index.php">Go Home</a>';
+            echo 'It would be impossible to edit something which isn\'t yours.<br /> &gt; <a href="/home">Go Home</a>';
         }
     }
 }

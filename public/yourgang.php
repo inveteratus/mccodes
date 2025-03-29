@@ -49,7 +49,7 @@ else
     if ($db->num_rows($gq) == 0)
     {
         echo "Error: Your gang has been deleted.<br />
-        &gt; <a href='index.php'>Home</a>";
+        &gt; <a href='/home'>Home</a>";
         $h->endpage();
         exit;
     }
@@ -525,7 +525,7 @@ function gang_donate2(): void
             . ", '{$gang_event}')");
         echo 'You donated ' . money_formatter($_POST['money'])
             . " and/or {$_POST['crystals']} crystals to the Gang.<br />
-              &gt; <a href='index.php'>Go Home</a>";
+              &gt; <a href='/home'>Go Home</a>";
     }
 }
 

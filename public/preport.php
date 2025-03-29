@@ -47,7 +47,7 @@ if ($_POST['report'] && $_POST['player'])
             "INSERT INTO `preports`
              VALUES(NULL, $userid, {$_POST['player']}, '{$_POST['report']}')");
     echo 'Report processed!<br />
-    &gt; <a href="index.php">Home</a>';
+    &gt; <a href="/home">Home</a>';
 }
 else
 {

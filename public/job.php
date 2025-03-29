@@ -65,7 +65,7 @@ if (!$ir['job'])
 			<br />
             {$ir['username']}: Thanks!
 			<br />
-			&gt; <a href='index.php'>Go Home</a>
+			&gt; <a href='/home'>Go Home</a>
      		";
         }
         else
@@ -91,7 +91,7 @@ if (!$ir['job'])
             echo "
 			before you'll be able to work here!
 			<br />
-			&gt; <a href='index.php'>Go Home</a>
+			&gt; <a href='/home'>Go Home</a>
    			";
         }
     }

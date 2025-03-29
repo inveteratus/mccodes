@@ -42,7 +42,7 @@ if ($ir['cybermoney'] > -1)
                              WHERE `userid` = $userid");
     } else {
         echo "You do not have enough money to open an account.
-<a href='explore.php'>Back to town...</a>";
+<a href='/explore'>Back to town...</a>";
     }
 } else {
     echo 'Open a bank account today, just ' . money_formatter($bank_cost)

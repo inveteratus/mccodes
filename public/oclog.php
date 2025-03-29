@@ -8,7 +8,7 @@ $_GET['ID'] =
 if (empty($_GET['ID']))
 {
     echo 'Invalid command.<br />
-    &gt; <a href="index.php">Go Home</a>';
+    &gt; <a href="/home">Go Home</a>';
     $h->endpage();
     exit;
 }
@@ -21,7 +21,7 @@ if ($db->num_rows($q) == 0)
 {
     $db->free_result($q);
     echo 'Invalid OC.<br />
-    &gt; <a href="index.php">Go Home</a>';
+    &gt; <a href="/home">Go Home</a>';
     $h->endpage();
     exit;
 }

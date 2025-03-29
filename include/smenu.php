@@ -2,7 +2,7 @@
 
 global $db, $c, $ir, $set;
 
-echo "&gt; <a href='index.php'>Back To Game</a><hr />
+echo "&gt; <a href='/home'>Back To Game</a><hr />
 <b>General</b><br />
 &gt; <a href='staff.php'>Index</a><br />";
 echo "

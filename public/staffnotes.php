@@ -13,7 +13,7 @@ $_POST['staffnotes'] =
         : '';
 if (empty($_POST['ID']) || empty($_POST['staffnotes'])) {
     echo 'You must enter data for this to work.
-    <br />&gt; <a href="index.php">Go Home</a>';
+    <br />&gt; <a href="/home">Go Home</a>';
     $h->endpage();
     exit;
 }
@@ -25,7 +25,7 @@ $q =
 if ($db->num_rows($q) == 0) {
     $db->free_result($q);
     echo 'That user does not exist.
-    <br />&gt; <a href="index.php">Go Home</a>';
+    <br />&gt; <a href="/home">Go Home</a>';
     $h->endpage();
     exit;
 }

@@ -333,7 +333,7 @@ function do_pic_change(): void
                     . '"
              WHERE `userid` = ' . $userid);
     echo 'Pic changed!<br />
-        &gt; <a href="index.php">Go Home</a>';
+        &gt; <a href="/home">Go Home</a>';
 }
 
 /**
@@ -420,6 +420,6 @@ function do_forum_change(): void
              `forums_signature` = '{$_POST['forums_signature']}'
              WHERE `userid` = $userid");
     echo 'Forum Info changed!<br />
-    &gt; <a href="index.php">Go Home</a>';
+    &gt; <a href="/home">Go Home</a>';
 }
 $h->endpage();

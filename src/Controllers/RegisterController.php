@@ -2,65 +2,73 @@
 
 namespace App\Controllers;
 
+use Fig\Http\Message\StatusCodeInterface;
 use Psr\Http\Message\ResponseInterface;
 use Psr\Http\Message\ServerRequestInterface;
+use Slim\Psr7\Factory\ResponseFactory;
 
 class RegisterController extends Controller
 {
     public function __invoke(ServerRequestInterface $request): ResponseInterface
     {
-        $name = $email = '';
+        return $this->view->renderToResponse('register');
+    }
+
+    public function register(ServerRequestInterface $request): ResponseInterface
+    {
         $errors = [];
 
-        if ($request->getMethod() === 'POST') {
-            $name = $this->post($request, 'name');
-            $email = $this->post($request, 'email');
-            $password = $this->post($request, 'password');
-            $confirm = $this->post($request, 'confirm');
+        $name = $this->post($request, 'name');
+        $email = $this->post($request, 'email');
+        $password = $this->post($request, 'password');
+        $confirm = $this->post($request, 'confirm');
 
-            if (!strlen($name)) {
-                $errors['name'] = 'Name is required';
-            } elseif (strlen($name) > 25) {
-                $errors['name'] = 'Name cannot be longer than 25 characters';
-            } elseif ($this->nameExists($name)) {
-                $errors['name'] = 'Name already exists';
-            }
-
-            if (!strlen($email)) {
-                $errors['email'] = 'Email is required';
-            } elseif (!filter_var($email, FILTER_VALIDATE_EMAIL)) {
-                $errors['email'] = 'Email must be a valid email address';
-            } elseif (strlen($name) > 25) {
-                $errors['name'] = 'Email cannot be longer than 255 characters';
-            } elseif ($this->emailExists($email)) {
-                $errors['email'] = 'Email already exists';
-            }
-
-            if (!strlen($password)) {
-                $errors['password'] = 'Password is required';
-            } else if (strlen($password) < 8) {
-                $errors['password'] = 'Password must be at least 8 characters';
-            } elseif ($password !== $confirm) {
-                $errors['password'] = 'Passwords do not match';
-            }
-
-            if (!count($errors)) {
-                $_SESSION['userid'] = $this->createUser($name, $email, $password);
-                $_SESSION['loggedin'] = true;
-
-                session_regenerate_id();
-                session_write_close();
-
-                header('Location: /loggedin.php');
-                exit;
-            }
+        if (!strlen($name)) {
+            $errors['name'] = 'Name is required';
+        } elseif (strlen($name) > 25) {
+            $errors['name'] = 'Name cannot be longer than 25 characters';
+        } elseif ($this->nameExists($name)) {
+            $errors['name'] = 'Name already exists';
         }
 
-        return $this->view->renderToResponse('register', [
-            'name' => $name,
-            'email' => $email,
-            'errors' => $errors,
-        ]);
+        if (!strlen($email)) {
+            $errors['email'] = 'Email is required';
+        } elseif (!filter_var($email, FILTER_VALIDATE_EMAIL)) {
+            $errors['email'] = 'Email must be a valid email address';
+        } elseif (strlen($name) > 25) {
+            $errors['name'] = 'Email cannot be longer than 255 characters';
+        } elseif ($this->emailExists($email)) {
+            $errors['email'] = 'Email already exists';
+        }
+
+        if (!strlen($password)) {
+            $errors['password'] = 'Password is required';
+        } else if (strlen($password) < 8) {
+            $errors['password'] = 'Password must be at least 8 characters';
+        } elseif ($password !== $confirm) {
+            $errors['password'] = 'Passwords do not match';
+        }
+
+        if (!count($errors)) {
+            $_SESSION['userid'] = $this->createUser($name, $email, $password);
+            $_SESSION['loggedin'] = true;
+
+            session_regenerate_id();
+            session_write_close();
+
+            return (new ResponseFactory())
+                ->createResponse(StatusCodeInterface::STATUS_FOUND)
+                ->withHeader('Location', '/home');
+        }
+
+        $_SESSION['errors'] = $errors;
+        $_SESSION['old'] = ['name' => $name, 'email' => $email];
+
+        session_write_close();
+
+        return (new ResponseFactory())
+            ->createResponse(StatusCodeInterface::STATUS_FOUND)
+            ->withHeader('Location', '/register');
     }
 
     private function post(ServerRequestInterface $request, string $field): string

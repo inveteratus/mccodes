@@ -1,12 +1,12 @@
 <div class="text-center text-sm">
     @if ($user->hospital > 0)
         <a href="/hospital.php">Hospital (...)</a><br />
-        <a href="inventory.php">Inventory</a><br />
+        <a href="/inventory">Inventory</a><br />
     @elseif ($user->jail > 0)
         <a href="jail.php">Jail (...)</a><br />
     @else
-        <a href="/">Home</a><br />
-        <a href="/inventory.php">Inventory</a><br />
+        <a href="/home">Home</a><br />
+        <a href="/inventory">Inventory</a><br />
     @endif
 
     <a href="/events.php">Events (...)</a><br />
@@ -16,7 +16,7 @@
         <a href="/gym.php">Jail Gym</a><br />
         <a href="/hospital.php">Hospital (...)</a><br />
     @elseif (!$user->hospital)
-        <a href="/explore.php">Explore</a><br />
+        <a href="/explore">Explore</a><br />
         <a href="/gym.php">Gym</a><br />
         <a href="/criminal.php">Crimes</a><br />
         <a href="/job.php">Your Job</a><br />
@@ -53,6 +53,8 @@
     <a href="/helptutorial.php">Help Tutorial</a><br />
     <a href="/gamerules.php">Game Rules</a><br />
     <a href="/viewuser.php?u={{ $user->userid }}">My Profile</a><br />
-    <a href="/logout.php">Logout</a>
+    <form action="/logout" method="post">
+        <button type="submit" class="cursor-pointer">Logout</button>
+    </form>
 
 </div>

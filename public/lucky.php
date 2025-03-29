@@ -59,12 +59,12 @@ if (isset($_GET['open']) && $_GET['open'])
     }
     echo "<hr />
 	<a href='lucky.php?open=1'>Open Another</a><br />
-	<a href='explore.php'>Back to Town</a>";
+	<a href='/explore'>Back to Town</a>";
 }
 else
 {
     echo "A man comes up to you and whispers, \"I have magical boxes, I let you open one for {$bc_format}. You can open a maximum of 5 a day. Deal or no deal?<hr />
 	<a href='lucky.php?open=1'>Okay, open one.</a><br />
-	<a href='explore.php'>No thanks.</a>";
+	<a href='/explore'>No thanks.</a>";
 }
 $h->endpage();

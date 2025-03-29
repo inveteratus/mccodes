@@ -37,7 +37,7 @@ if (!empty($_POST['user']) && !empty($_POST['reason'])
     event_add($_POST['user'],
         "You were banned from mail for {$_POST['days']} day(s) for the following reason: {$_POST['reason']}");
     echo 'User was mail banned.<br />
-    &gt; <a href="index.php">Go Home</a>';
+    &gt; <a href="/home">Go Home</a>';
 }
 else
 {

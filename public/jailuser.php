@@ -40,7 +40,7 @@ if (!empty($_POST['user']) && !empty($_POST['reason'])
              VALUES(NULL, $userid, {$_POST['user']}, {$_POST['days']},
              '{$_POST['reason']}', " . time() . ')');
     echo 'User was fedded.<br />
-    &gt; <a href="index.php">Go Home</a>';
+    &gt; <a href="/home">Go Home</a>';
 }
 else
 {

@@ -2,31 +2,33 @@
 
 namespace App\Controllers;
 
+use App\Classes\Database;
+use App\Classes\View;
+use App\Repositories\InventoryRepository;
+use DI\Attribute\Inject;
 use Fig\Http\Message\StatusCodeInterface;
 use PDO;
 use Psr\Http\Message\ResponseInterface;
 use Psr\Http\Message\ServerRequestInterface;
 use Slim\Psr7\Factory\ResponseFactory;
 
-class InventoryController extends Controller
+class InventoryController
 {
+    #[Inject]
+    protected Database $db;
+    #[Inject]
+    protected View $view;
+    #[Inject]
+    protected InventoryRepository $inventory;
+
     public function __invoke(ServerRequestInterface $request): ResponseInterface
     {
-        $userID = $request->getAttribute('uid');
+        $userID = $request->getAttribute('user_id');
+
         $user = $this->db->execute('SELECT * FROM users WHERE userid = :user_id', ['user_id' => $userID])
             ->fetch(PDO::FETCH_OBJ);
 
-        $sql = <<<SQL
-            SELECT v.inv_itemid AS item_id, i.itmname AS name, i.itmsellprice AS value, SUM(v.inv_qty) AS quantity,
-                   i.armor, i.weapon, i.effect1_on + i.effect2_on + i.effect3_on AS has_effect,
-                   MIN(v.inv_id) AS inventory_id
-            FROM inventory v
-            LEFT JOIN items i ON i.itmid = v.inv_itemid
-            WHERE v.inv_userid = :user_id AND v.inv_qty > 0
-            GROUP BY v.inv_itemid
-            ORDER BY i.itmname
-        SQL;
-        $inventory = $this->db->execute($sql, ['user_id' => $userID])->fetchAll(PDO::FETCH_OBJ);
+        $inventory = $this->inventory->getAll($userID);
 
         $sql = <<<SQL
             SELECT itmid, itmname
@@ -46,136 +48,66 @@ class InventoryController extends Controller
         ]);
     }
 
-    public function unequip(ServerRequestInterface $request): ResponseInterface
+    public function wear(ServerRequestInterface $request, int $itemID): ResponseInterface
     {
-        $userID = $request->getAttribute('uid');
-        $what = $this->post($request, 'from');
-        $sql = <<<SQL
-            SELECT equip_primary AS `primary`, equip_secondary AS secondary, equip_armor AS armor
-            FROM users
-            WHERE userid = :userid
-        SQL;
-        $old = $this->db->execute($sql, ['userid' => $userID])->fetch(PDO::FETCH_OBJ);
-
-        if ((($what === 'primary') || ($what === 'secondary') || ($what === 'armor')) && ($old->{$what})) {
-            $this->addItemToInventory($userID, $old->{$what});
-            $this->db->execute("UPDATE users SET equip_{$what} = 0 WHERE userid = :user_id", ['user_id' => $userID]);
-        }
-
-        return (new ResponseFactory())
-            ->createResponse(StatusCodeInterface::STATUS_FOUND)
-            ->withHeader('Location', '/inventory.php');
-    }
-
-    public function equip(ServerRequestInterface $request): ResponseInterface
-    {
-        $userID = $request->getAttribute('uid');
-
-        $itemID = $this->post($request, 'item_id');
-        if (ctype_digit($itemID) && ($itemID > 0)) {
-            $sql = <<<SQL
-                SELECT v.inv_itemid AS item_id, i.itmname AS name, SUM(v.inv_qty) AS quantity, i.armor, i.weapon
-                FROM inventory v
-                LEFT JOIN items i ON i.itmid = v.inv_itemid
-                WHERE v.inv_userid = :user_id AND v.inv_itemid = :item_id
-                GROUP BY v.inv_itemid;
-            SQL;
-            $item = $this->db->execute($sql, ['user_id' => $userID, 'item_id' => $itemID])
-                ->fetch(PDO::FETCH_OBJ) ?: null;
-
-            if ($item && ($item->quantity > 0)) {
-                if ($item->armor) {
-                    $this->equipArmor($userID, $itemID);
-                } else if ($item->weapon) {
-                    $this->equipWeapon($userID, $itemID);
-                }
-            }
-        }
-
-        return (new ResponseFactory())
-            ->createResponse(StatusCodeInterface::STATUS_FOUND)
-            ->withHeader('Location', '/inventory.php');
-    }
-
-    private function equipArmor(int $userID, int $itemID): void
-    {
+        $userID = $request->getAttribute('user_id');
         $sql = 'SELECT equip_armor FROM users WHERE userid = :user_id';
-        $oldItemID = $this->db->execute($sql, ['user_id' => $userID])->fetchColumn();
+        $oldItem = $this->db->execute($sql, ['user_id' => $userID])->fetchColumn();
 
-        if ($this->removeItemFromInventory($userID, $itemID)) {
-            $sql = <<<SQL
-                UPDATE users
-                SET equip_armor = :item_id
-                WHERE userid = :user_id
-            SQL;
+        if ($this->inventory->removeItem($userID, $itemID)) {
+            $sql = 'UPDATE users SET equip_armor = :item_id WHERE userid = :user_id';
             $this->db->execute($sql, ['item_id' => $itemID, 'user_id' => $userID]);
 
-            if ($oldItemID > 0) {
-                $this->addItemToInventory($userID, $oldItemID);
+            if ($oldItem > 0) {
+                $this->inventory->addItem($userID, $oldItem);
             }
-
         }
+
+        return (new ResponseFactory())
+            ->createResponse(StatusCodeInterface::STATUS_FOUND)
+            ->withHeader('Location', '/inventory');
     }
 
-    private function equipWeapon(int $userID, int $itemID): void
+    public function wield(ServerRequestInterface $request, int $itemID): ResponseInterface
     {
+        $userID = $request->getAttribute('user_id');
         $sql = 'SELECT equip_primary AS `primary`, equip_secondary AS secondary FROM users WHERE userid = :user_id';
-        $old = $this->db->execute($sql, ['user_id' => $userID])->fetch(PDO::FETCH_OBJ);
+        $oldItems = $this->db->execute($sql, ['user_id' => $userID])->fetch(PDO::FETCH_OBJ);
 
-        if (!$old->primary) {
-            if ($this->removeItemFromInventory($userID, $itemID)) {
-                $this->db->execute('UPDATE users SET equip_primary = :item_id WHERE userid = :user_id', [
-                    'item_id' => $itemID,
-                    'user_id' => $userID,
-                ]);
+        if ($this->inventory->removeItem($userID, $itemID)) {
+            if (!$oldItems->primary) {
+                $sql = 'UPDATE users SET equip_primary = :item_id WHERE userid = :user_id';
+                $this->db->execute($sql, ['item_id' => $itemID, 'user_id' => $userID]);
             }
-        } elseif (!$old->secondary) {
-            if ($this->removeItemFromInventory($userID, $itemID)) {
-                $this->db->execute('UPDATE users SET equip_secondary = :item_id WHERE userid = :user_id', [
-                    'item_id' => $itemID,
-                    'user_id' => $userID,
-                ]);
+            elseif (!$oldItems->secondary) {
+                $sql = 'UPDATE users SET equip_secondary = :item_id WHERE userid = :user_id';
+                $this->db->execute($sql, ['item_id' => $itemID, 'user_id' => $userID]);
+            }
+            else {
+                $this->inventory->addItem($userID, $itemID);
             }
         }
+
+        return (new ResponseFactory())
+            ->createResponse(StatusCodeInterface::STATUS_FOUND)
+            ->withHeader('Location', '/inventory');
     }
 
-    private function removeItemFromInventory(int $userID, int $itemID): bool
+    public function remove(ServerRequestInterface $request, string $from): ResponseInterface
     {
-        $sql = <<<SQL
-            UPDATE inventory
-            SET inv_qty = inv_qty - 1
-            WHERE inv_itemid = :item_id AND inv_userid = :user_id AND inv_qty > 0
-            LIMIT 1
-        SQL;
+        $userID = $request->getAttribute('user_id');
+        $sql = "SELECT equip_{$from} FROM users WHERE userid = :userid";
+        $itemID = $this->db->execute($sql, ['userid' => $userID])->fetchColumn();
 
-        return $this->db->execute($sql, ['item_id' => $itemID, 'user_id' => $userID])->rowCount() > 0;
-    }
+        if ($itemID > 0) {
+            $sql = "UPDATE users SET equip_{$from} = 0 WHERE userid = :user_id";
+            $this->db->execute($sql, ['user_id' => $userID]);
 
-    private function addItemToInventory(int $userID, int $itemID): void
-    {
-        $sql = <<<SQL
-                UPDATE inventory
-                SET inv_qty = inv_qty + 1
-                WHERE inv_itemid = :item_id AND inv_userid = :user_id
-                LIMIT 1
-            SQL;
-
-        if (!$this->db->execute($sql, ['item_id' => $itemID, 'user_id' => $userID])->rowCount()) {
-            $sql = <<<SQL
-                    INSERT INTO inventory (inv_itemid, inv_userid, inv_qty)
-                    VALUES (:item_id, :user_id, 1)
-                SQL;
-
-            $this->db->execute($sql, ['item_id' => $itemID, 'user_id' => $userID]);
+            $this->inventory->addItem($userID, $itemID);
         }
-    }
 
-    private function post(ServerRequestInterface $request, string $field): string
-    {
-        $params = (array)$request->getParsedBody();
-
-        return array_key_exists($field, $params) && is_string($params[$field])
-            ? trim($params[$field])
-            : '0';
+        return (new ResponseFactory())
+            ->createResponse(StatusCodeInterface::STATUS_FOUND)
+            ->withHeader('Location', '/inventory');
     }
 }

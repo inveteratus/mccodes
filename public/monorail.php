@@ -83,6 +83,6 @@ else
         }
         $db->free_result($q);
     }
-    echo '<br />&gt; <a href="index.php">Go back</a> to index.';
+    echo '<br />&gt; <a href="/home">Go back</a> to index.';
 }
 $h->endpage();

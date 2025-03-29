@@ -14,8 +14,8 @@
                     <div class="py-2 text-center bg-white">
                         @php $field = 'equip_' . $what; @endphp
                         @if ($user->{$field})
-                            <form action="/unequip.php" method="post">
-                                <button type="submit" name="from" value="{{ $what }}" class="text-blue-500 hover:underline focus:underline focus:outline-none cursor-pointer" title="Remove">{{ $equipment[$user->{$field}] }}</button>
+                            <form action="/inventory/remove/{{ $what }}" method="post">
+                                <button type="submit" class="text-blue-500 hover:underline focus:underline focus:outline-none cursor-pointer" title="Remove">{{ $equipment[$user->{$field}] }}</button>
                             </form>
                         @else
                             <span>None</span>
@@ -49,9 +49,13 @@
                                 <a href="/itemsend.php?ID={{ $item->inventory_id }}" class="text-blue-500 hover:underline focus:underline focus:outline-none">Send</a>
                                 <a href="/itemsell.php?ID={{ $item->inventory_id }}" class="text-blue-500 hover:underline focus:underline focus:outline-none">Sell</a>
                                 <a href="/imadd.php?ID={{ $item->inventory_id }}" class="text-blue-500 hover:underline focus:underline focus:outline-none">Add to Market</a>
-                                @if ($item->armor || $item->weapon)
-                                    <form action="/equip.php" method="post">
-                                        <button type="submit" name="item_id" value="{{ $item->item_id }}" class="text-blue-500 hover:underline focus:underline focus:outline-none cursor-pointer">Equip</button>
+                                @if ($item->armor)
+                                    <form action="/inventory/wear/{{ $item->item_id }}" method="post">
+                                        <button type="submit" class="text-blue-500 hover:underline focus:underline focus:outline-none cursor-pointer">Wear</button>
+                                    </form>
+                                @elseif ($item->weapon)
+                                    <form action="/inventory/wield/{{ $item->item_id }}" method="post">
+                                        <button type="submit" class="text-blue-500 hover:underline focus:underline focus:outline-none cursor-pointer">Wield</button>
                                     </form>
                                 @endif
                                 @if ($item->has_effect)

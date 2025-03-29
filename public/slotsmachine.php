@@ -77,7 +77,7 @@ if (isset($_POST['bet']) && is_numeric($_POST['bet']))
     	<input type='submit' value='Another time, same bet.' />
     </form>
 	&gt; <a href='slotsmachine.php?tresde=$tresder'>I'll continue, but I'm changing my bet.</a><br />
-	&gt; <a href='explore.php'>Enough's enough, I'm off.</a>";
+	&gt; <a href='/explore'>Enough's enough, I'm off.</a>";
 }
 else
 {

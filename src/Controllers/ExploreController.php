@@ -2,15 +2,23 @@
 
 namespace App\Controllers;
 
+use App\Classes\Database;
+use App\Classes\View;
+use DI\Attribute\Inject;
 use PDO;
 use Psr\Http\Message\ResponseInterface;
 use Psr\Http\Message\ServerRequestInterface;
 
-class ExploreController extends Controller
+class ExploreController
 {
+    #[Inject]
+    protected Database $db;
+    #[Inject]
+    protected View $view;
+
     public function __invoke(ServerRequestInterface $request): ResponseInterface
     {
-        $uid = $request->getAttribute('uid');
+        $userID = $request->getAttribute('user_id');
 
         $sql = <<<SQL
             SELECT u.*, c.*
@@ -19,7 +27,7 @@ class ExploreController extends Controller
             WHERE u.userid = :uid
         SQL;
 
-        $user = $this->db->execute($sql, ['uid' => $uid])->fetch(PDO::FETCH_OBJ);
+        $user = $this->db->execute($sql, ['uid' => $userID])->fetch(PDO::FETCH_OBJ);
 
         return $this->view->renderToResponse('explore', [
             'user' => $user,

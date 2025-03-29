@@ -24,11 +24,11 @@ if (isset($_SESSION['userid']))
         session_regenerate_id(true);
         session_unset();
         session_destroy();
-        die("<a href='login.php'>Continue to login...</a>");
+        die("<a href='/login'>Continue to login...</a>");
     }
 }
 session_regenerate_id(true);
 session_unset();
 session_destroy();
-$login_url = '/login.php';
-header("Location: {$login_url}");
+
+header("Location: /login");

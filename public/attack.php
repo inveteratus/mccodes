@@ -10,26 +10,26 @@ $_GET['ID'] =
                 ? abs(intval($_GET['ID'])) : '';
 if (!$_GET['ID'])
 {
-    echo 'Invalid ID<br />&gt; <a href="index.php">Go Home</a>';
+    echo 'Invalid ID<br />&gt; <a href="/home">Go Home</a>';
     $h->endpage();
     exit;
 }
 elseif ($_GET['ID'] == $userid)
 {
-    echo 'you can\'t attack yourself.<br />&gt; <a href="index.php">Go Home</a>';
+    echo 'you can\'t attack yourself.<br />&gt; <a href="/home">Go Home</a>';
     $h->endpage();
     exit;
 }
 elseif ($ir['hp'] <= 1)
 {
-    echo 'You\'re unconcious therefore you can\'t attack.<br />&gt; <a href="index.php">Go Home</a>';
+    echo 'You\'re unconcious therefore you can\'t attack.<br />&gt; <a href="/home">Go Home</a>';
     $h->endpage();
     exit;
 }
 elseif (isset($_SESSION['attacklost']) && $_SESSION['attacklost'] == 1)
 {
     $_SESSION['attacklost'] = 0;
-    echo 'Only the losers of all their EXP attack when they\'ve already lost.<br />&gt; <a href="index.php">Go Home</a>';
+    echo 'Only the losers of all their EXP attack when they\'ve already lost.<br />&gt; <a href="/home">Go Home</a>';
     $h->endpage();
     exit;
 }
@@ -47,7 +47,7 @@ SQL;
 $q = $db->query($odata_sql);
 if ($db->num_rows($q) == 0)
 {
-    echo 'That user doesn&#39;t exist<br />&gt; <a href="index.php">Go Home</a>';
+    echo 'That user doesn&#39;t exist<br />&gt; <a href="/home">Go Home</a>';
     $h->endpage();
     exit;
 }
@@ -58,7 +58,7 @@ $oabbr = ($odata['gender'] == 'Male') ? 'his' : 'her';
 if ($ir['attacking'] && $ir['attacking'] != $_GET['ID'])
 {
     $_SESSION['attacklost'] = 0;
-    echo 'Something went wrong.<br />&gt; <a href="index.php">Go Home</a>';
+    echo 'Something went wrong.<br />&gt; <a href="/home">Go Home</a>';
     $h->endpage();
     exit;
 }
@@ -73,7 +73,7 @@ if ($odata['hp'] == 1)
     $_SESSION['attacking'] = 0;
     $ir['attacking'] = 0;
     $db->query($endattk_sql);
-    echo 'This player is unconscious.<br />&gt; <a href="index.php">Go Home</a>';
+    echo 'This player is unconscious.<br />&gt; <a href="/home">Go Home</a>';
     $h->endpage();
     exit;
 }
@@ -82,7 +82,7 @@ elseif ($odata['hospital'])
     $_SESSION['attacking'] = 0;
     $ir['attacking'] = 0;
     $db->query($endattk_sql);
-    echo 'This player is in hospital.<br />&gt; <a href="index.php">Go Home</a>';
+    echo 'This player is in hospital.<br />&gt; <a href="/home">Go Home</a>';
     $h->endpage();
     exit;
 }
@@ -91,7 +91,7 @@ elseif ($ir['hospital'])
     $_SESSION['attacking'] = 0;
     $ir['attacking'] = 0;
     $db->query($endattk_sql);
-    echo 'While in hospital you can\'t attack.<br />&gt; <a href="index.php">Go Home</a>';
+    echo 'While in hospital you can\'t attack.<br />&gt; <a href="/home">Go Home</a>';
     $h->endpage();
     exit;
 }
@@ -100,7 +100,7 @@ elseif ($odata['jail'])
     $_SESSION['attacking'] = 0;
     $ir['attacking'] = 0;
     $db->query($endattk_sql);
-    echo 'This player is in jail.<br />&gt; <a href="index.php">Go Home</a>';
+    echo 'This player is in jail.<br />&gt; <a href="/home">Go Home</a>';
     $h->endpage();
     exit;
 }
@@ -109,7 +109,7 @@ elseif ($ir['jail'])
     $_SESSION['attacking'] = 0;
     $ir['attacking'] = 0;
     $db->query($endattk_sql);
-    echo 'While in jail you can\'t attack.<br />&gt; <a href="index.php">Go Home</a>';
+    echo 'While in jail you can\'t attack.<br />&gt; <a href="/home">Go Home</a>';
     $h->endpage();
     exit;
 }
@@ -144,7 +144,7 @@ if ($_GET['wepid'])
         }
         else
         {
-            echo 'You can only attack someone when you have 50% energy.<br />&gt; <a href="index.php">Go Home</a>';
+            echo 'You can only attack someone when you have 50% energy.<br />&gt; <a href="/home">Go Home</a>';
             $h->endpage();
             exit;
         }
@@ -168,7 +168,7 @@ SQL;
         	WHERE `userid` = {$userid}
 SQL;
         $db->query($abuse_sql);
-        echo 'Stop trying to abuse a game bug. You can lose all your EXP for that.<br />&gt; <a href="index.php">Go Home</a>';
+        echo 'Stop trying to abuse a game bug. You can lose all your EXP for that.<br />&gt; <a href="/home">Go Home</a>';
         $h->endpage();
         exit;
     }
@@ -355,26 +355,26 @@ SQL;
 }
 elseif ($odata['hp'] < 5)
 {
-    echo 'You can only attack those who have health.<br />&gt; <a href="index.php">Go Home</a>';
+    echo 'You can only attack those who have health.<br />&gt; <a href="/home">Go Home</a>';
     $h->endpage();
     exit;
 }
 elseif ($ir['gang'] == $odata['gang'] && $ir['gang'] > 0)
 {
     echo 'You are in the same gang as ' . $odata['username']
-            . '! What are you smoking today dude!<br />&gt; <a href="index.php">Go Home</a>';
+            . '! What are you smoking today dude!<br />&gt; <a href="/home">Go Home</a>';
     $h->endpage();
     exit;
 }
 elseif ($youdata['energy'] < $youdata['maxenergy'] / 2)
 {
-    echo 'You can only attack someone when you have 50% energy.<br />&gt; <a href="index.php">Go Home</a>';
+    echo 'You can only attack someone when you have 50% energy.<br />&gt; <a href="/home">Go Home</a>';
     $h->endpage();
     exit;
 }
 elseif ($youdata['location'] != $odata['location'])
 {
-    echo 'You can only attack someone in the same location!<br />&gt; <a href="index.php">Go Home</a>';
+    echo 'You can only attack someone in the same location!<br />&gt; <a href="/home">Go Home</a>';
     $h->endpage();
     exit;
 }

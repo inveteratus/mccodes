@@ -18,6 +18,11 @@ class View
             compiledPath: __DIR__ . '/../../cache',
             mode: BladeOne::MODE_DEBUG
         );
+
+        /*
+         * Support the @error {{ $message }} @enderror directive
+         */
+        $this->blade->setErrorFunction('error');
     }
 
     /**

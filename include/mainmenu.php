@@ -9,7 +9,7 @@ if ($ir['hospital'])
 {
     echo "
 	<a href='hospital.php'>Hospital ($hc)</a><br />
-	<a href='inventory.php'>Inventory</a><br />
+	<a href='/inventory'>Inventory</a><br />
    	";
 }
 elseif ($ir['jail'])
@@ -18,8 +18,8 @@ elseif ($ir['jail'])
 }
 else
 {
-    echo "<a href='index.php'>Home</a><br />
-	<a href='inventory.php'>Inventory</a><br />";
+    echo "<a href='/home'>Home</a><br />
+	<a href='/inventory'>Inventory</a><br />";
 }
 echo ($ec > 0)
         ? '<a href="events.php" style="font-weight: bold;">Events (' . $ec
@@ -37,7 +37,7 @@ if ($ir['jail'] and !$ir['hospital'])
 elseif (!$ir['hospital'])
 {
     echo "
-	<a href='explore.php'>Explore</a><br />
+	<a href='/explore'>Explore</a><br />
 	<a href='gym.php'>Gym</a><br />
 	<a href='criminal.php'>Crimes</a><br />
 	<a href='job.php'>Your Job</a><br />

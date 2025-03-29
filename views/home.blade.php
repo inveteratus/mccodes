@@ -64,7 +64,7 @@
 
         <div>
             <h3 class="font-medium text-slate-600 text-center">Notepad</h3>
-            <form action="/" method="post">
+            <form action="/home" method="post">
                 <textarea name="notes" class="border border-slate-300 focus:outline-none focus:ring-1 focus:ring-offset-0 focus:border-blue-500 focus:ring-blue-500 p-2 bg-white w-full rounded h-40">{{ $user->user_notepad }}</textarea>
                 <button type="submit" class="text-sm px-3 py-2 text-white bg-blue-500 focus:ring-2 focus:ring-offset-1 focus:ring-blue-500 focus:ring-offset-slate-50 focus:outline-none rounded font-medium">Save</button>
             </form>
