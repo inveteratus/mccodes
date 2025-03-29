@@ -38,23 +38,23 @@
                     </tr>
                 </thead>
                 <tbody class="bg-white">
-                    <tr class="hover:bg-blue-50">
+                    <tr class="hover:bg-amber-50">
                         <td class="p-2 text-left">Strength</td>
                         <td class="p-2 text-right">{{ number_format($user->strength, 3) }}</td>
                     </tr>
-                    <tr class="hover:bg-blue-50">
+                    <tr class="hover:bg-amber-50">
                         <td class="px-2 py-1 text-left">Guard</td>
                         <td class="px-2 py-1 text-right">{{ number_format($user->guard, 3) }}</td>
                     </tr>
-                    <tr class="hover:bg-blue-50">
+                    <tr class="hover:bg-amber-50">
                         <td class="px-2 py-1 text-left">Labour</td>
                         <td class="px-2 py-1 text-right">{{ number_format($user->labour, 3) }}</td>
                     </tr>
-                    <tr class="hover:bg-blue-50">
+                    <tr class="hover:bg-amber-50">
                         <td class="px-2 py-1 text-left">Agility</td>
                         <td class="px-2 py-1 text-right">{{ number_format($user->agility, 3) }}</td>
                     </tr>
-                    <tr class="hover:bg-blue-50">
+                    <tr class="hover:bg-amber-50">
                         <td class="px-2 py-1 text-left">Intelligence</td>
                         <td class="px-2 py-1 text-right">{{ number_format($user->IQ, 3) }}</td>
                     </tr>

@@ -18,7 +18,8 @@ class InventoryController extends Controller
 
         $sql = <<<SQL
             SELECT v.inv_itemid AS item_id, i.itmname AS name, i.itmsellprice AS value, SUM(v.inv_qty) AS quantity,
-                   i.armor, i.weapon, i.effect1_on + i.effect2_on + i.effect3_on AS has_effect
+                   i.armor, i.weapon, i.effect1_on + i.effect2_on + i.effect3_on AS has_effect,
+                   MIN(v.inv_id) AS inventory_id
             FROM inventory v
             LEFT JOIN items i ON i.itmid = v.inv_itemid
             WHERE v.inv_userid = :user_id AND v.inv_qty > 0
