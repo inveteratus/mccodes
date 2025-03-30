@@ -2,19 +2,17 @@
 
 namespace App\Controllers;
 
-use App\Classes\Database;
 use App\Classes\View;
+use App\Repositories\UserRepository;
 use DI\Attribute\Inject;
-use Fig\Http\Message\StatusCodeInterface;
-use PDO;
 use Psr\Http\Message\ResponseInterface;
 use Psr\Http\Message\ServerRequestInterface;
-use Slim\Psr7\Factory\ResponseFactory;
 
 class LoginController
 {
     #[Inject]
-    protected Database $db;
+    protected UserRepository $users;
+
     #[Inject]
     protected View $view;
 
@@ -41,31 +39,25 @@ class LoginController
         }
 
         if (!count($errors)) {
-            $user = $this->getUser($email);
+            $user = $this->users->getByEmail($email);
             if ($user && !strcmp($user->password, md5($user->salt . md5($password)))) {
-                $this->updateLastLogin($user->id);
+                $this->users->updateLastLogin($user->id);
 
                 $_SESSION['userid'] = (int)$user->id;
                 $_SESSION['loggedin'] = true;
 
                 session_regenerate_id();
-                session_write_close();
 
-                return (new ResponseFactory())
-                    ->createResponse(StatusCodeInterface::STATUS_FOUND)
-                    ->withHeader('Location', '/home');
+                return redirect('/home');
             }
 
             $errors['email'] = 'Invalid Credentials';
         }
 
-        $_SESSION['errors'] = $errors;
         $_SESSION['old'] = ['email' => $email];
-        session_write_close();
 
-        return (new ResponseFactory())
-            ->createResponse(StatusCodeInterface::STATUS_FOUND)
-            ->withHeader('Location', '/login');
+        return redirect('/login')
+            ->withErrors($errors);
     }
 
     private function post(ServerRequestInterface $request, string $field): string
@@ -75,32 +67,5 @@ class LoginController
         return array_key_exists($field, $params) && is_string($params[$field])
             ? trim($params[$field])
             : '';
-    }
-
-    private function getUser(string $email): ?object
-    {
-        $sql = <<<SQL
-            SELECT userid AS id, userpass AS password, pass_salt AS salt
-            FROM users
-            WHERE email = :email
-        SQL;
-
-        return $this->db->execute($sql, [
-            'email' => $email,
-        ])->fetch(PDO::FETCH_OBJ) ?: null;
-    }
-
-    private function updateLastLogin(int $uid): void
-    {
-        $sql = <<<SQL
-            UPDATE users
-            SET lastip_login = :ip, last_login = :time
-            WHERE userid = :id
-        SQL;
-        $this->db->execute($sql, [
-            'ip' => $_SERVER['REMOTE_ADDR'],
-            'time' => time(),
-            'id' => $uid,
-        ]);
     }
 }

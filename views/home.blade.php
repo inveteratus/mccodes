@@ -12,15 +12,15 @@
                 <span class="text-right">Name</span>
                 <span>{{ $user->username }}</span>
                 <span class="text-right">Property</span>
-                <span>{{ $user->hNAME }}</span>
+                <span>{{ $house->name }}</span>
                 <span class="text-right">Age</span>
                 <span>{{ Carbon\Carbon::createFromTimestamp($user->signedup)->diffForHumans(null, \Carbon\CarbonInterface::DIFF_ABSOLUTE, parts:2) }}</span>
                 <span class="text-right">Gang</span>
-                <span>{{ $user->gangNAME ?? 'Unaffiliated' }}</span>
+                <span>{{ $gang ? $gang->name : 'Unaffiliated' }}</span>
                 <span class="text-right">Location</span>
-                <span>{{ $user->cityname }}</span>
+                <span>{{ $city->name }}</span>
                 <span class="text-right">Job</span>
-                <span>{{ $user->jrNAME ?? 'Unemployed' }}</span>
+                <span>{{ $job ? $job->position : 'Unemployed' }}</span>
                 <span class="text-right">Bank</span>
                 <span>{{ number_format($user->bankmoney) }} Cr</span>
                 <span class="text-right">Key</span>
@@ -56,7 +56,7 @@
                     </tr>
                     <tr class="hover:bg-amber-50">
                         <td class="px-2 py-1 text-left">Intelligence</td>
-                        <td class="px-2 py-1 text-right">{{ number_format($user->IQ, 3) }}</td>
+                        <td class="px-2 py-1 text-right">{{ number_format($user->intelligence, 3) }}</td>
                     </tr>
                 </tbody>
             </table>

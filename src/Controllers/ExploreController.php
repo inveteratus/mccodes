@@ -2,17 +2,21 @@
 
 namespace App\Controllers;
 
-use App\Classes\Database;
 use App\Classes\View;
+use App\Repositories\CityRepository;
+use App\Repositories\UserRepository;
 use DI\Attribute\Inject;
-use PDO;
 use Psr\Http\Message\ResponseInterface;
 use Psr\Http\Message\ServerRequestInterface;
 
 class ExploreController
 {
     #[Inject]
-    protected Database $db;
+    protected CityRepository $cities;
+
+    #[Inject]
+    protected UserRepository $users;
+
     #[Inject]
     protected View $view;
 
@@ -20,17 +24,9 @@ class ExploreController
     {
         $userID = $request->getAttribute('user_id');
 
-        $sql = <<<SQL
-            SELECT u.*, c.*
-            FROM users u
-            LEFT JOIN cities c ON c.cityID = u.location
-            WHERE u.userid = :uid
-        SQL;
-
-        $user = $this->db->execute($sql, ['uid' => $userID])->fetch(PDO::FETCH_OBJ);
-
         return $this->view->renderToResponse('explore', [
-            'user' => $user,
+            'user' => $this->users->get($userID),
+            'city' => $this->cities->get($userID),
         ]);
     }
 }

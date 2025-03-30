@@ -10,6 +10,8 @@ class ResponseEmitter
 
     public function emit(ResponseInterface $response): void
     {
+        session_write_close();
+
         $isEmpty = $this->isResponseEmpty($response);
 
         if (!headers_sent()) {

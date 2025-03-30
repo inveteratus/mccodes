@@ -2,18 +2,17 @@
 
 namespace App\Controllers;
 
-use App\Classes\Database;
 use App\Classes\View;
+use App\Repositories\UserRepository;
 use DI\Attribute\Inject;
-use Fig\Http\Message\StatusCodeInterface;
 use Psr\Http\Message\ResponseInterface;
 use Psr\Http\Message\ServerRequestInterface;
-use Slim\Psr7\Factory\ResponseFactory;
 
 class RegisterController
 {
     #[Inject]
-    protected Database $db;
+    protected UserRepository $users;
+
     #[Inject]
     protected View $view;
 
@@ -35,7 +34,7 @@ class RegisterController
             $errors['name'] = 'Name is required';
         } elseif (strlen($name) > 25) {
             $errors['name'] = 'Name cannot be longer than 25 characters';
-        } elseif ($this->nameExists($name)) {
+        } elseif ($this->users->nameExists($name)) {
             $errors['name'] = 'Name already exists';
         }
 
@@ -45,7 +44,7 @@ class RegisterController
             $errors['email'] = 'Email must be a valid email address';
         } elseif (strlen($name) > 25) {
             $errors['name'] = 'Email cannot be longer than 255 characters';
-        } elseif ($this->emailExists($email)) {
+        } elseif ($this->users->emailExists($email)) {
             $errors['email'] = 'Email already exists';
         }
 
@@ -58,25 +57,18 @@ class RegisterController
         }
 
         if (!count($errors)) {
-            $_SESSION['userid'] = $this->createUser($name, $email, $password);
+            $_SESSION['userid'] = $this->users->createUser($name, $email, $password);
             $_SESSION['loggedin'] = true;
-
             session_regenerate_id();
-            session_write_close();
 
-            return (new ResponseFactory())
-                ->createResponse(StatusCodeInterface::STATUS_FOUND)
-                ->withHeader('Location', '/home');
+            return redirect('/home');
         }
 
         $_SESSION['errors'] = $errors;
         $_SESSION['old'] = ['name' => $name, 'email' => $email];
 
-        session_write_close();
-
-        return (new ResponseFactory())
-            ->createResponse(StatusCodeInterface::STATUS_FOUND)
-            ->withHeader('Location', '/register');
+        return redirect('/register')
+            ->withErrors($errors);
     }
 
     private function post(ServerRequestInterface $request, string $field): string
@@ -86,48 +78,5 @@ class RegisterController
         return array_key_exists($field, $params) && is_string($params[$field])
             ? trim($params[$field])
             : '';
-    }
-
-    private function nameExists(string $name): bool
-    {
-        $sql = 'SELECT COUNT(*) FROM users WHERE username = :name';
-
-        return $this->db->execute($sql, ['name' => $name])->fetchColumn() > 0;
-    }
-
-    private function emailExists(string $email): bool
-    {
-        $sql = 'SELECT COUNT(*) FROM users WHERE email = :email';
-
-        return $this->db->execute($sql, ['email' => $email])->fetchColumn() > 0;
-    }
-
-    private function createUser(string $name, string $email, string $password): int
-    {
-        $salt = substr(sha1(random_bytes(256)), -8);
-        $sql = <<<SQL
-            INSERT INTO users (username, userpass, level, money, energy, will, maxwill, brave, maxbrave, maxenergy, hp,
-                               maxhp, location, signedup, email, display_pic, staffnotes, lastip_signup, voted,
-                               user_notepad, pass_salt)
-                VALUES (:name, :password, 1, 100, 12, 100, 100, 5, 5, 12, 100, 100, 1, UNIX_TIMESTAMP(), :email, '',
-                        '', :ip, '', '', :salt)
-        SQL;
-        $this->db->execute($sql, [
-            'name' => $name,
-            'password' => md5($salt . md5($password)),
-            'email' => $email,
-            'ip' => $_SERVER['REMOTE_ADDR'],
-            'salt' => $salt
-        ]);
-
-        $id = (int)$this->db->lastInsertId();
-        $sql = <<<SQL
-            INSERT INTO userstats (userid, strength, agility, guard, labour, IQ) VALUES (:id, 10, 10, 10, 10, 10)
-        SQL;
-        $this->db->execute($sql, [
-            'id' => $id,
-        ]);
-
-        return $id;
     }
 }

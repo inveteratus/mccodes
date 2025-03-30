@@ -6,7 +6,7 @@
 
         <h2 class="border-b border-slate-200 font-light flex items-end justify-between space-x-3">
             <span class="text-3xl text-slate-500">Explore</span>
-            <span class="text-2xl text-slate-600">{{ $user->cityname }}</span>
+            <span class="text-2xl text-slate-600">{{ $city->name }}</span>
         </h2>
 
         <div class="grid grid-cols-3 gap-3">

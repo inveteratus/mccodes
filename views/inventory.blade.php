@@ -8,14 +8,13 @@
 
         <h3 class="font-medium text-slate-600 text-center">Equipment</h3>
         <div class="grid grid-cols-3">
-            @foreach (['primary', 'secondary', 'armor'] as $what)
-                <div class="border border-slate-300">
-                    <h4 class="bg-slate-100 py-1 text-center border-b border-slate-300">{{ ucfirst($what) }}</h4>
+            @foreach ($equipment as $key => $item)
+                <div class="border border-slate-300 @if (!$loop->first) border-l-0 @endif">
+                    <h4 class="bg-slate-100 py-1 text-center border-b border-slate-300">{{ ucfirst($key) }}</h4>
                     <div class="py-2 text-center bg-white">
-                        @php $field = 'equip_' . $what; @endphp
-                        @if ($user->{$field})
-                            <form action="/inventory/remove/{{ $what }}" method="post">
-                                <button type="submit" class="text-blue-500 hover:underline focus:underline focus:outline-none cursor-pointer" title="Remove">{{ $equipment[$user->{$field}] }}</button>
+                        @if ($item)
+                            <form action="/inventory/remove/{{ $key }}" method="post">
+                                <button type="submit" class="text-blue-500 hover:underline focus:underline focus:outline-none cursor-pointer" title="Remove">{{ $item->name }}</button>
                             </form>
                         @else
                             <span>None</span>

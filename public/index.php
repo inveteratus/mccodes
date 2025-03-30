@@ -12,7 +12,6 @@ use App\Controllers\InventoryController;
 use App\Controllers\LoginController;
 use App\Controllers\LogoutController;
 use App\Controllers\RegisterController;
-use App\Repositories\InventoryRepository;
 use DI\ContainerBuilder;
 use Dotenv\Dotenv;
 use Dotenv\Repository\Adapter\ArrayAdapter;
@@ -48,11 +47,6 @@ $container = (new ContainerBuilder())
         },
 
         View::class => fn() => new View(),
-
-        InventoryRepository::class => function (ContainerInterface $container) {
-            return new InventoryRepository($container->get(Database::class));
-        },
-
     ])
     ->build();
 

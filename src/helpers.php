@@ -1,5 +1,10 @@
 <?php
 
+use App\Classes\Response;
+use Fig\Http\Message\StatusCodeInterface;
+use Psr\Http\Message\ResponseInterface;
+use Slim\Psr7\Factory\ResponseFactory;
+
 if (!function_exists('error')) {
     function error(string $key): ?string
     {
@@ -33,5 +38,14 @@ if (!function_exists('old')) {
         }
 
         return $cache[$key] ?? null;
+    }
+}
+
+if (!function_exists('redirect')) {
+    function redirect(string $url): Response
+    {
+        $response = new Response(StatusCodeInterface::STATUS_FOUND);
+
+        return $response->withHeader('Location', $url);
     }
 }

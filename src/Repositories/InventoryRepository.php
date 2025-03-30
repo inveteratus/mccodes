@@ -3,16 +3,15 @@
 namespace App\Repositories;
 
 use App\Classes\Database;
+use DI\Attribute\Inject;
 use PDO;
 
 class InventoryRepository
 {
-    public function __construct(protected Database $db) { }
+    #[Inject]
+    protected Database $db;
 
-    /**
-     * @return array<array-key,object>
-     */
-    public function getAll(int $userID): array
+    public function list(int $userID): array
     {
         $sql = <<<SQL
             SELECT v.inv_itemid AS item_id, i.itmname AS name, i.itmsellprice AS value, SUM(v.inv_qty) AS quantity,
@@ -28,26 +27,31 @@ class InventoryRepository
         return $this->db->execute($sql, ['user_id' => $userID])->fetchAll(PDO::FETCH_OBJ);
     }
 
-    public function addItem(int $userID, int $itemID): void
+    public function give(int $userID, int $itemID, int $quantity = 1): void
     {
         $sql = <<<SQL
                 UPDATE inventory
-                SET inv_qty = inv_qty + 1
+                SET inv_qty = inv_qty + :quantity
                 WHERE inv_itemid = :item_id AND inv_userid = :user_id
                 LIMIT 1
             SQL;
+        $context = [
+            'item_id' => $itemID,
+            'user_id' => $userID,
+            'quantity' => $quantity
+        ];
 
-        if (!$this->db->execute($sql, ['item_id' => $itemID, 'user_id' => $userID])->rowCount()) {
+        if (!$this->db->execute($sql, $context)->rowCount()) {
             $sql = <<<SQL
                     INSERT INTO inventory (inv_itemid, inv_userid, inv_qty)
-                    VALUES (:item_id, :user_id, 1)
+                    VALUES (:item_id, :user_id, :quantity)
                 SQL;
 
-            $this->db->execute($sql, ['item_id' => $itemID, 'user_id' => $userID]);
+            $this->db->execute($sql, $context);
         }
     }
 
-    public function removeItem(int $userID, int $itemID): bool
+    public function take(int $userID, int $itemID): bool
     {
         $sql = <<<SQL
             UPDATE inventory

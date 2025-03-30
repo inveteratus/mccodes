@@ -2,112 +2,92 @@
 
 namespace App\Controllers;
 
-use App\Classes\Database;
 use App\Classes\View;
+use App\Enums\EquipmentType;
+use App\Repositories\EquipmentRepository;
 use App\Repositories\InventoryRepository;
+use App\Repositories\ItemRepository;
+use App\Repositories\UserRepository;
 use DI\Attribute\Inject;
-use Fig\Http\Message\StatusCodeInterface;
-use PDO;
 use Psr\Http\Message\ResponseInterface;
 use Psr\Http\Message\ServerRequestInterface;
-use Slim\Psr7\Factory\ResponseFactory;
 
 class InventoryController
 {
     #[Inject]
-    protected Database $db;
-    #[Inject]
-    protected View $view;
+    protected EquipmentRepository $equipment;
+
     #[Inject]
     protected InventoryRepository $inventory;
+
+    #[Inject]
+    protected ItemRepository $items;
+
+    #[Inject]
+    protected UserRepository $users;
+
+    #[Inject]
+    protected View $view;
 
     public function __invoke(ServerRequestInterface $request): ResponseInterface
     {
         $userID = $request->getAttribute('user_id');
 
-        $user = $this->db->execute('SELECT * FROM users WHERE userid = :user_id', ['user_id' => $userID])
-            ->fetch(PDO::FETCH_OBJ);
-
-        $inventory = $this->inventory->getAll($userID);
-
-        $sql = <<<SQL
-            SELECT itmid, itmname
-            FROM items
-            WHERE itmid = :primary OR itmid = :secondary OR itmid = :armor
-        SQL;
-        $equipment = $this->db->execute($sql, [
-            'primary' => $user->equip_primary,
-            'secondary' => $user->equip_secondary,
-            'armor' => $user->equip_armor,
-        ])->fetchAll(PDO::FETCH_KEY_PAIR);
-
         return $this->view->renderToResponse('inventory', [
-            'user' => $user,
-            'inventory' => $inventory,
-            'equipment' => $equipment,
+            'user' => $this->users->get($userID),
+            'inventory' => $this->inventory->list($userID),
+            'equipment' => $this->equipment->list($userID),
         ]);
     }
 
     public function wear(ServerRequestInterface $request, int $itemID): ResponseInterface
     {
         $userID = $request->getAttribute('user_id');
-        $sql = 'SELECT equip_armor FROM users WHERE userid = :user_id';
-        $oldItem = $this->db->execute($sql, ['user_id' => $userID])->fetchColumn();
+        $item = $this->items->get($itemID);
 
-        if ($this->inventory->removeItem($userID, $itemID)) {
-            $sql = 'UPDATE users SET equip_armor = :item_id WHERE userid = :user_id';
-            $this->db->execute($sql, ['item_id' => $itemID, 'user_id' => $userID]);
+        if ($item && $item->armor && $this->inventory->take($userID, $itemID)) {
+            $current = $this->equipment->get($userID, EquipmentType::ARMOR);
+            $this->equipment->set($userID, EquipmentType::ARMOR, $itemID);
 
-            if ($oldItem > 0) {
-                $this->inventory->addItem($userID, $oldItem);
+            if ($current) {
+                $this->inventory->give($userID, $itemID);
             }
         }
 
-        return (new ResponseFactory())
-            ->createResponse(StatusCodeInterface::STATUS_FOUND)
-            ->withHeader('Location', '/inventory');
+        return redirect('/inventory');
     }
 
     public function wield(ServerRequestInterface $request, int $itemID): ResponseInterface
     {
         $userID = $request->getAttribute('user_id');
-        $sql = 'SELECT equip_primary AS `primary`, equip_secondary AS secondary FROM users WHERE userid = :user_id';
-        $oldItems = $this->db->execute($sql, ['user_id' => $userID])->fetch(PDO::FETCH_OBJ);
+        $item = $this->items->get($itemID);
+        $primary = $this->equipment->get($userID, EquipmentType::PRIMARY);
+        $secondary = $this->equipment->get($userID, EquipmentType::SECONDARY);
 
-        if ($this->inventory->removeItem($userID, $itemID)) {
-            if (!$oldItems->primary) {
-                $sql = 'UPDATE users SET equip_primary = :item_id WHERE userid = :user_id';
-                $this->db->execute($sql, ['item_id' => $itemID, 'user_id' => $userID]);
-            }
-            elseif (!$oldItems->secondary) {
-                $sql = 'UPDATE users SET equip_secondary = :item_id WHERE userid = :user_id';
-                $this->db->execute($sql, ['item_id' => $itemID, 'user_id' => $userID]);
+        if ($item && $item->weapon && (!$primary || !$secondary) && $this->inventory->take($userID, $itemID)) {
+            if (!$primary) {
+                $this->equipment->set($userID, EquipmentType::PRIMARY, $itemID);
             }
             else {
-                $this->inventory->addItem($userID, $itemID);
+                $this->equipment->set($userID, EquipmentType::SECONDARY, $itemID);
             }
         }
 
-        return (new ResponseFactory())
-            ->createResponse(StatusCodeInterface::STATUS_FOUND)
-            ->withHeader('Location', '/inventory');
+        return redirect('/inventory');
     }
 
     public function remove(ServerRequestInterface $request, string $from): ResponseInterface
     {
         $userID = $request->getAttribute('user_id');
-        $sql = "SELECT equip_{$from} FROM users WHERE userid = :userid";
-        $itemID = $this->db->execute($sql, ['userid' => $userID])->fetchColumn();
+        $type = EquipmentType::from($from);
 
-        if ($itemID > 0) {
-            $sql = "UPDATE users SET equip_{$from} = 0 WHERE userid = :user_id";
-            $this->db->execute($sql, ['user_id' => $userID]);
+        $current = $this->equipment->get($userID, $type);
+        $this->equipment->clear($userID, $type);
 
-            $this->inventory->addItem($userID, $itemID);
+        if ($current) {
+            $this->inventory->give($userID, $current->id);
         }
 
-        return (new ResponseFactory())
-            ->createResponse(StatusCodeInterface::STATUS_FOUND)
-            ->withHeader('Location', '/inventory');
+        return redirect('/inventory');
     }
 }

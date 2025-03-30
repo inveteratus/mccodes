@@ -4,6 +4,11 @@ namespace App\Controllers;
 
 use App\Classes\Database;
 use App\Classes\View;
+use App\Repositories\CityRepository;
+use App\Repositories\GangRepository;
+use App\Repositories\HouseRepository;
+use App\Repositories\JobRepository;
+use App\Repositories\UserRepository;
 use DI\Attribute\Inject;
 use Fig\Http\Message\StatusCodeInterface;
 use PDO;
@@ -14,30 +19,37 @@ use Slim\Psr7\Factory\ResponseFactory;
 class HomeController
 {
     #[Inject]
+    protected CityRepository $cities;
+
+    #[Inject]
+    protected GangRepository $gangs;
+
+    #[Inject]
+    protected HouseRepository $houses;
+
+    #[Inject]
+    protected JobRepository $jobs;
+
+    #[Inject]
+    protected UserRepository $users;
+
+    #[Inject]
     protected Database $db;
+
     #[Inject]
     protected View $view;
 
     public function __invoke(ServerRequestInterface $request): ResponseInterface
     {
         $userID = $request->getAttribute('user_id');
-
-        $sql = <<<SQL
-            SELECT u.*, us.*, j.*, jr.*, h.*, g.*, c.*
-            FROM users u
-            LEFT JOIN userstats us USING (userid)
-            LEFT JOIN jobranks jr ON jr.jrID = u.jobrank
-            LEFT JOIN jobs j ON j.jID = jr.jrJOB
-            LEFT JOIN houses h ON h.hWILL = u.maxwill
-            LEFT JOIN gangs g ON g.gangID = u.gang
-            LEFT JOIN cities c ON c.cityID = u.location
-            WHERE u.userid = :uid
-        SQL;
-
-        $user = $this->db->execute($sql, ['uid' => $userID])->fetch(PDO::FETCH_OBJ);
+        $user = $this->users->get($userID);
 
         return $this->view->renderToResponse('home', [
             'user' => $user,
+            'house' => $this->houses->get($user->maxwill),
+            'city' => $this->cities->get($user->location),
+            'gang' => $user->gang ? $this->gangs->get($user->gang) : null,
+            'job' => $user->jobrank ? $this->jobs->get($user->jobrank) : null,
         ]);
     }
 
@@ -46,20 +58,9 @@ class HomeController
         $params = (array)$request->getParsedBody();
 
         if (array_key_exists('notes', $params) && is_string($params['notes'])) {
-            $sql = <<<SQL
-                UPDATE users
-                SET user_notepad = :notes
-                WHERE userid = :user_id
-            SQL;
-
-            $this->db->execute($sql, [
-                'notes' => $params['notes'],
-                'user_id' => $request->getAttribute('user_id'),
-            ]);
+            $this->users->updateNotes($request->getAttribute('user_id'), $params['notes']);
         }
 
-        return (new ResponseFactory())
-            ->createResponse(StatusCodeInterface::STATUS_FOUND)
-            ->withHeader('Location', '/home');
+        return redirect('/home');
     }
 }
