@@ -2,6 +2,7 @@
 
 use App\Classes\Response;
 use Fig\Http\Message\StatusCodeInterface;
+use League\CommonMark\CommonMarkConverter;
 use Psr\Http\Message\ResponseInterface;
 use Slim\Psr7\Factory\ResponseFactory;
 
@@ -20,6 +21,18 @@ if (!function_exists('error')) {
         }
 
         return $cache[$key] ?? null;
+    }
+}
+
+if (!function_exists('markdown')) {
+    function markdown(string $markdown): string
+    {
+        $convertor = new CommonMarkConverter([
+            'html_input' => 'strip',
+            'allow_unsafe_links' => false,
+        ]);
+
+        return $convertor->convert($markdown);
     }
 }
 

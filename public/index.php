@@ -79,6 +79,7 @@ $dispatcher = simpleDispatcher(function (RouteCollector $collector) {
         $collector->addRoute('POST', '/wear/{itemID:\d+}', [InventoryController::class, 'wear']);
         $collector->addRoute('POST', '/wield/{itemID:\d+}', [InventoryController::class, 'wield']);
         $collector->addRoute('POST', '/remove/{from:primary|secondary|armor}', [InventoryController::class, 'remove']);
+        $collector->addRoute('GET', '/describe/{slug}', [InventoryController::class, 'describe']);
     });
 });
 

@@ -2,7 +2,6 @@
 
 namespace App\Controllers;
 
-use App\Classes\Database;
 use App\Classes\View;
 use App\Repositories\CityRepository;
 use App\Repositories\GangRepository;
@@ -10,11 +9,8 @@ use App\Repositories\HouseRepository;
 use App\Repositories\JobRepository;
 use App\Repositories\UserRepository;
 use DI\Attribute\Inject;
-use Fig\Http\Message\StatusCodeInterface;
-use PDO;
 use Psr\Http\Message\ResponseInterface;
 use Psr\Http\Message\ServerRequestInterface;
-use Slim\Psr7\Factory\ResponseFactory;
 
 class HomeController
 {
@@ -32,9 +28,6 @@ class HomeController
 
     #[Inject]
     protected UserRepository $users;
-
-    #[Inject]
-    protected Database $db;
 
     #[Inject]
     protected View $view;

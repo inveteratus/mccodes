@@ -90,4 +90,18 @@ class InventoryController
 
         return redirect('/inventory');
     }
+
+    public function describe(ServerRequestInterface $request, string $slug): ResponseInterface
+    {
+        $item = $this->items->getBySlug($slug);
+
+        if (!$item) {
+            return $this->view->renderToResponse('404');
+        }
+
+        return $this->view->renderToResponse('describe', [
+            'item' => $item,
+            'user' => $this->users->get($request->getAttribute('user_id')),
+        ]);
+    }
 }

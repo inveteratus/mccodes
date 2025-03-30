@@ -44,7 +44,7 @@
                         <td class="px-2 py-1 text-right">{{ number_format($item->quantity * $item->value) }} Cr</td>
                         <td class="px-2 py-1 text-left">
                             <span class="inline-flex space-x-3">
-                                <a href="/iteminfo.php?ID={{ $item->item_id }}" class="text-blue-500 hover:underline focus:underline focus:outline-none">Info</a>
+                                <a href="/inventory/describe/{{ $item->slug }}" class="text-blue-500 hover:underline focus:underline focus:outline-none">Info</a>
                                 <a href="/itemsend.php?ID={{ $item->inventory_id }}" class="text-blue-500 hover:underline focus:underline focus:outline-none">Send</a>
                                 <a href="/itemsell.php?ID={{ $item->inventory_id }}" class="text-blue-500 hover:underline focus:underline focus:outline-none">Sell</a>
                                 <a href="/imadd.php?ID={{ $item->inventory_id }}" class="text-blue-500 hover:underline focus:underline focus:outline-none">Add to Market</a>
