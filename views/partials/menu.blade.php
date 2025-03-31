@@ -1,4 +1,4 @@
-<div class="text-center text-sm">
+<div class="menu">
     @if ($user->hospital > 0)
         <a href="/hospital.php">Hospital (...)</a><br />
         <a href="/inventory">Inventory</a><br />
@@ -54,7 +54,7 @@
     <a href="/gamerules.php">Game Rules</a><br />
     <a href="/viewuser.php?u={{ $user->userid }}">My Profile</a><br />
     <form action="/logout" method="post">
-        <button type="submit" class="cursor-pointer">Logout</button>
+        <button type="submit">Logout</button>
     </form>
 
 </div>

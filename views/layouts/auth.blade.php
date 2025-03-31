@@ -4,13 +4,12 @@
         <meta charset="utf-8">
         <meta name="viewport" content="width=device-width,initial-scale=1,shrink-to-fit=no">
         <title>MCCodes</title>
-        <script src="https://cdn.jsdelivr.net/npm/@tailwindcss/browser@4"></script>
-        <link href="/app.css" rel="stylesheet" />
+        <link href="/app.css?x={{ md5(random_bytes(256)) }}" rel="stylesheet" />
     </head>
-    <body class="bg-slate-200 flex flex-col font-sans min-h-screen text-slate-700">
-        <div class="bg-slate-50 max-w-5xl mx-auto w-full flex flex-col shadow-lg">
+    <body class="auth">
+        <div>
             <img src="/masthead.jpeg" alt="MCCodes ... reborn" />
-            <div class="flex">
+            <div>
                 @include('partials.sidebar')
                 @yield('content')
             </div>

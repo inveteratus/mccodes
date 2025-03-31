@@ -1,0 +1,79 @@
+body.auth {
+    @apply bg-slate-200 flex flex-col font-sans min-h-screen text-slate-700;
+
+    & > div {
+        @apply bg-slate-50 max-w-5xl mx-auto w-full flex flex-col shadow-lg;
+
+        & > img {
+            /* masthead image */
+        }
+
+        & > div {
+            @apply flex;
+
+            & > aside {
+                @apply flex flex-col flex-none p-3 space-y-3 w-72 bg-slate-100 border-r border-slate-300;
+
+                & > hr {
+                    @apply border-slate-300;
+                }
+
+                & > div.info {
+                    @apply grid grid-cols-2 text-sm;
+
+                    & > span:nth-of-type(even) {
+                        @apply text-right;
+                    }
+                }
+
+                & > div.bars {
+                    @apply flex flex-col space-y-1;
+
+                    & > div {
+                        @apply flex flex-col space-y-0.5;
+
+                        & > div {
+                            @apply h-3 bg-white relative shadow-sm;
+
+                            & > span {
+                                @apply absolute top-0 left-0 bottom-0;
+                            }
+                        }
+
+                        & > p {
+                            @apply text-sm items-center flex justify-between;
+                        }
+
+                        &.red > div > span {
+                            @apply bg-red-500;
+                        }
+
+                        &.amber > div > span {
+                            @apply bg-amber-500;
+                        }
+
+                        &.green > div > span {
+                            @apply bg-green-500;
+                        }
+
+                        &.cyan > div > span {
+                            @apply bg-cyan-500;
+                        }
+                    }
+                }
+
+                & > div.menu {
+                    @apply text-center text-sm;
+
+                    & > a, & > form > button[type="submit"] {
+                        @apply text-blue-500 hover:underline focus:underline focus:outline-none cursor-pointer;
+                    }
+                }
+            }
+
+            & > main {
+                /* all pages have their own css for main */
+            }
+        }
+    }
+}

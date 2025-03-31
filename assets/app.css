@@ -1,19 +1,32 @@
-/** Tailwind */
+/**
+ * Tailwind
+ */
 @import "tailwindcss" source("../views");
 
-/** Fonts */
+/**
+ * Fonts
+ */
 @import "@fontsource-variable/ibm-plex-sans";
 
-/** Layouts */
+/**
+ * Layouts
+ */
+@import "./auth.css";
 @import "./guest.css";
 
-/** Pages */
+/**
+  * Pages
+  */
 @import "./bank.css";
 
-/** Plugins */
+/**
+  * Plugins
+  */
 @plugin "@tailwindcss/typography";
 
-/** Defaults */
+/**
+  * Theme
+  */
 @theme {
     --font-sans: "IBM Plex-Sans", "sans-serif";
 }
