@@ -22,9 +22,9 @@ original system well be retained. It will however remain as open-source!
 git clone https://github.com/inveteratus/mccodes.git
 cd mccodes
 cp env.example .env
-composer install
 npm install
-npx tailwindcss -i assets/app.css -o public/app.css -m
+composer install
+composer css
 chmod o+w cache
 docker compose up -d
 sh import.sh
@@ -57,11 +57,17 @@ vendor/bin/phpstan
 
 ## Compiling the CSS
 
-Can be performwed with
+Can be performed with
 
 ```sh
-npx tailwindcss -i assets/app.css -o public/app.css -m [-w]
+composer css
 ```
 
-The `-w` option puts tailwind into watch mode - so it will continually watch for changes in your views or css files and
-update the public/app.css accordingly.
+or 
+
+```sh
+
+composer watch-css
+```
+
+To continually watch for changes in your views or css files and update the public/app.css accordingly.

@@ -23,6 +23,10 @@
     "phpstan/phpstan": "^2.1"
   },
   "scripts": {
-    "css": "npx tailwindcss -i assets/app.css -o public/app.css -m"
+    "css": "npx tailwindcss --input assets/app.css --output public/app.css --minify",
+    "watch-css": [
+      "Composer\\Config::disableProcessTimeout",
+      "npx tailwindcss --input assets/app.css --output public/app.css --minify --watch"
+    ]
   }
 }
