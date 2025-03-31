@@ -1,0 +1,48 @@
+body.guest {
+    @apply bg-slate-200 flex flex-col font-sans min-h-screen text-slate-700;
+
+    & > main {
+        @apply flex flex-col flex-grow items-center justify-center space-y-3;
+
+        & > form {
+            @apply bg-slate-100 px-8 py-6 border border-slate-300 shadow-md rounded-md flex flex-col space-y-3 max-w-sm
+            w-full;
+
+            & > div {
+                @apply flex flex-col space-y-0.5;
+
+                & > label {
+                    @apply text-sm text-slate-600 font-medium;
+                }
+
+                & > input[type="email"],
+                & > input[type="password"],
+                & > input[type="text"] {
+                    @apply border border-slate-300 focus:outline-none focus:ring-1 focus:ring-offset-0
+                    focus:border-blue-500 focus:ring-blue-500 p-2 bg-slate-50 w-full rounded;
+                }
+
+                & > span {
+                    @apply text-sm text-red-500
+                }
+            }
+
+            & > footer {
+                @apply pt-3;
+
+                & > button[type="submit"] {
+                    @apply text-sm px-3 py-2 text-white bg-blue-500 focus:ring-2 focus:ring-offset-1
+                    focus:ring-blue-500 focus:ring-offset-slate-50 focus:outline-none rounded font-medium;
+                }
+            }
+        }
+
+        & > p {
+            @apply text-sm;
+
+            & > a {
+                @apply text-slate-600 hover:underline focus:underline focus:outline-none
+            }
+        }
+    }
+}
