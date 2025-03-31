@@ -1,7 +1,7 @@
 /**
  * Tailwind
  */
-@import "tailwindcss" source("../views");
+@import "tailwindcss";
 
 /**
  * Fonts
@@ -18,6 +18,11 @@
   * Pages
   */
 @import "./bank.css";
+
+/**
+ * Sources
+ */
+@source "./views";
 
 /**
   * Plugins

@@ -68,6 +68,10 @@ body.auth {
                     & > a, & > form > button[type="submit"] {
                         @apply text-blue-500 hover:underline focus:underline focus:outline-none cursor-pointer;
                     }
+
+                    & > hr {
+                        @apply border-slate-300 mt-1.5 pb-1.5 mx-5;
+                    }
                 }
             }
 

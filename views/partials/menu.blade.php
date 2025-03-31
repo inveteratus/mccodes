@@ -37,22 +37,25 @@
     @endif
 
     @if ($user->user_level > 1)
-        <hr class="border-slate-300 mt-1.5 pb-1.5" />
+        <hr />
         <a href="/staff.php">Staff Console</a><br />
     @endif
 
-    <hr class="border-slate-300 mt-1.5 pb-1.5" />
+    <hr />
 
     <a href="/friendslist.php">Friends List</a><br />
     <a href="/blacklist.php">Black List</a><br />
 
-    <hr class="border-slate-300 mt-1.5 pb-1.5" />
+    <hr />
 
     <a href="/preferences.php">Preferences</a><br />
     <a href="/preport.php">Player Report</a><br />
     <a href="/helptutorial.php">Help Tutorial</a><br />
     <a href="/gamerules.php">Game Rules</a><br />
     <a href="/viewuser.php?u={{ $user->userid }}">My Profile</a><br />
+
+    <hr />
+
     <form action="/logout" method="post">
         <button type="submit">Logout</button>
     </form>
