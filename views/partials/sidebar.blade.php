@@ -1,4 +1,4 @@
-<aside class="flex flex-col p-3 space-y-3 w-72 bg-slate-100 border-r border-slate-300">
+<aside class="flex flex-col flex-none p-3 space-y-3 w-72 bg-slate-100 border-r border-slate-300">
     <div class="grid grid-cols-2 text-sm">
         <span>Name</span>
         <span class="text-right">{{ $user->username }}</span>

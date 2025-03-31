@@ -4,9 +4,9 @@
         <meta charset="utf-8">
         <meta name="viewport" content="width=device-width,initial-scale=1,shrink-to-fit=no">
         <title>MCCodes</title>
-        <script src="https://cdn.jsdelivr.net/npm/@tailwindcss/browser@4"></script>
+        <link href="/app.css?x={{ md5(random_bytes(256)) }}" rel="stylesheet" />
     </head>
-    <body class="bg-slate-200 flex flex-col font-sans min-h-screen text-slate-700">
+    <body class="guest">
         @yield('content')
     </body>
 </html>

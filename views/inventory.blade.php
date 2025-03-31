@@ -49,11 +49,11 @@
                                 <a href="/itemsell.php?ID={{ $item->inventory_id }}" class="text-blue-500 hover:underline focus:underline focus:outline-none">Sell</a>
                                 <a href="/imadd.php?ID={{ $item->inventory_id }}" class="text-blue-500 hover:underline focus:underline focus:outline-none">Add to Market</a>
                                 @if ($item->armor)
-                                    <form action="/inventory/wear/{{ $item->item_id }}" method="post">
+                                    <form action="/inventory/wear/{{ $item->slug }}" method="post">
                                         <button type="submit" class="text-blue-500 hover:underline focus:underline focus:outline-none cursor-pointer">Wear</button>
                                     </form>
                                 @elseif ($item->weapon)
-                                    <form action="/inventory/wield/{{ $item->item_id }}" method="post">
+                                    <form action="/inventory/wield/{{ $item->slug }}" method="post">
                                         <button type="submit" class="text-blue-500 hover:underline focus:underline focus:outline-none cursor-pointer">Wield</button>
                                     </form>
                                 @endif

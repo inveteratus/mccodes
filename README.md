@@ -22,17 +22,19 @@ original system well be retained. It will however remain as open-source!
 git clone https://github.com/inveteratus/mccodes.git
 cd mccodes
 cp env.example .env
-docker compose up -d
-sh import.sh    # this will create the database
+composer install
+npm install
+npx tailwindcss -i assets/app.css -o public/app.css -m
 chmod o+w cache
+docker compose up -d
+sh import.sh
 ```
 
 Navigate to http://localhost:8000/ for the MCCodes game itself. You can login with the credentials:
 
-* email - admin@example.com
-* password - secret
-
 Navigate to http://localhost:8080/ for the Adminer (MySQL admin tool) interface.
+
+N.B. The first user you create will automatically gain admin privileges.
 
 ## Crons
 
@@ -52,3 +54,14 @@ Can be performed by running
 ```sh
 vendor/bin/phpstan
 ```
+
+## Compiling the CSS
+
+Can be performwed with
+
+```sh
+npx tailwindcss -i assets/app.css -o public/app.css -m [-w]
+```
+
+The `-w` option puts tailwind into watch mode - so it will continually watch for changes in your views or css files and
+update the public/app.css accordingly.

@@ -87,6 +87,10 @@ class UserRepository
             'id' => $id,
         ]);
 
+        if ($id === 1) {
+            $this->db->execute('UPDATE users SET user_level = 2 WHERE userid = 1');
+        }
+
         return $id;
     }
 

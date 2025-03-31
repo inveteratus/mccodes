@@ -2,3 +2,4 @@
 extra.sql
 .idea/
 vendor/
+node_modules/

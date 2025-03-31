@@ -561,7 +561,7 @@ CREATE TABLE `imremovelogs` (
   `imrTIME` int NOT NULL DEFAULT '0',
   `imrCONTENT` text NOT NULL,
   PRIMARY KEY (`imrID`)
-) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
+) ENGINE=InnoDB AUTO_INCREMENT=2 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
 /*!40101 SET character_set_client = @saved_cs_client */;
 
 --
@@ -640,6 +640,7 @@ CREATE TABLE `items` (
   `effect3` text NOT NULL,
   `weapon` int NOT NULL DEFAULT '0',
   `armor` int NOT NULL DEFAULT '0',
+  `slug` varchar(255) NOT NULL DEFAULT '',
   PRIMARY KEY (`itmid`)
 ) ENGINE=InnoDB AUTO_INCREMENT=5 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
 /*!40101 SET character_set_client = @saved_cs_client */;
@@ -1027,7 +1028,7 @@ CREATE TABLE `users` (
   `email` varchar(255) NOT NULL,
   `level` int unsigned NOT NULL DEFAULT '1',
   `exp` double unsigned NOT NULL DEFAULT '0',
-  `money` int NOT NULL DEFAULT '0',
+  `money` int unsigned NOT NULL DEFAULT '100',
   `crystals` int NOT NULL DEFAULT '0',
   `laston` int NOT NULL DEFAULT '0',
   `lastip` varchar(255) NOT NULL DEFAULT '',
@@ -1083,12 +1084,12 @@ CREATE TABLE `users` (
   `new_announcements` int NOT NULL DEFAULT '0',
   `boxes_opened` int NOT NULL DEFAULT '0',
   `user_notepad` text NOT NULL,
-  `equip_primary` int NOT NULL DEFAULT '0',
-  `equip_secondary` int NOT NULL DEFAULT '0',
-  `equip_armor` int NOT NULL DEFAULT '0',
+  `equip_primary` int DEFAULT NULL,
+  `equip_secondary` int DEFAULT NULL,
+  `equip_armor` int DEFAULT NULL,
   `force_logout` tinyint NOT NULL DEFAULT '0',
   PRIMARY KEY (`userid`)
-) ENGINE=InnoDB AUTO_INCREMENT=2 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
+) ENGINE=InnoDB AUTO_INCREMENT=3 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
 /*!40101 SET character_set_client = @saved_cs_client */;
 
 --
@@ -1149,4 +1150,4 @@ CREATE TABLE `willps_accepted` (
 /*!40101 SET COLLATION_CONNECTION=@OLD_COLLATION_CONNECTION */;
 /*!40111 SET SQL_NOTES=@OLD_SQL_NOTES */;
 
--- Dump completed on 2025-03-29 12:47:44
+-- Dump completed on 2025-03-31  4:48:07

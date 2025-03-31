@@ -40,42 +40,52 @@ class InventoryController
         ]);
     }
 
-    public function wear(ServerRequestInterface $request, int $itemID): ResponseInterface
+    /**
+     * Handles POST /inventory/wear/{slug}
+     */
+    public function wear(ServerRequestInterface $request, string $slug): ResponseInterface
     {
         $userID = $request->getAttribute('user_id');
-        $item = $this->items->get($itemID);
+        $item = $this->items->getBySlug($slug);
 
-        if ($item && $item->armor && $this->inventory->take($userID, $itemID)) {
+        if ($item && $item->armor && $this->inventory->take($userID, $item->id)) {
             $current = $this->equipment->get($userID, EquipmentType::ARMOR);
-            $this->equipment->set($userID, EquipmentType::ARMOR, $itemID);
+            $this->equipment->set($userID, EquipmentType::ARMOR, $item->id);
 
             if ($current) {
-                $this->inventory->give($userID, $itemID);
+                $this->inventory->give($userID, $item->id);
             }
         }
 
         return redirect('/inventory');
     }
 
-    public function wield(ServerRequestInterface $request, int $itemID): ResponseInterface
+    /**
+     * Handles POST /inventory/wield/{slug}
+     */
+    public function wield(ServerRequestInterface $request, string $slug): ResponseInterface
     {
         $userID = $request->getAttribute('user_id');
-        $item = $this->items->get($itemID);
+        $item = $this->items->getBySlug($slug);
         $primary = $this->equipment->get($userID, EquipmentType::PRIMARY);
         $secondary = $this->equipment->get($userID, EquipmentType::SECONDARY);
 
-        if ($item && $item->weapon && (!$primary || !$secondary) && $this->inventory->take($userID, $itemID)) {
+        if ($item && $item->weapon && (!$primary || !$secondary) && $this->inventory->take($userID, $item->id)) {
             if (!$primary) {
-                $this->equipment->set($userID, EquipmentType::PRIMARY, $itemID);
+                $this->equipment->set($userID, EquipmentType::PRIMARY, $item->id);
             }
             else {
-                $this->equipment->set($userID, EquipmentType::SECONDARY, $itemID);
+                $this->equipment->set($userID, EquipmentType::SECONDARY, $item->id);
             }
         }
 
         return redirect('/inventory');
     }
 
+    /**
+     * Handles POST /inventory/remove/{from}
+     * Where from is one of EquipmentType values
+     */
     public function remove(ServerRequestInterface $request, string $from): ResponseInterface
     {
         $userID = $request->getAttribute('user_id');
@@ -91,10 +101,12 @@ class InventoryController
         return redirect('/inventory');
     }
 
+    /**
+     * Handles GET /inventory/describe/{slug}
+     */
     public function describe(ServerRequestInterface $request, string $slug): ResponseInterface
     {
         $item = $this->items->getBySlug($slug);
-
         if (!$item) {
             return $this->view->renderToResponse('404');
         }

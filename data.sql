@@ -266,7 +266,6 @@ UNLOCK TABLES;
 
 LOCK TABLES `imarketaddlogs` WRITE;
 /*!40000 ALTER TABLE `imarketaddlogs` DISABLE KEYS */;
-INSERT INTO `imarketaddlogs` VALUES (1,1,50,1,1,1743251827,'Inveteratus added Cheezburger x2 to the item market for 50 money');
 /*!40000 ALTER TABLE `imarketaddlogs` ENABLE KEYS */;
 UNLOCK TABLES;
 
@@ -294,7 +293,6 @@ UNLOCK TABLES;
 
 LOCK TABLES `inventory` WRITE;
 /*!40000 ALTER TABLE `inventory` DISABLE KEYS */;
-INSERT INTO `inventory` VALUES (1,1,1,7),(2,2,1,4),(3,3,1,4),(4,1,1,5),(5,4,1,0);
 /*!40000 ALTER TABLE `inventory` ENABLE KEYS */;
 UNLOCK TABLES;
 
@@ -313,7 +311,6 @@ UNLOCK TABLES;
 
 LOCK TABLES `itemmarket` WRITE;
 /*!40000 ALTER TABLE `itemmarket` DISABLE KEYS */;
-INSERT INTO `itemmarket` VALUES (1,1,1,50,'money',2);
 /*!40000 ALTER TABLE `itemmarket` ENABLE KEYS */;
 UNLOCK TABLES;
 
@@ -323,7 +320,7 @@ UNLOCK TABLES;
 
 LOCK TABLES `items` WRITE;
 /*!40000 ALTER TABLE `items` DISABLE KEYS */;
-INSERT INTO `items` VALUES (1,1,'Cheezburger','Yum yum',150,100,1,1,'a:4:{s:4:\"stat\";s:6:\"energy\";s:3:\"dir\";s:3:\"pos\";s:8:\"inc_type\";s:6:\"figure\";s:10:\"inc_amount\";i:2;}',0,'a:4:{s:4:\"stat\";s:6:\"energy\";s:3:\"dir\";s:3:\"pos\";s:8:\"inc_type\";s:6:\"figure\";s:10:\"inc_amount\";i:0;}',0,'a:4:{s:4:\"stat\";s:6:\"energy\";s:3:\"dir\";s:3:\"pos\";s:8:\"inc_type\";s:6:\"figure\";s:10:\"inc_amount\";i:0;}',0,0),(2,2,'Dagger','Short and pointy',250,200,1,0,'a:4:{s:4:\"stat\";s:6:\"energy\";s:3:\"dir\";s:3:\"pos\";s:8:\"inc_type\";s:6:\"figure\";s:10:\"inc_amount\";i:0;}',0,'a:4:{s:4:\"stat\";s:6:\"energy\";s:3:\"dir\";s:3:\"pos\";s:8:\"inc_type\";s:6:\"figure\";s:10:\"inc_amount\";i:0;}',0,'a:4:{s:4:\"stat\";s:6:\"energy\";s:3:\"dir\";s:3:\"pos\";s:8:\"inc_type\";s:6:\"figure\";s:10:\"inc_amount\";i:0;}',5,0),(3,2,'Sword','Better than a dagger',750,650,1,0,'a:4:{s:4:\"stat\";s:6:\"energy\";s:3:\"dir\";s:3:\"pos\";s:8:\"inc_type\";s:6:\"figure\";s:10:\"inc_amount\";i:0;}',0,'a:4:{s:4:\"stat\";s:6:\"energy\";s:3:\"dir\";s:3:\"pos\";s:8:\"inc_type\";s:6:\"figure\";s:10:\"inc_amount\";i:0;}',0,'a:4:{s:4:\"stat\";s:6:\"energy\";s:3:\"dir\";s:3:\"pos\";s:8:\"inc_type\";s:6:\"figure\";s:10:\"inc_amount\";i:0;}',10,0),(4,3,'Leather Armor','Provides limited protection',800,600,1,0,'a:4:{s:4:\"stat\";s:6:\"energy\";s:3:\"dir\";s:3:\"pos\";s:8:\"inc_type\";s:6:\"figure\";s:10:\"inc_amount\";i:0;}',0,'a:4:{s:4:\"stat\";s:6:\"energy\";s:3:\"dir\";s:3:\"pos\";s:8:\"inc_type\";s:6:\"figure\";s:10:\"inc_amount\";i:0;}',0,'a:4:{s:4:\"stat\";s:6:\"energy\";s:3:\"dir\";s:3:\"pos\";s:8:\"inc_type\";s:6:\"figure\";s:10:\"inc_amount\";i:0;}',0,5);
+INSERT INTO `items` VALUES (1,1,'Cheezburger','A cheezburger is the ultimate comfort food, scientifically designed to make you forget your problems—at least until the food coma kicks in.\r\n\r\n### Anatomy of a Cheezburger \r\n\r\n* **Bun**: Soft, toasty, and the only thing standing between you and a messy disaster.\r\n* **Beef Patty**: The meaty centerpiece, responsible for 90% of the flavor and 100% of the post-meal nap requirement.\r\n* **Cheese**: Melted perfection that holds everything together, both physically and emotionally.\r\n* **Toppings**:\r\n* * **Lettuce & Tomato**: A desperate attempt to make the burger *look* healthy.\r\n* * **Pickles**: The crunchy surprise you either love or fling off in disgust.\r\n* * **Onions**: For adding both flavor and instant social distancing.\r\n* **Sauces**: Ketchup, mustard, mayo, or that mysterious “*secret sauce*” that’s probably just fancy mayo.\r\n\r\n### Why You Need a Cheezburger in Your Life\r\n\r\n* **Instant joy**: One bite, and suddenly everything is okay.\r\n* **Portable**: A full meal you can hold in one hand (unless it’s a triple stack—then you need two hands and a strong grip).\r\n* **Customizable**: Add bacon, extra cheese, or enough jalapeños to question your life choices.\r\n* **Internet Famous**: Immortalized by the legendary \"*I Can Has Cheezburger?*\" meme, proving even cats understand its greatness.\r\n\r\nA cheezburger isn’t just food—it’s a *lifestyle*.',150,100,1,1,'a:4:{s:4:\"stat\";s:6:\"energy\";s:3:\"dir\";s:3:\"pos\";s:8:\"inc_type\";s:6:\"figure\";s:10:\"inc_amount\";i:2;}',0,'a:4:{s:4:\"stat\";s:6:\"energy\";s:3:\"dir\";s:3:\"pos\";s:8:\"inc_type\";s:6:\"figure\";s:10:\"inc_amount\";i:0;}',0,'a:4:{s:4:\"stat\";s:6:\"energy\";s:3:\"dir\";s:3:\"pos\";s:8:\"inc_type\";s:6:\"figure\";s:10:\"inc_amount\";i:0;}',0,0,'cheezburger'),(2,2,'Dagger','A dagger is basically a sword’s adorable, pocket-sized cousin—perfect for when you want to stab someone, but, like, discreetly.\r\n\r\n### Dagger Features\r\n\r\n* **Blade**: Short, pointy, and double-edged—ideal for close combat or opening stubborn snack packages.\r\n* **Hilt**: Small enough to fit in your hand, large enough to make you feel dangerous.\r\n* **Pommel**: Sometimes weighted for balance, sometimes just there to bonk people on the head.\r\n* **Concealability**: Can be hidden in boots, sleeves, or dramatically revealed in a plot twist.\r\n\r\n### How to Use a Dagger Like a Pro\r\n\r\n* **Stabbing**: The classic. Quick, efficient, and guaranteed to ruin someone’s day.\r\n* **Throwing**: A great way to impress (or terrify) friends at parties.\r\n* **Parrying**: Because sometimes the best defense is a tiny offense.\r\n* **Dramatic Flourish**: Spin it in your hand for no reason other than looking cool.\r\n\r\n### Famous Daggers Throughout History\r\n\r\n* **The Kris**: Wavy blade for extra aesthetic intimidation.\r\n* **The Dirk**: The Scottish version—best paired with a kilt and an intimidating accent.\r\n* **The Assassin’s Hidden Blade**: For when you want to shake hands... violently.\r\n* **The Butter Knife**: Technically not a dagger, but still lethal in the right hands.\r\n\r\nDaggers: Because sometimes a sword is just too much effort.',250,200,1,0,'a:4:{s:4:\"stat\";s:6:\"energy\";s:3:\"dir\";s:3:\"pos\";s:8:\"inc_type\";s:6:\"figure\";s:10:\"inc_amount\";i:0;}',0,'a:4:{s:4:\"stat\";s:6:\"energy\";s:3:\"dir\";s:3:\"pos\";s:8:\"inc_type\";s:6:\"figure\";s:10:\"inc_amount\";i:0;}',0,'a:4:{s:4:\"stat\";s:6:\"energy\";s:3:\"dir\";s:3:\"pos\";s:8:\"inc_type\";s:6:\"figure\";s:10:\"inc_amount\";i:0;}',3,0,'dagger'),(3,2,'Sword','A sword is basically a really aggressive butter knife that humans have used for centuries to solve problems—often by creating new ones.\r\n\r\n### Sword Features\r\n\r\n* **Blade**: Long, shiny, and pointy—perfect for making enemies rethink their life choices.\r\n* **Hilt**: The part you hold so you don’t accidentally high-five the sharp end.\r\n* **Pommel**: A fancy counterweight that doubles as a medieval stress ball (for punching things).\r\n* **Edge**: Either one or two sides that strongly discourage handshakes.\r\n\r\n### Swords in Action\r\n\r\n* **Thrusting**: A polite way to introduce your sword to someone… forcefully.\r\n* **Slashing**: For when you want to add a little artistic flair to your attacks.\r\n* **Blocking** : If your enemy also has a sword (which is just rude), you can clang blades together dramatically.\r\n\r\n### Famous Swords Throughout History\r\n\r\n* **Excalibur**: The original \"finders keepers\" sword.\r\n* **Katana**: For when you want your strikes to be both deadly and *aesthetic*.\r\n* **Gladius**: Because Romans believed in efficiency—stab first, ask questions never.\r\n* **Lightsaber**: A sword, but *make it sci-fi* and sound like an angry beehive.\r\n\r\nSwords have been a staple of human civilization for ages, mainly because they’re both effective and look really cool on display.',750,650,1,0,'a:4:{s:4:\"stat\";s:6:\"energy\";s:3:\"dir\";s:3:\"pos\";s:8:\"inc_type\";s:6:\"figure\";s:10:\"inc_amount\";i:0;}',0,'a:4:{s:4:\"stat\";s:6:\"energy\";s:3:\"dir\";s:3:\"pos\";s:8:\"inc_type\";s:6:\"figure\";s:10:\"inc_amount\";i:0;}',0,'a:4:{s:4:\"stat\";s:6:\"energy\";s:3:\"dir\";s:3:\"pos\";s:8:\"inc_type\";s:6:\"figure\";s:10:\"inc_amount\";i:0;}',5,0,'sword'),(4,3,'Leather Armor','Leather armor is the budget-friendly choice for warriors who want *some* protection but also value mobility, comfort, and looking like a medieval biker.\n\n### Key Features of Leather Armor:\n\n* **Material**: Premium-grade cow, deer, or \"mystery hide\" for that rugged, rustic aesthetic.\n* **Flexibility**: Unlike plate armor, you can actually bend your knees and turn your head—a revolutionary concept in medieval fashion.\n* **Lightweight**: Perfect for sneaky rogues, archers, and people who don’t want to sound like a walking tin can.\n* **Breathability**: Keeps you from cooking yourself alive in the sun. (Still, prepare for some *serious* chafing.)\n* **Style Points**: Bonus if you add fur lining, extra straps, or a dramatic hood for *assassin vibes*.\n\n### Protection Level:\n* 🗸 Blocks minor cuts and scratches.\n* 🗸 Can survive a bar fight.\n* 🗙 Stops swords and arrows *only if the enemy is really bad at aiming*.\n* 🗙 Does not protect against existential dread.\n\n### Who Wears Leather Armor?\n\n* **Rogues & Thieves**: Because you can’t pickpocket if you jingle like a chainmail wind chime.\n* **Archers**: When you need to run away *quickly* after missing your shot.\n* **Rangers & Druids**: Because nothing says \"*I love nature*\" like wearing it.\n* **Adventurers on a Budget**: If plate armor is too expensive and cloth armor is just a fancy bathrobe, leather is your best bet.\n\nLeather armor: It won’t stop a sword, but hey—it looks cool and won’t slow you down!\n',800,600,1,0,'a:4:{s:4:\"stat\";s:6:\"energy\";s:3:\"dir\";s:3:\"pos\";s:8:\"inc_type\";s:6:\"figure\";s:10:\"inc_amount\";i:0;}',0,'a:4:{s:4:\"stat\";s:6:\"energy\";s:3:\"dir\";s:3:\"pos\";s:8:\"inc_type\";s:6:\"figure\";s:10:\"inc_amount\";i:0;}',0,'a:4:{s:4:\"stat\";s:6:\"energy\";s:3:\"dir\";s:3:\"pos\";s:8:\"inc_type\";s:6:\"figure\";s:10:\"inc_amount\";i:0;}',0,3,'leather-armor');
 /*!40000 ALTER TABLE `items` ENABLE KEYS */;
 UNLOCK TABLES;
 
@@ -342,7 +339,7 @@ UNLOCK TABLES;
 
 LOCK TABLES `itemtypes` WRITE;
 /*!40000 ALTER TABLE `itemtypes` DISABLE KEYS */;
-INSERT INTO `itemtypes` VALUES (1,'Food'),(2,'weapons'),(3,'armour');
+INSERT INTO `itemtypes` VALUES (1,'Food'),(2,'Weapons'),(3,'Armour');
 /*!40000 ALTER TABLE `itemtypes` ENABLE KEYS */;
 UNLOCK TABLES;
 
@@ -415,7 +412,7 @@ UNLOCK TABLES;
 
 LOCK TABLES `papercontent` WRITE;
 /*!40000 ALTER TABLE `papercontent` DISABLE KEYS */;
-INSERT INTO `papercontent` VALUES ('Here you can put game news, or prehaps an update log.');
+INSERT INTO `papercontent` VALUES ('Mccodes ... reborn.');
 /*!40000 ALTER TABLE `papercontent` ENABLE KEYS */;
 UNLOCK TABLES;
 
@@ -480,7 +477,6 @@ UNLOCK TABLES;
 
 LOCK TABLES `stafflog` WRITE;
 /*!40000 ALTER TABLE `stafflog` DISABLE KEYS */;
-INSERT INTO `stafflog` VALUES (1,1,1743227318,'Added item type Food','172.20.0.1'),(2,1,1743227380,'Created item Chheseburger','172.20.0.1'),(3,1,1743227399,'Gave 10 of item ID 1 to user ID 1','172.20.0.1'),(4,1,1743228609,'Added item type weapons','172.20.0.1'),(5,1,1743228617,'Added item type armour','172.20.0.1'),(6,1,1743228663,'Created item Dagger','172.20.0.1'),(7,1,1743228760,'Created item Sword','172.20.0.1'),(8,1,1743228781,'Gave 5 of item ID 2 to user ID 1','172.20.0.1'),(9,1,1743228793,'Gave 5 of item ID 3 to user ID 1','172.20.0.1'),(10,1,1743248581,'Created item Leather Armor','172.20.0.1'),(11,1,1743248601,'Gave 1 of item ID 4 to user ID 1','172.20.0.1');
 /*!40000 ALTER TABLE `stafflog` ENABLE KEYS */;
 UNLOCK TABLES;
 
@@ -517,7 +513,6 @@ UNLOCK TABLES;
 
 LOCK TABLES `users` WRITE;
 /*!40000 ALTER TABLE `users` DISABLE KEYS */;
-INSERT INTO `users` VALUES (1,'Admin','7b23ebf0c53d007bc0f69c78b11811a0','99270494','admin@example.com',1,0,10000,100,1743252409,'172.20.0.1',0,12,100,100,5,5,12,100,100,1,0,0,'',0,2,'Male',0,1743174729,0,0,0,0,0,0,'','','',0,-1,'',0,'','','172.20.0.1','',1743245177,'',0,0,0,0,'',0,'','',0,0,0,0,0,0,'',3,2,4,0);
 /*!40000 ALTER TABLE `users` ENABLE KEYS */;
 UNLOCK TABLES;
 
@@ -527,7 +522,6 @@ UNLOCK TABLES;
 
 LOCK TABLES `userstats` WRITE;
 /*!40000 ALTER TABLE `userstats` DISABLE KEYS */;
-INSERT INTO `userstats` VALUES (1,24.3547,25.258,31.61,10,10);
 /*!40000 ALTER TABLE `userstats` ENABLE KEYS */;
 UNLOCK TABLES;
 
@@ -558,4 +552,4 @@ UNLOCK TABLES;
 /*!40101 SET COLLATION_CONNECTION=@OLD_COLLATION_CONNECTION */;
 /*!40111 SET SQL_NOTES=@OLD_SQL_NOTES */;
 
--- Dump completed on 2025-03-29 12:47:45
+-- Dump completed on 2025-03-31  4:48:07

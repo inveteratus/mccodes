@@ -39,8 +39,10 @@ class View
 
     public function renderToResponse(string $view, array $context = []): ResponseInterface
     {
+        $markup = preg_replace('/>\s+</', '><', trim($this->blade->run($view, $context)));
+
         $response = (new ResponseFactory())->createResponse();
-        $response->getBody()->write($this->blade->run($view, $context));
+        $response->getBody()->write($markup);
 
         return $response;
     }
