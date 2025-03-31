@@ -20,7 +20,7 @@
                 <h3 class="mb-1.5 font-medium text-slate-600 bg-slate-200 border-b border-slate-300">City Center</h3>
                 <a href="/monorail.php">Travel Agency</a><br />
                 <a href="/estate.php">Realtor</a><br />
-                <a href="/bank.php">National Bank</a>
+                <a href="/bank">National Bank</a>
             </div>
             <div class="text-center bg-white border border-slate-300 rounded pb-1">
                 <h3 class="mb-1.5 font-medium text-slate-600 bg-slate-200 border-b border-slate-300">North Side</h3>

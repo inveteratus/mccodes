@@ -1,4 +1,5 @@
 @import "tailwindcss" source("../views");
+@import "./bank.css";
 @plugin "@tailwindcss/typography";
 
 body.guest {
@@ -49,3 +50,4 @@ body.guest {
     }
   }
 }
+

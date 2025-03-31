@@ -107,4 +107,36 @@ class UserRepository
             'user_id' => $userID,
         ]);
     }
+
+    public function deposit(int $userID, int $amount): bool
+    {
+        $sql = <<<SQL
+            UPDATE users
+            SET money = money - :amount1, bankmoney = bankmoney + :amount2
+            WHERE userid = :user_id AND money >= :amount3
+        SQL;
+
+        return $this->db->execute($sql, [
+            'amount1' => $amount,
+            'amount2' => $amount,
+            'user_id' => $userID,
+            'amount3' => $amount,
+        ])->rowCount() > 0;
+    }
+
+    public function withdraw(int $userID, int $amount): bool
+    {
+        $sql = <<<SQL
+            UPDATE users
+            SET money = money + :amount1, bankmoney = bankmoney - :amount2
+            WHERE userid = :user_id AND bankmoney >= :amount3
+        SQL;
+
+        return $this->db->execute($sql, [
+                'amount1' => $amount,
+                'amount2' => $amount,
+                'user_id' => $userID,
+                'amount3' => $amount,
+            ])->rowCount() > 0;
+    }
 }

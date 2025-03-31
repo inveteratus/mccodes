@@ -5,6 +5,7 @@ require __DIR__ . '/../vendor/autoload.php';
 use App\Classes\Database;
 use App\Classes\ResponseEmitter;
 use App\Classes\View;
+use App\Controllers\BankController;
 use App\Controllers\ExploreController;
 use App\Controllers\HomeController;
 use App\Controllers\IndexController;
@@ -74,12 +75,17 @@ $dispatcher = simpleDispatcher(function (RouteCollector $collector) {
     $collector->addRoute('GET', '/home', HomeController::class);
     $collector->addRoute('POST', '/home', [HomeController::class, 'updateNotes']);
     $collector->addRoute('GET', '/explore', ExploreController::class);
-    $collector->addRoute('GET', '/inventory', InventoryController::class);
     $collector->addGroup('/inventory', function (RouteCollector $collector) {
+        $collector->addRoute('GET', '', InventoryController::class);
         $collector->addRoute('POST', '/wear/{slug}', [InventoryController::class, 'wear']);
         $collector->addRoute('POST', '/wield/{slug}', [InventoryController::class, 'wield']);
         $collector->addRoute('POST', '/remove/{from:primary|secondary|armor}', [InventoryController::class, 'remove']);
         $collector->addRoute('GET', '/describe/{slug}', [InventoryController::class, 'describe']);
+    });
+    $collector->addGroup('/bank', function (RouteCollector $collector) {
+        $collector->addRoute('GET', '', BankController::class);
+        $collector->addRoute('POST', '/deposit', [BankController::class, 'deposit']);
+        $collector->addRoute('POST', '/withdraw', [BankController::class, 'withdraw']);
     });
 });
 
